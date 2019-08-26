@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IAutoAnswerLogDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.AutoAnswerLogVO">
+		
+		<id column="caal_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 帖子信息主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 主题名称，关联主题主键 -->
+		<result column="ref_cuiuiid" property="cuiuiid" jdbcType="VARCHAR" />  <!-- 用户名称，关联用户主键 -->
+		<result column="caal_content" property="content" jdbcType="VARCHAR" />  <!-- 帖子内容 -->
+		<result column="caal_answer" property="answer" jdbcType="VARCHAR" />  <!-- 帖子回复内容 -->
+		<result column="caal_addtime" property="addtime" jdbcType="TIMESTAMP" />  <!-- 采集时间 -->
+		<result column="caal_username" property="username" jdbcType="VARCHAR" />  <!-- 用户名称 -->
+		<result column="caal_ctype" property="ctype" jdbcType="CHAR" />  <!-- 帖子类型，0未设置1求职2找人3其他 -->
+		<result column="caal_ifok" property="ifok" jdbcType="CHAR" />  <!-- 分析结果，0不符合1符合 -->
+		<result column="caal_ifstand" property="ifstand" jdbcType="CHAR" />  <!-- 内部主题学习，0未学习1已学习 -->
+		<result column="caal_exttype1" property="exttype1" jdbcType="VARCHAR" />  <!-- 分类信息1 -->
+		<result column="caal_exttype2" property="exttype2" jdbcType="VARCHAR" />  <!-- 分类信息2 -->
+		<result column="caal_exttype3" property="exttype3" jdbcType="VARCHAR" />  <!-- 分类信息3 -->
+		<result column="ref_catuiid2" property="catuiid2" jdbcType="VARCHAR" />  <!-- 内部主题设置，关联主题主键 -->
+		<result column="caal_extvalue1" property="extvalue1" jdbcType="VARCHAR" />  <!-- 扩展数据1 -->
+		<result column="caal_extvalue2" property="extvalue2" jdbcType="VARCHAR" />  <!-- 扩展数据2 -->
+		<result column="caal_extvalue3" property="extvalue3" jdbcType="VARCHAR" />  <!-- 扩展数据3 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		caal_uiid ,
+		ref_catuiid ,
+		ref_cuiuiid ,
+		caal_content ,
+		caal_answer ,
+		caal_addtime ,
+		caal_username ,
+		caal_ctype ,
+		caal_ifok ,
+		caal_ifstand ,
+		caal_exttype1 ,
+		caal_exttype2 ,
+		caal_exttype3 ,
+		ref_catuiid2 ,
+		caal_extvalue1 ,
+		caal_extvalue2 ,
+		caal_extvalue3 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		insert into com_auto_answer_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				caal_uiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid ,
+			</if>
+			<if test="content != null">
+				caal_content ,
+			</if>
+			<if test="answer != null">
+				caal_answer ,
+			</if>
+			<if test="addtime != null">
+				caal_addtime ,
+			</if>
+			<if test="username != null">
+				caal_username ,
+			</if>
+			<if test="ctype != null">
+				caal_ctype ,
+			</if>
+			<if test="ifok != null">
+				caal_ifok ,
+			</if>
+			<if test="ifstand != null">
+				caal_ifstand ,
+			</if>
+			<if test="exttype1 != null">
+				caal_exttype1 ,
+			</if>
+			<if test="exttype2 != null">
+				caal_exttype2 ,
+			</if>
+			<if test="exttype3 != null">
+				caal_exttype3 ,
+			</if>
+			<if test="catuiid2 != null">
+				ref_catuiid2 ,
+			</if>
+			<if test="extvalue1 != null">
+				caal_extvalue1 ,
+			</if>
+			<if test="extvalue2 != null">
+				caal_extvalue2 ,
+			</if>
+			<if test="extvalue3 != null">
+				caal_extvalue3 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				#{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answer != null">
+				#{answer,jdbcType=VARCHAR} ,
+			</if>
+			<if test="addtime != null">
+				#{addtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ctype != null">
+				#{ctype,jdbcType=CHAR} ,
+			</if>
+			<if test="ifok != null">
+				#{ifok,jdbcType=CHAR} ,
+			</if>
+			<if test="ifstand != null">
+				#{ifstand,jdbcType=CHAR} ,
+			</if>
+			<if test="exttype1 != null">
+				#{exttype1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="exttype2 != null">
+				#{exttype2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="exttype3 != null">
+				#{exttype3,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid2 != null">
+				#{catuiid2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue1 != null">
+				#{extvalue1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue2 != null">
+				#{extvalue2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue3 != null">
+				#{extvalue3,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		insert into com_auto_answer_log
+		(
+			caal_uiid ,
+			ref_catuiid ,
+			ref_cuiuiid ,
+			caal_content ,
+			caal_answer ,
+			caal_addtime ,
+			caal_username ,
+			caal_ctype ,
+			caal_ifok ,
+			caal_ifstand ,
+			caal_exttype1 ,
+			caal_exttype2 ,
+			caal_exttype3 ,
+			ref_catuiid2 ,
+			caal_extvalue1 ,
+			caal_extvalue2 ,
+			caal_extvalue3 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.catuiid} ,
+			#{item.cuiuiid} ,
+			#{item.content} ,
+			#{item.answer} ,
+			#{item.addtime} ,
+			#{item.username} ,
+			#{item.ctype} ,
+			#{item.ifok} ,
+			#{item.ifstand} ,
+			#{item.exttype1} ,
+			#{item.exttype2} ,
+			#{item.exttype3} ,
+			#{item.catuiid2} ,
+			#{item.extvalue1} ,
+			#{item.extvalue2} ,
+			#{item.extvalue3} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		update com_auto_answer_log
+		<set>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="content != null">
+				caal_content = #{content,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answer != null">
+				caal_answer = #{answer,jdbcType=VARCHAR} ,
+			</if>
+			<if test="addtime != null">
+				caal_addtime = #{addtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="username != null">
+				caal_username = #{username,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ctype != null">
+				caal_ctype = #{ctype,jdbcType=CHAR} ,
+			</if>
+			<if test="ifok != null">
+				caal_ifok = #{ifok,jdbcType=CHAR} ,
+			</if>
+			<if test="ifstand != null">
+				caal_ifstand = #{ifstand,jdbcType=CHAR} ,
+			</if>
+			<if test="exttype1 != null">
+				caal_exttype1 = #{exttype1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="exttype2 != null">
+				caal_exttype2 = #{exttype2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="exttype3 != null">
+				caal_exttype3 = #{exttype3,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid2 != null">
+				ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue1 != null">
+				caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue2 != null">
+				caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extvalue3 != null">
+				caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where caal_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_auto_answer_log
+			<set>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.content != null">
+					caal_content = #{item.content,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answer != null">
+					caal_answer = #{item.answer,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.addtime != null">
+					caal_addtime = #{item.addtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.username != null">
+					caal_username = #{item.username,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ctype != null">
+					caal_ctype = #{item.ctype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.ifok != null">
+					caal_ifok = #{item.ifok,jdbcType=CHAR} ,
+				</if>
+				<if test="item.ifstand != null">
+					caal_ifstand = #{item.ifstand,jdbcType=CHAR} ,
+				</if>
+				<if test="item.exttype1 != null">
+					caal_exttype1 = #{item.exttype1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.exttype2 != null">
+					caal_exttype2 = #{item.exttype2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.exttype3 != null">
+					caal_exttype3 = #{item.exttype3,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid2 != null">
+					ref_catuiid2 = #{item.catuiid2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue1 != null">
+					caal_extvalue1 = #{item.extvalue1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue2 != null">
+					caal_extvalue2 = #{item.extvalue2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue3 != null">
+					caal_extvalue3 = #{item.extvalue3,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where caal_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_auto_answer_log
+			<set>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.content != null">
+					caal_content = #{item.content,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answer != null">
+					caal_answer = #{item.answer,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.addtime != null">
+					caal_addtime = #{item.addtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.username != null">
+					caal_username = #{item.username,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ctype != null">
+					caal_ctype = #{item.ctype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.ifok != null">
+					caal_ifok = #{item.ifok,jdbcType=CHAR} ,
+				</if>
+				<if test="item.ifstand != null">
+					caal_ifstand = #{item.ifstand,jdbcType=CHAR} ,
+				</if>
+				<if test="item.exttype1 != null">
+					caal_exttype1 = #{item.exttype1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.exttype2 != null">
+					caal_exttype2 = #{item.exttype2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.exttype3 != null">
+					caal_exttype3 = #{item.exttype3,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid2 != null">
+					ref_catuiid2 = #{item.catuiid2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue1 != null">
+					caal_extvalue1 = #{item.extvalue1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue2 != null">
+					caal_extvalue2 = #{item.extvalue2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extvalue3 != null">
+					caal_extvalue3 = #{item.extvalue3,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where caal_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from com_auto_answer_log
+		where caal_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		delete from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null">
+				and caal_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null">
+				and caal_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="answer != null">
+				and caal_answer = #{answer,jdbcType=VARCHAR}
+			</if>
+			<if test="addtime != null">
+				and caal_addtime = #{addtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="username != null">
+				and caal_username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="ctype != null">
+				and caal_ctype = #{ctype,jdbcType=CHAR}
+			</if>
+			<if test="ifok != null">
+				and caal_ifok = #{ifok,jdbcType=CHAR}
+			</if>
+			<if test="ifstand != null">
+				and caal_ifstand = #{ifstand,jdbcType=CHAR}
+			</if>
+			<if test="exttype1 != null">
+				and caal_exttype1 = #{exttype1,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype2 != null">
+				and caal_exttype2 = #{exttype2,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype3 != null">
+				and caal_exttype3 = #{exttype3,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid2 != null">
+				and ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue1 != null">
+				and caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue2 != null">
+				and caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue3 != null">
+				and caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from com_auto_answer_log
+		where caal_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null">
+				and caal_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="content != null">
+				and caal_content in 
+				<foreach collection="content" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answer != null">
+				and caal_answer in 
+				<foreach collection="answer" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="addtime != null">
+				and caal_addtime in 
+				<foreach collection="addtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="username != null">
+				and caal_username in 
+				<foreach collection="username" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ctype != null">
+				and caal_ctype in 
+				<foreach collection="ctype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifok != null">
+				and caal_ifok in 
+				<foreach collection="ifok" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifstand != null">
+				and caal_ifstand in 
+				<foreach collection="ifstand" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype1 != null">
+				and caal_exttype1 in 
+				<foreach collection="exttype1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype2 != null">
+				and caal_exttype2 in 
+				<foreach collection="exttype2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype3 != null">
+				and caal_exttype3 in 
+				<foreach collection="exttype3" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid2 != null">
+				and ref_catuiid2 in 
+				<foreach collection="catuiid2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue1 != null">
+				and caal_extvalue1 in 
+				<foreach collection="extvalue1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue2 != null">
+				and caal_extvalue2 in 
+				<foreach collection="extvalue2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue3 != null">
+				and caal_extvalue3 in 
+				<foreach collection="extvalue3" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from com_auto_answer_log where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_auto_answer_log
+		where caal_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_auto_answer_log
+		where caal_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from com_auto_answer_log
+		where caal_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select * from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content in 
+				<foreach collection="content" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer in 
+				<foreach collection="answer" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime in 
+				<foreach collection="addtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username in 
+				<foreach collection="username" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype in 
+				<foreach collection="ctype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok in 
+				<foreach collection="ifok" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand in 
+				<foreach collection="ifstand" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 in 
+				<foreach collection="exttype1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 in 
+				<foreach collection="exttype2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 in 
+				<foreach collection="exttype3" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 in 
+				<foreach collection="catuiid2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 in 
+				<foreach collection="extvalue1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 in 
+				<foreach collection="extvalue2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 in 
+				<foreach collection="extvalue3" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select * from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer = #{answer,jdbcType=VARCHAR}
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime = #{addtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype = #{ctype,jdbcType=CHAR}
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok = #{ifok,jdbcType=CHAR}
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand = #{ifstand,jdbcType=CHAR}
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 = #{exttype1,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 = #{exttype2,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 = #{exttype3,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select count(*) from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer like CONCAT('%',#{answer},'%' )
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime like CONCAT('%',#{addtime},'%' )
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username like CONCAT('%',#{username},'%' )
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype like CONCAT('%',#{ctype},'%' )
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok like CONCAT('%',#{ifok},'%' )
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand like CONCAT('%',#{ifstand},'%' )
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 like CONCAT('%',#{exttype1},'%' )
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 like CONCAT('%',#{exttype2},'%' )
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 like CONCAT('%',#{exttype3},'%' )
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 like CONCAT('%',#{catuiid2},'%' )
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 like CONCAT('%',#{extvalue1},'%' )
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 like CONCAT('%',#{extvalue2},'%' )
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 like CONCAT('%',#{extvalue3},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select * from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer = #{answer,jdbcType=VARCHAR}
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime = #{addtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype = #{ctype,jdbcType=CHAR}
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok = #{ifok,jdbcType=CHAR}
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand = #{ifstand,jdbcType=CHAR}
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 = #{exttype1,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 = #{exttype2,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 = #{exttype3,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select * from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer like CONCAT('%',#{answer},'%' )
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime like CONCAT('%',#{addtime},'%' )
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username like CONCAT('%',#{username},'%' )
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype like CONCAT('%',#{ctype},'%' )
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok like CONCAT('%',#{ifok},'%' )
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand like CONCAT('%',#{ifstand},'%' )
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 like CONCAT('%',#{exttype1},'%' )
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 like CONCAT('%',#{exttype2},'%' )
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 like CONCAT('%',#{exttype3},'%' )
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 like CONCAT('%',#{catuiid2},'%' )
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 like CONCAT('%',#{extvalue1},'%' )
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 like CONCAT('%',#{extvalue2},'%' )
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 like CONCAT('%',#{extvalue3},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		select * from com_auto_answer_log
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or caal_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				or ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				or caal_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="answer != null and answer != ''">
+				or caal_answer like CONCAT('%',#{answer},'%' )
+			</if>
+			<if test="addtime != null and addtime != ''">
+				or caal_addtime like CONCAT('%',#{addtime},'%' )
+			</if>
+			<if test="username != null and username != ''">
+				or caal_username like CONCAT('%',#{username},'%' )
+			</if>
+			<if test="ctype != null and ctype != ''">
+				or caal_ctype like CONCAT('%',#{ctype},'%' )
+			</if>
+			<if test="ifok != null and ifok != ''">
+				or caal_ifok like CONCAT('%',#{ifok},'%' )
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				or caal_ifstand like CONCAT('%',#{ifstand},'%' )
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				or caal_exttype1 like CONCAT('%',#{exttype1},'%' )
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				or caal_exttype2 like CONCAT('%',#{exttype2},'%' )
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				or caal_exttype3 like CONCAT('%',#{exttype3},'%' )
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				or ref_catuiid2 like CONCAT('%',#{catuiid2},'%' )
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				or caal_extvalue1 like CONCAT('%',#{extvalue1},'%' )
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				or caal_extvalue2 like CONCAT('%',#{extvalue2},'%' )
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				or caal_extvalue3 like CONCAT('%',#{extvalue3},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		 select com_auto_answer_log.caal_uiid as uiid,com_auto_answer_log.ref_catuiid as catuiid, (select GROUP_CONCAT( rt1.cat_title) from com_auto_task rt1 where FIND_IN_SET( rt1.cat_uiid ,com_auto_answer_log.ref_catuiid) )  as catuiidtitle,com_auto_answer_log.ref_cuiuiid as cuiuiid, (select GROUP_CONCAT( rt2.cui_name) from con_user_info rt2 where FIND_IN_SET( rt2.cui_uiid ,com_auto_answer_log.ref_cuiuiid) )  as cuiuiidname,com_auto_answer_log.caal_content as content,com_auto_answer_log.caal_answer as answer,com_auto_answer_log.caal_addtime as addtime,com_auto_answer_log.caal_username as username,com_auto_answer_log.caal_ctype as ctype,com_auto_answer_log.caal_ifok as ifok,com_auto_answer_log.caal_ifstand as ifstand,com_auto_answer_log.caal_exttype1 as exttype1,com_auto_answer_log.caal_exttype2 as exttype2,com_auto_answer_log.caal_exttype3 as exttype3,com_auto_answer_log.ref_catuiid2 as catuiid2, (select GROUP_CONCAT( rt13.cat_title) from com_auto_task rt13 where FIND_IN_SET( rt13.cat_uiid ,com_auto_answer_log.ref_catuiid2) )  as catuiid2title,com_auto_answer_log.caal_extvalue1 as extvalue1,com_auto_answer_log.caal_extvalue2 as extvalue2,com_auto_answer_log.caal_extvalue3 as extvalue3 from com_auto_answer_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer = #{answer,jdbcType=VARCHAR}
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime = #{addtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype = #{ctype,jdbcType=CHAR}
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok = #{ifok,jdbcType=CHAR}
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand = #{ifstand,jdbcType=CHAR}
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 = #{exttype1,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 = #{exttype2,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 = #{exttype3,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoAnswerLogVO">
+		 select com_auto_answer_log.caal_uiid as uiid,com_auto_answer_log.ref_catuiid as catuiid,com_auto_answer_log.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,com_auto_answer_log.ref_cuiuiid as cuiuiid,com_auto_answer_log.ref_cuiuiid as cuiuiidrefid,con_user_inforef_cuiuiid.cui_name as cuiuiidrefview,com_auto_answer_log.caal_content as content,com_auto_answer_log.caal_answer as answer,com_auto_answer_log.caal_addtime as addtime,com_auto_answer_log.caal_username as username,com_auto_answer_log.caal_ctype as ctype,com_auto_answer_log.caal_ifok as ifok,com_auto_answer_log.caal_ifstand as ifstand,com_auto_answer_log.caal_exttype1 as exttype1,com_auto_answer_log.caal_exttype2 as exttype2,com_auto_answer_log.caal_exttype3 as exttype3,com_auto_answer_log.ref_catuiid2 as catuiid2,com_auto_answer_log.ref_catuiid2 as catuiid2refid,com_auto_taskref_catuiid2.cat_title as catuiid2refview,com_auto_answer_log.caal_extvalue1 as extvalue1,com_auto_answer_log.caal_extvalue2 as extvalue2,com_auto_answer_log.caal_extvalue3 as extvalue3 from com_auto_answer_log left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = com_auto_answer_log.ref_catuiid left outer join con_user_info con_user_inforef_cuiuiid on con_user_inforef_cuiuiid.cui_uiid = com_auto_answer_log.ref_cuiuiid left outer join com_auto_task com_auto_taskref_catuiid2 on com_auto_taskref_catuiid2.cat_uiid = com_auto_answer_log.ref_catuiid2
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caal_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caal_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="answer != null and answer != ''">
+				and caal_answer = #{answer,jdbcType=VARCHAR}
+			</if>
+			<if test="addtime != null and addtime != ''">
+				and caal_addtime = #{addtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="username != null and username != ''">
+				and caal_username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="ctype != null and ctype != ''">
+				and caal_ctype = #{ctype,jdbcType=CHAR}
+			</if>
+			<if test="ifok != null and ifok != ''">
+				and caal_ifok = #{ifok,jdbcType=CHAR}
+			</if>
+			<if test="ifstand != null and ifstand != ''">
+				and caal_ifstand = #{ifstand,jdbcType=CHAR}
+			</if>
+			<if test="exttype1 != null and exttype1 != ''">
+				and caal_exttype1 = #{exttype1,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype2 != null and exttype2 != ''">
+				and caal_exttype2 = #{exttype2,jdbcType=VARCHAR}
+			</if>
+			<if test="exttype3 != null and exttype3 != ''">
+				and caal_exttype3 = #{exttype3,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid2 != null and catuiid2 != ''">
+				and ref_catuiid2 = #{catuiid2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue1 != null and extvalue1 != ''">
+				and caal_extvalue1 = #{extvalue1,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue2 != null and extvalue2 != ''">
+				and caal_extvalue2 = #{extvalue2,jdbcType=VARCHAR}
+			</if>
+			<if test="extvalue3 != null and extvalue3 != ''">
+				and caal_extvalue3 = #{extvalue3,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_index.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>客户运营云</title>
+</head>
+<body>
+
+
+
+<div class="addService">
+    <div class="addcon" onclick="gotoAddSer()">
+        <div class="addbtn">+</div>
+        <div class="addtxt">申请新的服务</div>
+    </div>
+</div>
+<div class="serList" id="serList">
+    <div class="sercon">
+        <div class="serInfo">
+            <div class="expireTime">
+                <!--<div class="mtitle">-->
+
+                <div class="mainTitle"><lab class="setParam" style="" onclick="showPop()">未设置参数</lab><text class="intitle">【百度贴吧】埃里克森经发局发酵饲暗示法司法料发酵饲暗示法司法料发酵饲暗示法司法料</text></div>
+                <!--</div>-->
+                <div class="time"><text class="dueTime">2020-8-15</text>到期</div>
+                <div class="noser" style="display: none">未开通服务</div>
+            </div>
+            <div class="startTime" onclick="gotoEditTime(id,time)">
+                <!--<text>启动时间：</text>-->
+                <text class="timeList"><span >【</span>3:00,4:00,5:12<span>】</span></text>
+            </div>
+            <div class="containKeys" onclick="gotoEditConkey(id,conkeys)">
+                <!--<text>包含关键词：</text>-->
+                <text class="conKey">包含关键词</text>
+            </div>
+            <div class="exceptKeys" onclick="gotoEditExcKey(id,excKey)">
+                <!--<text>排除关键词：</text>-->
+                <text class="excKey">排除关键词</text>
+            </div>
+
+            <div class="showsetParam" style="display: none;">
+                <text class="settips">设置参数：</text>
+                <text class="setpvalue">销售</text>
+            </div>
+
+
+            <div class="setother">
+                <div class="replyCon" onclick="gotoReply()">回复内容设置</div>
+                <div class="setdetail" onclick="gotoOtherset()">设置参数</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--设置参数弹窗-->
+<div class="cover" style="display: none">
+    <div class="pop" style="display: none">
+        <text class="hiddenid"></text>
+        <text class="hiddenname"></text>
+        <div class="pcon">
+            <text class="ptitle">:</text>
+            <input type="text" class="inparam" />
+        </div>
+        <button type="button" class="ok" onclick="setvalue(this)">确定</button>
+        <button type="button" class="no" onclick="nopop()">取消</button>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/Sortable.js"></script>
+<link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+<script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+<script type="text/javascript">
+
+    /**
+     * 用户主题列表排序
+     */
+    function sort(newids){
+        updatecom("/userRefSubject/sort",{sort:newids}, function (response) {
+            if (response.error_code == 10000) {
+
+            }else{
+                tip(response.error);
+            }
+        });
+
+    }
+    Sortable.create(serList, {
+        axis: "y",
+        handle: '.threeline',
+        animation: 150,
+        onEnd:function(){
+            var ids = [];
+            var imgs = $(".threeline").toArray();
+            imgs.forEach(function (value,i) {
+                ids.push(value.id);
+            });
+            var newids = ids.join(",");
+            sort(newids);
+        }
+
+    });
+
+    /**
+     * 页面上下滑动或者缩放窗口保持弹窗居中
+     */
+    var screenWidth,screenHeight,tcleft,tctop,scrollTop;
+    $(function () {
+
+        //窗口对象添加resize() 当浏览器窗口大小改变时执行。
+        $(window).resize(function(){
+            tanLocation();
+        })
+        //文档对象添加scroll() 当滚轮高度变化时执行
+        $(document).scroll(function(){
+            tanLocation();
+        })
+
+
+    });
+    /**
+     * 计算弹窗位置
+     */
+    function tanLocation(){
+        // var screenWidth,screenHeight,tcleft,tctop,scrollTop;
+        //获取页面宽度
+        screenWidth = $(window).width();
+        //获取页面高度
+        screenHeight = $(window).height();
+        //计算left值
+        tcleft = (screenWidth-300)/2;
+        //计算top值
+        tctop = (screenHeight-160)/2;
+        //获取滚轮高度
+        scrollTop = $(document).scrollTop();
+        //弹窗的位置样式改变
+        $('.pop').css({'top':tctop+scrollTop,'left':tcleft});
+        $('.cover').css({'height':screenHeight+scrollTop});
+    }
+
+    /**
+     * 设置动态参数
+     */
+    var value,id,name;
+    function setvalue(obj) {
+        confirmLike("确认设置参数吗？");
+        value = $(obj).parent().children("div").children("input").val();
+        id = $(".hiddenid").val();
+        name = $(".hiddenname").val();
+        if(!value || value==''){
+            return;
+        }
+    }
+
+    function ok() {
+
+        var params = {};
+        params.uiid = id;
+        params.extparam = "\{\'"+name+"\':\'"+value+"\'\}";
+
+
+
+        updatecom("/userRefSubject/editreturnobj", params, function (response) {
+            if (response.error_code == 10000) {
+                $(".inparam").val("");
+                $('body').css({
+                    "overflow-x":"auto",
+                    "overflow-y":"auto"
+                });
+                $(".cover").attr("style","display:none");
+                $(".pop").attr("style","display:none");
+                showUserList();
+            }else{
+                tip(response.error);
+            }
+        });
+        $('body').css({
+            "overflow-x":"auto",
+            "overflow-y":"auto"
+        });
+        conf.attr("style","display:none");
+        prompt_con.attr("style","display:none");
+    }
+
+    /**
+     *  取消设置参数
+     */
+    function nopop() {
+
+        $('body').css({
+            "overflow-x":"auto",
+            "overflow-y":"auto"
+        });
+        $(".cover").attr("style","display:none");
+        $(".pop").attr("style","display:none");
+    }
+
+
+    /**
+     *  弹窗
+     */
+    function showPop(exttitle,extname,id){
+        $(".hiddenid").val(id);
+        $(".hiddenname").val(extname);
+        $(".ptitle").html(exttitle+":");
+        $('body').css({
+            "overflow-x":"hidden",
+            "overflow-y":"hidden"
+        });
+
+        $(".cover").attr("style","display:block");
+        $(".pop").attr("style","display:block");
+        tanLocation();
+    }
+
+
+    /**
+     *  显示用户主题列表
+     */
+    $(function() {
+        showUserList();
+    });
+
+    function showUserList(){
+        updatecom("/wo/run/searchlist/getUserTaskList", {cuiuiid: getCookie("uiid")}, function (response) {
+            if (response.error_code == 10000) {
+                var datalist = response.data;
+                $(".serList").empty();
+                for(var i=0;i<datalist.length;i++){
+                    var mainTitle = datalist[i].showtitle;
+                    var startTime = datalist[i].starttim;
+                    var dueTime =new Date(parseInt(datalist[i].endtime)).Format("yyyy-MM-dd");
+                    var conKey = datalist[i].allowkey;
+                    var excKey = datalist[i].delowkey;
+                    var id = datalist[i].uiid;
+                    var catuiid = datalist[i].catuiid;
+                    var openstate = datalist[i].openstate;
+                    var csiuiid = datalist[i].csiuiid;
+                    var extparamlist = "",exttitle = "",extname = "";
+
+
+                    var setflg = "";
+                    var hasflg = "";
+                    var hasvalue="";
+                    var paramdata = "["+datalist[i].paramdata+"]";
+                    var jsonparam = eval(paramdata);
+                    //判断是否已设置参数
+                    if(datalist[i].extparam && datalist[i].extparam!="" ){
+                        extparamlist = eval(response.data[i].extparam);
+                        exttitle = extparamlist[0].title;
+                        extname = extparamlist[0].name;
+
+                        if(jsonparam && jsonparam!=''){
+                            hasvalue = jsonparam[0][extname];
+                        }
+
+                        if(!jsonparam || jsonparam==""){
+                            // setflg = "display:block";
+                            setflg = "";
+                            hasflg = "display:none";
+                        }else{
+                            setflg = "display:none";
+                            hasflg = "";
+                        }
+                    }else{
+                        setflg = "display:none";
+                        hasflg = "";
+                    }
+
+
+
+                    //未开通服务 或者 显示到期时间
+                    var timeflg ="";
+                    var noserflg = "";
+                    if(openstate == 1){
+                        timeflg = "display:block";
+                        noserflg = "display:none";
+                    }else if(openstate == 0){
+                        timeflg = "display:none";
+                        noserflg = "display:block";
+                    }
+                    var startsign,conKeysign,excKeysign;
+                    if(!startTime || startTime==''){
+                        startTime="启动时间";
+                        startsign="display:none";
+                    }else{
+                        startsign="";
+                    }
+                    if(!conKey || conKey==''){
+                        conKey="包含关键词";
+                        conKeysign="display:none";
+                    }else{
+                        conKeysign="";
+                    }
+                    if(!excKey || excKey==''){
+                        excKey="排除关键词";
+                        excKeysign="display:none";
+                    }else{
+                        excKeysign="";
+                    }
+
+
+                    $(".serList").append("<div class=\"sercon\">" +
+                        "<div class=\"serInfo\">\n" +
+                        "          <div class=\"stitle\">\n" +
+                        "            <div class=\"expireTime\">\n" +
+                        "                <text class=\"mainTitle\"><lable class=\"setpvalue\" style=\"+hasflg+\">"+hasvalue+"</lable><lable class=\"setParam\" style=\""+setflg+"\" onclick=\"showPop('"+exttitle+"','"+extname+"','"+id+"')\">未设置参数</lable>"+mainTitle+"</text>\n" +
+                        "                <div class=\"time\" style=\""+timeflg+"\"><text class=\"dueTime\">"+dueTime+"</text>到期</div>\n" +
+                        "               <div class=\"noser\" style=\""+noserflg+"\">未开通服务</div>" +
+                         "              <div class=\"threeline\" id=\""+id+"\" ></div>\n" +
+                        "          </div>\n"+
+                        "            <div class=\"startTime\" onclick=\"gotoEditTime('"+id+"','"+startTime+"')\">\n" +
+                        // "                <text>启动时间：</text>\n" +
+                        "                <text class=\"timeList\"><b style=\""+startsign+"\">【</b>"+startTime+"<b style=\""+startsign+"\">】</b ></text>\n" +
+                        "            </div>\n" +
+                        "            <div class=\"containKeys\" onclick=\"gotoEditConkey('"+id+"','"+conKey+"')\">\n" +
+                        // "                <text>包含关键词：</text>\n" +
+                        "                <text class=\"conKey\"><b style=\""+conKeysign+"\">【</b >"+conKey+"<b style=\""+conKeysign+"\">】</b></text>\n" +
+                        "            </div>\n" +
+                        "            <div class=\"exceptKeys\" onclick=\"gotoEditExcKey('"+id+"','"+excKey+"')\">\n" +
+                        // "                <text>排除关键词：</text>\n" +
+                        "                <text class=\"excKey\"><b style=\""+excKeysign+"\">【</b >"+excKey+"<b style=\""+excKeysign+"\">】</b></text>\n" +
+                        "            </div>\n" +
+                        // "            <div class=\"showsetParam\" style=\""+hasflg+"\">\n" +
+                        // "                <text class=\"settips\">"+exttitle+"：</text>\n" +
+                        // "                <text class=\"setpvalue\">"+hasvalue+"</text>\n" +
+                        // "            </div>\n" +
+                            
+                        // "         <div class=\"showparam\">\n" +
+                        // "            <div class=\"setParam\" style=\""+setflg+"\" onclick=\"showPop('"+exttitle+"','"+extname+"','"+id+"')\">未设置参数</div>\n" +
+                        // "          </div>\n" +
+                        "         <div class=\"setother\">\n" +
+                        "            <div class=\"replyCon\" onclick=\"gotoReply('"+catuiid+"','"+csiuiid+"')\">回复内容设置</div>\n" +
+                        "            <div class=\"setdetail\" onclick=\"gotoOtherset('"+id+"')\">设置参数</div>\n" +
+                        "         </div>\n" +
+                        "        </div>\n" +
+                        "        </div>");
+                }
+            }else{
+                tip(response.error);
+            }
+        });
+    }
+
+    /**
+     * 跳转到 开通服务列表页面
+     */
+    function gotoAddSer() {
+        window.location.href="t_addService.html";
+    }
+
+    function gotoEditTime(id,time){
+        setCookie("id",id);
+        setCookiech("time",time);
+        window.location.href="t_editStartTime.html";
+    }
+
+    function gotoEditConkey(id,conkeys){
+        setCookie("id",id);
+        setCookiech("conkeys",conkeys);
+        window.location.href="t_editConkeys.html";
+    }
+
+    function gotoEditExcKey(id,excKey){
+        setCookie("id",id);
+        setCookiech("excKey",excKey);
+        window.location.href="t_editExcKeys.html";
+    }
+
+    function gotoReply(catuiid,csiuiid){
+        setCookie("csiuiid",csiuiid);
+        setCookie("catuiid",catuiid);
+        window.location.href="t_editReply.html";
+    }
+
+    function gotoOtherset(id) {
+        setCookie("id",id);
+        window.location.href="t_otherset.html";
+    }
+</script>
+
+</body>
+</html>

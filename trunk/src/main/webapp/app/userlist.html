@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/userlist.css" />
+<script type="application/javascript" src="js/jquery-3.4.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>代理用户列表</title>
+</head>
+<script type="application/javascript" >
+</script>
+<body id="body">
+<div class="search">
+    <div class="txt">手机号:</div>
+    <input type="number" class="mobile" placeholder="请输入手机号"/>
+    <div class="btn" onclick="searchByMobile()">搜索</div>
+</div>
+<div id="userlist">
+</div>
+<div id="paging">
+    <div class="cont"></div>
+</div>
+<div class="transparent" style="display: none" onclick="hideEject()">
+    <div class="eject" id="add" style="display:none" onclick="notHide()">
+        <div class="add-name"> 授予人 ：<span id="name"></span></div>
+        <div class="add-phone">手机号 ：<span id="phone"></span></div>
+        <input class="give" type="number" id="givecount" placeholder="请输入授予数量" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"/>
+        <input class="pass" type="password" placeholder="请输入密码" class="count"/>
+        <div class="submit" onclick="submit()">确定</div>
+        <div class="back" onclick="back()">取消</div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript" src="../media/js/md5.js"></script>
+<script type="text/javascript">
+
+
+    /**
+     * 分页列表
+     * @param pageNum
+     */
+    function searchByMobile(pageNum) {
+        pageNum = pageNum || 1;
+        var mobile = $(".mobile").val();
+        var recomid = getCookie("uiid");
+        var param = {};
+        param.mobile = mobile;
+
+        if(mobile == null || mobile == ''){
+            param.mobile = "";
+            param.recomid = recomid;
+        }
+        param.pageNum = pageNum;
+        param.pageSize = 8;
+
+        updatecom("/helperUser/tolistdata",param,function (response) {
+            if(response.error_code == 10000){
+
+                var pageCount = response.data.navigatepageNums;
+                var pagen = pageNum;
+                $("#keylist").empty();
+                $(".cont").empty();
+                for(var j = 0;j<pageCount.length;j++) {
+                    var k = j+1;
+                    $(".cont").append("<div class=\"pagenum\" id=\"page-"+k+"\" onclick=\"searchByMobile("+k+")\">"+pageCount[j]+"</div>");
+                    if(pagen == k){
+                        var pid = "#page-" + k
+                        $(pid).attr("style","background:#8CDEC7");
+                    }
+                }
+
+                var list = response.data.list;
+                $("#userlist").empty();
+                for(var i = 0; i <list.length; i++){
+                    var name = list[i].name;
+                    var mobile = list[i].mobile;
+                    var keynum = list[i].extracount;
+                    var sales = list[i].allcount;
+                    $("#userlist").append("<div class=\"user\">\n" +
+                        "    <div class=\"con\" >\n" +
+                        "        <image class=\"img-head\" src=\"img/head.png\"></image>\n" +
+                        "        <div class=\"info\">\n" +
+                        "            <div class=\"name\">"+name+"</div>\n" +
+                        "            <div class=\"phone\" > <a href=\"tel:\" "+mobile+">"+mobile+"</a> </div>\n"+
+                        "        </div>\n" +
+                        "        <div class=\"numinfo\">\n" +
+                        "            <div class=\"keynum\">"+"密钥数量:"+"<span class=\"mysl\">"+keynum+"</span></div>\n" +
+                        "            <div class=\"sales\">"+"累计销售:"+"<span class=\"ljxs\">"+sales+"</span></div>\n"+
+                        "        </div>\n" +
+                        "        <image class=\"img-add\" src=\"img/add.png\" onclick=\"add('"+name+"','"+mobile+"','"+list[i].uiid+"')\"></image>\n" +
+                        "    </div>\n" +
+                        "</div>");
+                }
+            }else{
+                tip(response.error);
+            }
+        });
+    }
+
+    /**
+     * 点击空白处隐藏弹出框
+     */
+    function hideEject() {
+        $(".eject").attr("style","display:none");
+        $(".transparent").attr("style","display:none");
+    }
+
+    /**
+     * 防止事件冒泡    (防止冒泡处理写在 被嵌套的控件中)
+     * @param e
+     */
+    function notHide(e) {
+        e = e || window.event;
+        if (e.stopPropagation )
+            e.stopPropagation();
+        else
+            e.cancelBubble = true;
+    }
+
+
+    /**
+     * 批量授予密钥
+     */
+    var uiid_;
+    function add(name,mobile,uiid) {
+        $(".transparent").attr("style","display:block");
+        $(".give").val("");
+        $(".pass").val("");
+        uiid_ = uiid;
+        $(".eject").attr("style","display:block");
+        $("#name").html(name);
+        $("#phone").html(mobile);
+    }
+    function submit() {
+        var submitObject = {};
+        submitObject.uiid = getCookie("uiid");
+        submitObject.giveuiid = uiid_;
+        submitObject.count = $("#givecount").val();
+        submitObject.pass = $(".pass").val();
+        if(!(submitObject.count && submitObject.count != "")){
+            tip("请输入有效的转让数量!");
+            return;
+        }
+        if(!(submitObject.pass && submitObject.pass != "")){
+            tip("为了您的财产安全，请输入登录密码!");
+            return;
+        }
+        submitObject.pass = hex_md5(submitObject.pass);
+
+        if(!confirm("确定授予密钥吗？")){
+        }else{
+            updatecom("/sale/batch",submitObject,function (response) {
+                if(response.error_code == 10000){
+                    setCookie("count",getCookie("count") - submitObject.count);
+                    tip("操作成功！");
+                    document.getElementById("add").setAttribute("style","display:none");
+                    window.location.reload();
+                }else{
+                    tip(response.error);
+                }
+            });
+        }
+
+    }
+
+    /**
+     * 批量授予密钥弹框 取消
+     */
+    function back() {
+        document.getElementById("add").setAttribute("style","display:none");
+    }
+
+
+    $(function () {
+        searchByMobile();
+    });
+
+
+</script>
+
+
+</body>
+</html>

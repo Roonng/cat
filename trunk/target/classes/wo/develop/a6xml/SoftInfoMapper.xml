@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ISoftInfoDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.SoftInfoVO">
+		
+		<id column="csi_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 软件主键 -->
+		<result column="csi_title" property="title" jdbcType="VARCHAR" />  <!-- 软件名称 -->
+		<result column="csi_pacname" property="pacname" jdbcType="VARCHAR" />  <!-- 软件包名称 -->
+		<result column="csi_flashcla" property="flashcla" jdbcType="VARCHAR" />  <!-- 软件启动类名称 -->
+		<result column="csi_indexcla" property="indexcla" jdbcType="VARCHAR" />  <!-- 软件首页类名称 -->
+		<result column="csi_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="csi_state" property="state" jdbcType="CHAR" />  <!-- 状态，0草稿1有效2无效 -->
+		<result column="csi_remark" property="remark" jdbcType="VARCHAR" />  <!-- 备注信息 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		csi_uiid ,
+		csi_title ,
+		csi_pacname ,
+		csi_flashcla ,
+		csi_indexcla ,
+		csi_sort ,
+		csi_state ,
+		csi_remark 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.SoftInfoVO">
+		insert into con_soft_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				csi_uiid ,
+			</if>
+			<if test="title != null">
+				csi_title ,
+			</if>
+			<if test="pacname != null">
+				csi_pacname ,
+			</if>
+			<if test="flashcla != null">
+				csi_flashcla ,
+			</if>
+			<if test="indexcla != null">
+				csi_indexcla ,
+			</if>
+			<if test="sort != null">
+				csi_sort ,
+			</if>
+			<if test="state != null">
+				csi_state ,
+			</if>
+			<if test="remark != null">
+				csi_remark 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pacname != null">
+				#{pacname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="flashcla != null">
+				#{flashcla,jdbcType=VARCHAR} ,
+			</if>
+			<if test="indexcla != null">
+				#{indexcla,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.SoftInfoVO">
+		insert into con_soft_info
+		(
+			csi_uiid ,
+			csi_title ,
+			csi_pacname ,
+			csi_flashcla ,
+			csi_indexcla ,
+			csi_sort ,
+			csi_state ,
+			csi_remark 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.title} ,
+			#{item.pacname} ,
+			#{item.flashcla} ,
+			#{item.indexcla} ,
+			#{item.sort} ,
+			#{item.state} ,
+			#{item.remark} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.SoftInfoVO">
+		update con_soft_info
+		<set>
+			<if test="title != null">
+				csi_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pacname != null">
+				csi_pacname = #{pacname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="flashcla != null">
+				csi_flashcla = #{flashcla,jdbcType=VARCHAR} ,
+			</if>
+			<if test="indexcla != null">
+				csi_indexcla = #{indexcla,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				csi_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				csi_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="remark != null">
+				csi_remark = #{remark,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where csi_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_info
+			<set>
+				<if test="item.title != null">
+					csi_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pacname != null">
+					csi_pacname = #{item.pacname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.flashcla != null">
+					csi_flashcla = #{item.flashcla,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.indexcla != null">
+					csi_indexcla = #{item.indexcla,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					csi_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					csi_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.remark != null">
+					csi_remark = #{item.remark,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where csi_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_info
+			<set>
+				<if test="item.title != null">
+					csi_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pacname != null">
+					csi_pacname = #{item.pacname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.flashcla != null">
+					csi_flashcla = #{item.flashcla,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.indexcla != null">
+					csi_indexcla = #{item.indexcla,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					csi_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					csi_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.remark != null">
+					csi_remark = #{item.remark,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where csi_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_soft_info
+		where csi_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.SoftInfoVO">
+		delete from con_soft_info
+		where 1=1 
+			<if test="uiid != null">
+				and csi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and csi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="pacname != null">
+				and csi_pacname = #{pacname,jdbcType=VARCHAR}
+			</if>
+			<if test="flashcla != null">
+				and csi_flashcla = #{flashcla,jdbcType=VARCHAR}
+			</if>
+			<if test="indexcla != null">
+				and csi_indexcla = #{indexcla,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null">
+				and csi_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null">
+				and csi_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="remark != null">
+				and csi_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_soft_info
+		where csi_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_soft_info
+		where 1=1 
+			<if test="uiid != null">
+				and csi_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and csi_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pacname != null">
+				and csi_pacname in 
+				<foreach collection="pacname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="flashcla != null">
+				and csi_flashcla in 
+				<foreach collection="flashcla" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="indexcla != null">
+				and csi_indexcla in 
+				<foreach collection="indexcla" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and csi_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and csi_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="remark != null">
+				and csi_remark in 
+				<foreach collection="remark" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_soft_info where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_info
+		where csi_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_info
+		where csi_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_soft_info
+		where csi_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by csi_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select * from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname in 
+				<foreach collection="pacname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla in 
+				<foreach collection="flashcla" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla in 
+				<foreach collection="indexcla" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark in 
+				<foreach collection="remark" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by csi_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select * from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname = #{pacname,jdbcType=VARCHAR}
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla = #{flashcla,jdbcType=VARCHAR}
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla = #{indexcla,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select count(*) from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname like CONCAT('%',#{pacname},'%' )
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla like CONCAT('%',#{flashcla},'%' )
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla like CONCAT('%',#{indexcla},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark like CONCAT('%',#{remark},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select * from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname = #{pacname,jdbcType=VARCHAR}
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla = #{flashcla,jdbcType=VARCHAR}
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla = #{indexcla,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			order by csi_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select * from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname like CONCAT('%',#{pacname},'%' )
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla like CONCAT('%',#{flashcla},'%' )
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla like CONCAT('%',#{indexcla},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark like CONCAT('%',#{remark},'%' )
+			</if>
+			order by csi_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftInfoVO">
+		select * from con_soft_info
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or csi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or csi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="pacname != null and pacname != ''">
+				or csi_pacname like CONCAT('%',#{pacname},'%' )
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				or csi_flashcla like CONCAT('%',#{flashcla},'%' )
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				or csi_indexcla like CONCAT('%',#{indexcla},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or csi_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or csi_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				or csi_remark like CONCAT('%',#{remark},'%' )
+			</if>
+			order by csi_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftInfoVO">
+		 select con_soft_info.csi_uiid as uiid,con_soft_info.csi_title as title,con_soft_info.csi_pacname as pacname,con_soft_info.csi_flashcla as flashcla,con_soft_info.csi_indexcla as indexcla,con_soft_info.csi_sort as sort,con_soft_info.csi_state as state,con_soft_info.csi_remark as remark from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname = #{pacname,jdbcType=VARCHAR}
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla = #{flashcla,jdbcType=VARCHAR}
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla = #{indexcla,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			order by csi_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftInfoVO">
+		 select con_soft_info.csi_uiid as uiid,con_soft_info.csi_title as title,con_soft_info.csi_pacname as pacname,con_soft_info.csi_flashcla as flashcla,con_soft_info.csi_indexcla as indexcla,con_soft_info.csi_sort as sort,con_soft_info.csi_state as state,con_soft_info.csi_remark as remark from con_soft_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="pacname != null and pacname != ''">
+				and csi_pacname = #{pacname,jdbcType=VARCHAR}
+			</if>
+			<if test="flashcla != null and flashcla != ''">
+				and csi_flashcla = #{flashcla,jdbcType=VARCHAR}
+			</if>
+			<if test="indexcla != null and indexcla != ''">
+				and csi_indexcla = #{indexcla,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csi_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and csi_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csi_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+			order by csi_sort asc
+	</select>
+
+</mapper>

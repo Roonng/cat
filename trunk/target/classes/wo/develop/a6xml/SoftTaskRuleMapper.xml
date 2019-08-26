@@ -1,0 +1,1426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ISoftTaskRuleDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.SoftTaskRuleVO">
+		
+		<id column="cstr_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 规则主键 -->
+		<result column="ref_cstsuiid" property="cstsuiid" jdbcType="VARCHAR" />  <!-- 步骤标题，关联步骤主键 -->
+		<result column="cstr_loccode" property="loccode" jdbcType="VARCHAR" />  <!-- 位置编码 -->
+		<result column="cstr_idcon1" property="idcon1" jdbcType="VARCHAR" />  <!-- ID等于内容 -->
+		<result column="cstr_idcon2" property="idcon2" jdbcType="VARCHAR" />  <!-- ID包含内容 -->
+		<result column="cstr_titlecon2" property="titlecon2" jdbcType="VARCHAR" />  <!-- 标题等于内容 -->
+		<result column="cstr_titlecon1" property="titlecon1" jdbcType="VARCHAR" />  <!-- 标题包含内容，多个内容通过逗号隔开 -->
+		<result column="cstr_despcon2" property="despcon2" jdbcType="VARCHAR" />  <!-- 描述等于内容 -->
+		<result column="cstr_despcon1" property="despcon1" jdbcType="VARCHAR" />  <!-- 描述包含内容，多个内容通过逗号隔开 -->
+		<result column="cstr_claname" property="claname" jdbcType="VARCHAR" />  <!-- 控件类名称 -->
+		<result column="cstr_minlevel" property="minlevel" jdbcType="INTEGER" />  <!-- 最小层级数，多少层级关系以下控件有效 -->
+		<result column="cstr_maxlevel" property="maxlevel" jdbcType="INTEGER" />  <!-- 最大层级数，多少层级关系以上控件有效 -->
+		<result column="cstr_agloccode" property="agloccode" jdbcType="VARCHAR" />  <!-- 循环位置编码 -->
+		<result column="cstr_agidcon1" property="agidcon1" jdbcType="VARCHAR" />  <!-- 循环ID等于 -->
+		<result column="cstr_agidcon2" property="agidcon2" jdbcType="VARCHAR" />  <!-- 循环ID包含 -->
+		<result column="cstr_agtitle1" property="agtitle1" jdbcType="VARCHAR" />  <!-- 循环标题等于 -->
+		<result column="cstr_agtitle2" property="agtitle2" jdbcType="VARCHAR" />  <!-- 循环标题包含 -->
+		<result column="cstr_agdesp1" property="agdesp1" jdbcType="VARCHAR" />  <!-- 循环描述等于 -->
+		<result column="cstr_agdesp2" property="agdesp2" jdbcType="VARCHAR" />  <!-- 循环描述包含 -->
+		<result column="cstr_agclaname" property="agclaname" jdbcType="VARCHAR" />  <!-- 循环类名称 -->
+		<result column="cstr_state" property="state" jdbcType="CHAR" />  <!-- 状态，0草稿1有效2无效 -->
+		<result column="cstr_locrel" property="locrel" jdbcType="CHAR" />  <!-- 相对定位，1是0否，默认0 -->
+		<result column="cstr_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cstr_uiid ,
+		ref_cstsuiid ,
+		cstr_loccode ,
+		cstr_idcon1 ,
+		cstr_idcon2 ,
+		cstr_titlecon2 ,
+		cstr_titlecon1 ,
+		cstr_despcon2 ,
+		cstr_despcon1 ,
+		cstr_claname ,
+		cstr_minlevel ,
+		cstr_maxlevel ,
+		cstr_agloccode ,
+		cstr_agidcon1 ,
+		cstr_agidcon2 ,
+		cstr_agtitle1 ,
+		cstr_agtitle2 ,
+		cstr_agdesp1 ,
+		cstr_agdesp2 ,
+		cstr_agclaname ,
+		cstr_state ,
+		cstr_locrel ,
+		cstr_sort 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		insert into con_soft_task_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cstr_uiid ,
+			</if>
+			<if test="cstsuiid != null">
+				ref_cstsuiid ,
+			</if>
+			<if test="loccode != null">
+				cstr_loccode ,
+			</if>
+			<if test="idcon1 != null">
+				cstr_idcon1 ,
+			</if>
+			<if test="idcon2 != null">
+				cstr_idcon2 ,
+			</if>
+			<if test="titlecon2 != null">
+				cstr_titlecon2 ,
+			</if>
+			<if test="titlecon1 != null">
+				cstr_titlecon1 ,
+			</if>
+			<if test="despcon2 != null">
+				cstr_despcon2 ,
+			</if>
+			<if test="despcon1 != null">
+				cstr_despcon1 ,
+			</if>
+			<if test="claname != null">
+				cstr_claname ,
+			</if>
+			<if test="minlevel != null">
+				cstr_minlevel ,
+			</if>
+			<if test="maxlevel != null">
+				cstr_maxlevel ,
+			</if>
+			<if test="agloccode != null">
+				cstr_agloccode ,
+			</if>
+			<if test="agidcon1 != null">
+				cstr_agidcon1 ,
+			</if>
+			<if test="agidcon2 != null">
+				cstr_agidcon2 ,
+			</if>
+			<if test="agtitle1 != null">
+				cstr_agtitle1 ,
+			</if>
+			<if test="agtitle2 != null">
+				cstr_agtitle2 ,
+			</if>
+			<if test="agdesp1 != null">
+				cstr_agdesp1 ,
+			</if>
+			<if test="agdesp2 != null">
+				cstr_agdesp2 ,
+			</if>
+			<if test="agclaname != null">
+				cstr_agclaname ,
+			</if>
+			<if test="state != null">
+				cstr_state ,
+			</if>
+			<if test="locrel != null">
+				cstr_locrel ,
+			</if>
+			<if test="sort != null">
+				cstr_sort 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cstsuiid != null">
+				#{cstsuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="loccode != null">
+				#{loccode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="idcon1 != null">
+				#{idcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="idcon2 != null">
+				#{idcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="titlecon2 != null">
+				#{titlecon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="titlecon1 != null">
+				#{titlecon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="despcon2 != null">
+				#{despcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="despcon1 != null">
+				#{despcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="claname != null">
+				#{claname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="minlevel != null">
+				#{minlevel,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxlevel != null">
+				#{maxlevel,jdbcType=INTEGER} ,
+			</if>
+			<if test="agloccode != null">
+				#{agloccode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agidcon1 != null">
+				#{agidcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agidcon2 != null">
+				#{agidcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agtitle1 != null">
+				#{agtitle1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agtitle2 != null">
+				#{agtitle2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agdesp1 != null">
+				#{agdesp1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agdesp2 != null">
+				#{agdesp2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agclaname != null">
+				#{agclaname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="locrel != null">
+				#{locrel,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		insert into con_soft_task_rule
+		(
+			cstr_uiid ,
+			ref_cstsuiid ,
+			cstr_loccode ,
+			cstr_idcon1 ,
+			cstr_idcon2 ,
+			cstr_titlecon2 ,
+			cstr_titlecon1 ,
+			cstr_despcon2 ,
+			cstr_despcon1 ,
+			cstr_claname ,
+			cstr_minlevel ,
+			cstr_maxlevel ,
+			cstr_agloccode ,
+			cstr_agidcon1 ,
+			cstr_agidcon2 ,
+			cstr_agtitle1 ,
+			cstr_agtitle2 ,
+			cstr_agdesp1 ,
+			cstr_agdesp2 ,
+			cstr_agclaname ,
+			cstr_state ,
+			cstr_locrel ,
+			cstr_sort 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.cstsuiid} ,
+			#{item.loccode} ,
+			#{item.idcon1} ,
+			#{item.idcon2} ,
+			#{item.titlecon2} ,
+			#{item.titlecon1} ,
+			#{item.despcon2} ,
+			#{item.despcon1} ,
+			#{item.claname} ,
+			#{item.minlevel} ,
+			#{item.maxlevel} ,
+			#{item.agloccode} ,
+			#{item.agidcon1} ,
+			#{item.agidcon2} ,
+			#{item.agtitle1} ,
+			#{item.agtitle2} ,
+			#{item.agdesp1} ,
+			#{item.agdesp2} ,
+			#{item.agclaname} ,
+			#{item.state} ,
+			#{item.locrel} ,
+			#{item.sort} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		update con_soft_task_rule
+		<set>
+			<if test="cstsuiid != null">
+				ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="loccode != null">
+				cstr_loccode = #{loccode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="idcon1 != null">
+				cstr_idcon1 = #{idcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="idcon2 != null">
+				cstr_idcon2 = #{idcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="titlecon2 != null">
+				cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="titlecon1 != null">
+				cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="despcon2 != null">
+				cstr_despcon2 = #{despcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="despcon1 != null">
+				cstr_despcon1 = #{despcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="claname != null">
+				cstr_claname = #{claname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="minlevel != null">
+				cstr_minlevel = #{minlevel,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxlevel != null">
+				cstr_maxlevel = #{maxlevel,jdbcType=INTEGER} ,
+			</if>
+			<if test="agloccode != null">
+				cstr_agloccode = #{agloccode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agidcon1 != null">
+				cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agidcon2 != null">
+				cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agtitle1 != null">
+				cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agtitle2 != null">
+				cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agdesp1 != null">
+				cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agdesp2 != null">
+				cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR} ,
+			</if>
+			<if test="agclaname != null">
+				cstr_agclaname = #{agclaname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="state != null">
+				cstr_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="locrel != null">
+				cstr_locrel = #{locrel,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				cstr_sort = #{sort,jdbcType=INTEGER} 
+			</if>
+		</set>
+		where cstr_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task_rule
+			<set>
+				<if test="item.cstsuiid != null">
+					ref_cstsuiid = #{item.cstsuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.loccode != null">
+					cstr_loccode = #{item.loccode,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.idcon1 != null">
+					cstr_idcon1 = #{item.idcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.idcon2 != null">
+					cstr_idcon2 = #{item.idcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.titlecon2 != null">
+					cstr_titlecon2 = #{item.titlecon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.titlecon1 != null">
+					cstr_titlecon1 = #{item.titlecon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.despcon2 != null">
+					cstr_despcon2 = #{item.despcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.despcon1 != null">
+					cstr_despcon1 = #{item.despcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.claname != null">
+					cstr_claname = #{item.claname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.minlevel != null">
+					cstr_minlevel = #{item.minlevel,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxlevel != null">
+					cstr_maxlevel = #{item.maxlevel,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.agloccode != null">
+					cstr_agloccode = #{item.agloccode,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agidcon1 != null">
+					cstr_agidcon1 = #{item.agidcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agidcon2 != null">
+					cstr_agidcon2 = #{item.agidcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agtitle1 != null">
+					cstr_agtitle1 = #{item.agtitle1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agtitle2 != null">
+					cstr_agtitle2 = #{item.agtitle2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agdesp1 != null">
+					cstr_agdesp1 = #{item.agdesp1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agdesp2 != null">
+					cstr_agdesp2 = #{item.agdesp2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agclaname != null">
+					cstr_agclaname = #{item.agclaname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.state != null">
+					cstr_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.locrel != null">
+					cstr_locrel = #{item.locrel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cstr_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cstr_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task_rule
+			<set>
+				<if test="item.cstsuiid != null">
+					ref_cstsuiid = #{item.cstsuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.loccode != null">
+					cstr_loccode = #{item.loccode,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.idcon1 != null">
+					cstr_idcon1 = #{item.idcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.idcon2 != null">
+					cstr_idcon2 = #{item.idcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.titlecon2 != null">
+					cstr_titlecon2 = #{item.titlecon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.titlecon1 != null">
+					cstr_titlecon1 = #{item.titlecon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.despcon2 != null">
+					cstr_despcon2 = #{item.despcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.despcon1 != null">
+					cstr_despcon1 = #{item.despcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.claname != null">
+					cstr_claname = #{item.claname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.minlevel != null">
+					cstr_minlevel = #{item.minlevel,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxlevel != null">
+					cstr_maxlevel = #{item.maxlevel,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.agloccode != null">
+					cstr_agloccode = #{item.agloccode,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agidcon1 != null">
+					cstr_agidcon1 = #{item.agidcon1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agidcon2 != null">
+					cstr_agidcon2 = #{item.agidcon2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agtitle1 != null">
+					cstr_agtitle1 = #{item.agtitle1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agtitle2 != null">
+					cstr_agtitle2 = #{item.agtitle2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agdesp1 != null">
+					cstr_agdesp1 = #{item.agdesp1,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agdesp2 != null">
+					cstr_agdesp2 = #{item.agdesp2,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.agclaname != null">
+					cstr_agclaname = #{item.agclaname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.state != null">
+					cstr_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.locrel != null">
+					cstr_locrel = #{item.locrel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cstr_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cstr_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_soft_task_rule
+		where cstr_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		delete from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null">
+				and cstr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstsuiid != null">
+				and ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="loccode != null">
+				and cstr_loccode = #{loccode,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon1 != null">
+				and cstr_idcon1 = #{idcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon2 != null">
+				and cstr_idcon2 = #{idcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon2 != null">
+				and cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon1 != null">
+				and cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon2 != null">
+				and cstr_despcon2 = #{despcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon1 != null">
+				and cstr_despcon1 = #{despcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="claname != null">
+				and cstr_claname = #{claname,jdbcType=VARCHAR}
+			</if>
+			<if test="minlevel != null">
+				and cstr_minlevel = #{minlevel,jdbcType=INTEGER}
+			</if>
+			<if test="maxlevel != null">
+				and cstr_maxlevel = #{maxlevel,jdbcType=INTEGER}
+			</if>
+			<if test="agloccode != null">
+				and cstr_agloccode = #{agloccode,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon1 != null">
+				and cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon2 != null">
+				and cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle1 != null">
+				and cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle2 != null">
+				and cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp1 != null">
+				and cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp2 != null">
+				and cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR}
+			</if>
+			<if test="agclaname != null">
+				and cstr_agclaname = #{agclaname,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null">
+				and cstr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="locrel != null">
+				and cstr_locrel = #{locrel,jdbcType=CHAR}
+			</if>
+			<if test="sort != null">
+				and cstr_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_soft_task_rule
+		where cstr_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null">
+				and cstr_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstsuiid != null">
+				and ref_cstsuiid in 
+				<foreach collection="cstsuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="loccode != null">
+				and cstr_loccode in 
+				<foreach collection="loccode" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="idcon1 != null">
+				and cstr_idcon1 in 
+				<foreach collection="idcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="idcon2 != null">
+				and cstr_idcon2 in 
+				<foreach collection="idcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="titlecon2 != null">
+				and cstr_titlecon2 in 
+				<foreach collection="titlecon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="titlecon1 != null">
+				and cstr_titlecon1 in 
+				<foreach collection="titlecon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="despcon2 != null">
+				and cstr_despcon2 in 
+				<foreach collection="despcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="despcon1 != null">
+				and cstr_despcon1 in 
+				<foreach collection="despcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="claname != null">
+				and cstr_claname in 
+				<foreach collection="claname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="minlevel != null">
+				and cstr_minlevel in 
+				<foreach collection="minlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxlevel != null">
+				and cstr_maxlevel in 
+				<foreach collection="maxlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agloccode != null">
+				and cstr_agloccode in 
+				<foreach collection="agloccode" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agidcon1 != null">
+				and cstr_agidcon1 in 
+				<foreach collection="agidcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agidcon2 != null">
+				and cstr_agidcon2 in 
+				<foreach collection="agidcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agtitle1 != null">
+				and cstr_agtitle1 in 
+				<foreach collection="agtitle1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agtitle2 != null">
+				and cstr_agtitle2 in 
+				<foreach collection="agtitle2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agdesp1 != null">
+				and cstr_agdesp1 in 
+				<foreach collection="agdesp1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agdesp2 != null">
+				and cstr_agdesp2 in 
+				<foreach collection="agdesp2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agclaname != null">
+				and cstr_agclaname in 
+				<foreach collection="agclaname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and cstr_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="locrel != null">
+				and cstr_locrel in 
+				<foreach collection="locrel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and cstr_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_soft_task_rule where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task_rule
+		where cstr_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task_rule
+		where cstr_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_soft_task_rule
+		where cstr_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by cstr_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select * from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid in 
+				<foreach collection="cstsuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode in 
+				<foreach collection="loccode" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 in 
+				<foreach collection="idcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 in 
+				<foreach collection="idcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 in 
+				<foreach collection="titlecon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 in 
+				<foreach collection="titlecon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 in 
+				<foreach collection="despcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 in 
+				<foreach collection="despcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname in 
+				<foreach collection="claname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel in 
+				<foreach collection="minlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel in 
+				<foreach collection="maxlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode in 
+				<foreach collection="agloccode" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 in 
+				<foreach collection="agidcon1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 in 
+				<foreach collection="agidcon2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 in 
+				<foreach collection="agtitle1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 in 
+				<foreach collection="agtitle2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 in 
+				<foreach collection="agdesp1" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 in 
+				<foreach collection="agdesp2" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname in 
+				<foreach collection="agclaname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel in 
+				<foreach collection="locrel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by cstr_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select * from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode = #{loccode,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 = #{idcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 = #{idcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 = #{despcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 = #{despcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname = #{claname,jdbcType=VARCHAR}
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel = #{minlevel,jdbcType=INTEGER}
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel = #{maxlevel,jdbcType=INTEGER}
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode = #{agloccode,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR}
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname = #{agclaname,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel = #{locrel,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select count(*) from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid like CONCAT('%',#{cstsuiid},'%' )
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode like CONCAT('%',#{loccode},'%' )
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 like CONCAT('%',#{idcon1},'%' )
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 like CONCAT('%',#{idcon2},'%' )
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 like CONCAT('%',#{titlecon2},'%' )
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 like CONCAT('%',#{titlecon1},'%' )
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 like CONCAT('%',#{despcon2},'%' )
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 like CONCAT('%',#{despcon1},'%' )
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname like CONCAT('%',#{claname},'%' )
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel like CONCAT('%',#{minlevel},'%' )
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel like CONCAT('%',#{maxlevel},'%' )
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode like CONCAT('%',#{agloccode},'%' )
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 like CONCAT('%',#{agidcon1},'%' )
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 like CONCAT('%',#{agidcon2},'%' )
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 like CONCAT('%',#{agtitle1},'%' )
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 like CONCAT('%',#{agtitle2},'%' )
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 like CONCAT('%',#{agdesp1},'%' )
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 like CONCAT('%',#{agdesp2},'%' )
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname like CONCAT('%',#{agclaname},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel like CONCAT('%',#{locrel},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort like CONCAT('%',#{sort},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select * from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode = #{loccode,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 = #{idcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 = #{idcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 = #{despcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 = #{despcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname = #{claname,jdbcType=VARCHAR}
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel = #{minlevel,jdbcType=INTEGER}
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel = #{maxlevel,jdbcType=INTEGER}
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode = #{agloccode,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR}
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname = #{agclaname,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel = #{locrel,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cstr_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select * from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid like CONCAT('%',#{cstsuiid},'%' )
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode like CONCAT('%',#{loccode},'%' )
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 like CONCAT('%',#{idcon1},'%' )
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 like CONCAT('%',#{idcon2},'%' )
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 like CONCAT('%',#{titlecon2},'%' )
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 like CONCAT('%',#{titlecon1},'%' )
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 like CONCAT('%',#{despcon2},'%' )
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 like CONCAT('%',#{despcon1},'%' )
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname like CONCAT('%',#{claname},'%' )
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel like CONCAT('%',#{minlevel},'%' )
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel like CONCAT('%',#{maxlevel},'%' )
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode like CONCAT('%',#{agloccode},'%' )
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 like CONCAT('%',#{agidcon1},'%' )
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 like CONCAT('%',#{agidcon2},'%' )
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 like CONCAT('%',#{agtitle1},'%' )
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 like CONCAT('%',#{agtitle2},'%' )
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 like CONCAT('%',#{agdesp1},'%' )
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 like CONCAT('%',#{agdesp2},'%' )
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname like CONCAT('%',#{agclaname},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel like CONCAT('%',#{locrel},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by cstr_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		select * from con_soft_task_rule
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cstr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				or ref_cstsuiid like CONCAT('%',#{cstsuiid},'%' )
+			</if>
+			<if test="loccode != null and loccode != ''">
+				or cstr_loccode like CONCAT('%',#{loccode},'%' )
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				or cstr_idcon1 like CONCAT('%',#{idcon1},'%' )
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				or cstr_idcon2 like CONCAT('%',#{idcon2},'%' )
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				or cstr_titlecon2 like CONCAT('%',#{titlecon2},'%' )
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				or cstr_titlecon1 like CONCAT('%',#{titlecon1},'%' )
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				or cstr_despcon2 like CONCAT('%',#{despcon2},'%' )
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				or cstr_despcon1 like CONCAT('%',#{despcon1},'%' )
+			</if>
+			<if test="claname != null and claname != ''">
+				or cstr_claname like CONCAT('%',#{claname},'%' )
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				or cstr_minlevel like CONCAT('%',#{minlevel},'%' )
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				or cstr_maxlevel like CONCAT('%',#{maxlevel},'%' )
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				or cstr_agloccode like CONCAT('%',#{agloccode},'%' )
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				or cstr_agidcon1 like CONCAT('%',#{agidcon1},'%' )
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				or cstr_agidcon2 like CONCAT('%',#{agidcon2},'%' )
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				or cstr_agtitle1 like CONCAT('%',#{agtitle1},'%' )
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				or cstr_agtitle2 like CONCAT('%',#{agtitle2},'%' )
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				or cstr_agdesp1 like CONCAT('%',#{agdesp1},'%' )
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				or cstr_agdesp2 like CONCAT('%',#{agdesp2},'%' )
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				or cstr_agclaname like CONCAT('%',#{agclaname},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or cstr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="locrel != null and locrel != ''">
+				or cstr_locrel like CONCAT('%',#{locrel},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or cstr_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by cstr_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		 select con_soft_task_rule.cstr_uiid as uiid,con_soft_task_rule.ref_cstsuiid as cstsuiid, (select GROUP_CONCAT( rt1.csts_title) from con_soft_task_step rt1 where FIND_IN_SET( rt1.csts_uiid ,con_soft_task_rule.ref_cstsuiid) )  as cstsuiidtitle,con_soft_task_rule.cstr_loccode as loccode,con_soft_task_rule.cstr_idcon1 as idcon1,con_soft_task_rule.cstr_idcon2 as idcon2,con_soft_task_rule.cstr_titlecon2 as titlecon2,con_soft_task_rule.cstr_titlecon1 as titlecon1,con_soft_task_rule.cstr_despcon2 as despcon2,con_soft_task_rule.cstr_despcon1 as despcon1,con_soft_task_rule.cstr_claname as claname,con_soft_task_rule.cstr_minlevel as minlevel,con_soft_task_rule.cstr_maxlevel as maxlevel,con_soft_task_rule.cstr_agloccode as agloccode,con_soft_task_rule.cstr_agidcon1 as agidcon1,con_soft_task_rule.cstr_agidcon2 as agidcon2,con_soft_task_rule.cstr_agtitle1 as agtitle1,con_soft_task_rule.cstr_agtitle2 as agtitle2,con_soft_task_rule.cstr_agdesp1 as agdesp1,con_soft_task_rule.cstr_agdesp2 as agdesp2,con_soft_task_rule.cstr_agclaname as agclaname,con_soft_task_rule.cstr_state as state,con_soft_task_rule.cstr_locrel as locrel,con_soft_task_rule.cstr_sort as sort from con_soft_task_rule
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode = #{loccode,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 = #{idcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 = #{idcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 = #{despcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 = #{despcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname = #{claname,jdbcType=VARCHAR}
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel = #{minlevel,jdbcType=INTEGER}
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel = #{maxlevel,jdbcType=INTEGER}
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode = #{agloccode,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR}
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname = #{agclaname,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel = #{locrel,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cstr_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskRuleVO">
+		 select con_soft_task_rule.cstr_uiid as uiid,con_soft_task_rule.ref_cstsuiid as cstsuiid,con_soft_task_rule.ref_cstsuiid as cstsuiidrefid,con_soft_task_stepref_cstsuiid.csts_title as cstsuiidrefview,con_soft_task_rule.cstr_loccode as loccode,con_soft_task_rule.cstr_idcon1 as idcon1,con_soft_task_rule.cstr_idcon2 as idcon2,con_soft_task_rule.cstr_titlecon2 as titlecon2,con_soft_task_rule.cstr_titlecon1 as titlecon1,con_soft_task_rule.cstr_despcon2 as despcon2,con_soft_task_rule.cstr_despcon1 as despcon1,con_soft_task_rule.cstr_claname as claname,con_soft_task_rule.cstr_minlevel as minlevel,con_soft_task_rule.cstr_maxlevel as maxlevel,con_soft_task_rule.cstr_agloccode as agloccode,con_soft_task_rule.cstr_agidcon1 as agidcon1,con_soft_task_rule.cstr_agidcon2 as agidcon2,con_soft_task_rule.cstr_agtitle1 as agtitle1,con_soft_task_rule.cstr_agtitle2 as agtitle2,con_soft_task_rule.cstr_agdesp1 as agdesp1,con_soft_task_rule.cstr_agdesp2 as agdesp2,con_soft_task_rule.cstr_agclaname as agclaname,con_soft_task_rule.cstr_state as state,con_soft_task_rule.cstr_locrel as locrel,con_soft_task_rule.cstr_sort as sort from con_soft_task_rule left outer join con_soft_task_step con_soft_task_stepref_cstsuiid on con_soft_task_stepref_cstsuiid.csts_uiid = con_soft_task_rule.ref_cstsuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cstr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstsuiid != null and cstsuiid != ''">
+				and ref_cstsuiid = #{cstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="loccode != null and loccode != ''">
+				and cstr_loccode = #{loccode,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon1 != null and idcon1 != ''">
+				and cstr_idcon1 = #{idcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="idcon2 != null and idcon2 != ''">
+				and cstr_idcon2 = #{idcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon2 != null and titlecon2 != ''">
+				and cstr_titlecon2 = #{titlecon2,jdbcType=VARCHAR}
+			</if>
+			<if test="titlecon1 != null and titlecon1 != ''">
+				and cstr_titlecon1 = #{titlecon1,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon2 != null and despcon2 != ''">
+				and cstr_despcon2 = #{despcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="despcon1 != null and despcon1 != ''">
+				and cstr_despcon1 = #{despcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="claname != null and claname != ''">
+				and cstr_claname = #{claname,jdbcType=VARCHAR}
+			</if>
+			<if test="minlevel != null and minlevel != ''">
+				and cstr_minlevel = #{minlevel,jdbcType=INTEGER}
+			</if>
+			<if test="maxlevel != null and maxlevel != ''">
+				and cstr_maxlevel = #{maxlevel,jdbcType=INTEGER}
+			</if>
+			<if test="agloccode != null and agloccode != ''">
+				and cstr_agloccode = #{agloccode,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon1 != null and agidcon1 != ''">
+				and cstr_agidcon1 = #{agidcon1,jdbcType=VARCHAR}
+			</if>
+			<if test="agidcon2 != null and agidcon2 != ''">
+				and cstr_agidcon2 = #{agidcon2,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle1 != null and agtitle1 != ''">
+				and cstr_agtitle1 = #{agtitle1,jdbcType=VARCHAR}
+			</if>
+			<if test="agtitle2 != null and agtitle2 != ''">
+				and cstr_agtitle2 = #{agtitle2,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp1 != null and agdesp1 != ''">
+				and cstr_agdesp1 = #{agdesp1,jdbcType=VARCHAR}
+			</if>
+			<if test="agdesp2 != null and agdesp2 != ''">
+				and cstr_agdesp2 = #{agdesp2,jdbcType=VARCHAR}
+			</if>
+			<if test="agclaname != null and agclaname != ''">
+				and cstr_agclaname = #{agclaname,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cstr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="locrel != null and locrel != ''">
+				and cstr_locrel = #{locrel,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cstr_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cstr_sort asc
+	</select>
+
+</mapper>

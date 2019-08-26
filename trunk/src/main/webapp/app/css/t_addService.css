@@ -1,0 +1,116 @@
+body{
+    margin: 0;
+}
+.replyInfo{
+    background: #EDEDED;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+}
+.assList .replyCon{
+    vertical-align: middle;
+    display: inline-block;
+    /*width: 262px;*/
+    width: 69.8%;
+    margin: 10px 0 10px 2.6%;
+    /*padding: 3px 8px;*/
+    padding: 3px 3%;
+    border-radius: 15px;
+    /*border: 1px solid #9F9F9F;*/
+    color: #9F9F9F;
+    background: white;
+
+}
+.delete{
+    vertical-align: middle;
+    display: inline-block;
+    /*width: 62px;*/
+    width: 16.5%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #0AC28D;
+    color: white;
+    border-radius: 13px;
+
+}
+
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.prompt{
+    /*padding: 20px 5px 0 5px;*/
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 200px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    margin-top: 20px;
+    height: 60px;
+    /*width: 300px;*/
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+}
+
+
+
+/*.conf{*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+/*}*/
+/*.prompt-con{*/
+    /*padding: 20px 5px 0 5px;*/
+    /*position: absolute;*/
+    /*height: 120px;*/
+    /*width: 80%;*/
+    /*background: white;*/
+    /*top: 200px;*/
+    /*left: 9%;*/
+    /*border:1px solid #B1B1B1;*/
+/*}*/
+/*.msg-con{*/
+    /*height: 60px;*/
+    /*width: 300px;*/
+    /*text-align: center;*/
+    /*word-wrap: break-word;word-break: break-all;overflow: hidden;*/
+
+/*}*/
+/*.ok-con,.no-con{*/
+    /*background: #0AC28D;*/
+    /*color: white;*/
+    /*height: 30px;*/
+    /*width: 33.3%;*/
+    /*margin-left: 10%;*/
+    /*text-align: center;*/
+    /*line-height: 30px;*/
+    /*border-radius: 4px;*/
+    /*display: inline-block;*/
+/*}*/
+
+
+

@@ -1,0 +1,110 @@
+body{
+    margin: 0px;
+    /*padding: 20px 6px 0 6px;*/
+    padding: 20px 1.6% 0 1.6%;
+}
+.showTime{
+    /*height:200px;*/
+    width: 100%;
+}
+.showTime .startTime{
+    padding: 2px 3.2% 2px 3.2%;
+    position: relative;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    display: inline-block;
+    /*margin: 0 25px 15px 0 ;*/
+    margin: 0 6.6% 15px 0 ;
+    font-size: 16px;
+    border-radius: 30px;
+    border: 1px solid #9F9F9F;
+    color: #9F9F9F;
+}
+
+.showTime .startTime .delete{
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top:0px;
+    right: -18px;
+    z-index: 2;
+}
+
+.add{
+    height: 40px;
+    width: 100%;
+    margin-top: 30px;
+}
+.add .addInpu{
+    height: 32px;
+    /*width: 245px;*/
+    width: 65.3%;
+    font-size: 16px;
+    border-radius: 15px;
+    border: 1px solid #9F9F9F;
+}
+.add .addbtn{
+    display: inline-block;
+    height: 38px;
+    width: 17.33%;
+    text-align: center;
+    line-height: 40px;
+    background: #0AC28D;
+    border-radius: 15px;
+    margin-left: 4%;
+    color: white;
+    border: none;
+}
+
+.save,.ret{
+    height: 27px;
+    line-height: 27px;
+    /*width: 132.5px;*/
+    width: 35.33%;
+    background: #0AC28D;
+    text-align: center;
+    margin: 20px 0 0 32.33%;
+    color: white;
+    border-radius: 12px;
+
+}
+
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.prompt{
+    /*padding: 20px 5px 0 5px;*/
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 200px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    margin-top: 20px;
+    height: 60px;
+    /*width: 300px;*/
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+}

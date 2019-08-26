@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" onclick="hideDelBtn()">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_editConkeys.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>编辑排除关键词</title>
+</head>
+<body>
+
+<div class="showTime">
+
+</div>
+
+<div class="add">
+    <input class="addInpu" type="text" placeholder="请输入排除关键词"/>
+    <div class="addbtn" onclick="addConkey()">添加</div>
+</div>
+
+<div class="save" onclick="save()">保存</div>
+<div class="ret" onclick="goback()">返回</div>
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+<script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+
+<script type="text/javascript">
+    var conkey = [];
+
+    $( function () {
+        var id = getCookie("id");
+        var uConkey = getCookiech("excKey");
+
+        if(uConkey.split(",")!=undefined && uConkey.split(",")!=''){
+            if(uConkey.split(",")[0] !="排除关键词"){
+                conkey = uConkey.split(",");
+            }
+        }
+        showKeys();
+    });
+    /**
+     * 点击返回 不保存此次的更新直接跳转到主页
+     */
+    function goback() {
+        clearCookie("id");
+        clearCookie("excKey");
+        window.history.back();
+    }
+
+
+    /**
+     * 点击保存并跳转到主页
+     */
+    function save() {
+       confirmLike("确定保存吗？");
+    }
+
+    /**
+     * 提示框确认函数
+     */
+    function ok() {
+        updatecom("/userRefSubject/editreturnobj", {uiid: getCookie("id"),delowkey:conkey.join(",")}, function (response) {
+            if (response.error_code == 10000) {
+                clearCookie("id");
+                clearCookie("excKey");
+                window.history.back();
+            }else{
+                tip(response.error);
+            }
+        });
+    }
+
+    /**
+     * 删除关键词
+     */
+    function deleteKey(obj) {
+        var keyId = $(obj).attr("id");
+        conkey.splice(keyId.substring(2),1);
+        setCookiech("excKey",conkey.join(","));
+        showKeys();
+    }
+
+    /**
+     * 点击关键词 显示红叉
+     */
+    function showDelete(e) {
+        if (e && e.stopPropagation)
+            e.stopPropagation();
+        else
+            window.event.cancelBubble = true;
+        $(".delete").attr("style","display:block");
+    }
+
+    /**
+     * 点击添加按钮 拼接关键词参数
+     */
+    function addConkey() {
+        var key = $(".addInpu").val();
+        if(!key){
+            tip("内容不能为空!");
+            return;
+        }
+        conkey.push(key);
+        $(".addInpu").val("");
+        setCookiech("excKey",conkey.join(","));
+        showKeys();
+    }
+
+    /**
+     * 刷新显示关键词
+     */
+    function showKeys() {
+        $(".showTime").empty();
+        for(var i=0;i<conkey.length;i++){
+            $(".showTime").append("<div class=\"conkyes\" onclick=\"showDelete()\">\n" +
+                "        <text>"+conkey[i]+"</text>\n" +
+                "        <img style=\"display: none\" class=\"delete\" id=\"c-"+i+"\" src=\"img/delete.png\" onclick=\"deleteKey(this)\">\n" +
+                "    </div>");
+        }
+    }
+
+    showKeys();
+    /**
+     * 长按启动时间 显示红x删除按钮
+     */
+    // var timeOutEvent=0;
+    // $(function(){
+    //     $(".conkyes").on({
+    //         touchstart: function(e){
+    //             timeOutEvent = setTimeout("longPress()",500);//500设置时间
+    //             e.preventDefault();
+    //         },
+    //         touchmove: function(){
+    //             clearTimeout(timeOutEvent);
+    //             timeOutEvent = 0;
+    //         },
+    //         touchend: function(){
+    //             clearTimeout(timeOutEvent);
+    //             if(timeOutEvent!=0){
+    //                 console.log("单击事件")
+    //             }
+    //             return false;
+    //         }
+    //     })
+    // });
+    // function longPress(){
+    //     timeOutEvent = 0;
+    //     $(".delete").attr("style","display: block");
+    //
+    // }
+    /**
+     * 点击别处 影藏红叉
+     */
+    function hideDelBtn() {
+        $(".delete").attr("style","display: none");
+    }
+</script>
+</body>
+</html>

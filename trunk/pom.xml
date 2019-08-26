@@ -1,0 +1,661 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd ">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>wo.develop</groupId>
+    <artifactId>cat</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>cat</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <encoding>UTF-8</encoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <profiles>
+        <profile>
+            <!-- 本地开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <profiles.uploadurl></profiles.uploadurl>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 线上测试环境 -->
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+                <profiles.uploadurl></profiles.uploadurl>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 线上生产环境 -->
+            <id>pro</id>
+            <properties>
+                <profiles.active>pro</profiles.active>
+                <profiles.uploadurl></profiles.uploadurl>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 资源根目录排除各环境的配置，防止在生成目录中多余其它目录 -->
+                <excludes>
+                    <exclude>dev/*</exclude>
+                    <exclude>test/*</exclude>
+                    <exclude>pro/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${profiles.active}</directory>
+            </resource>
+            <resource>
+                <directory>src/main/cat</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/extend</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <!--<source>${jdk.version}</source>
+                    <target>${jdk.version}</target>-->
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 指定多个源代码目录、多个资源文件目录 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/src/main/cat</source>
+                                <source>${basedir}/src/main/extend</source>
+                                <source>${basedir}/src/main/public</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>${profiles.uploadurl}</url>
+                    <path>/ROOT</path>
+                    <server>lvtomcat</server>
+                    <username>user</username>
+                    <password>user123</password>
+                    <update>true</update>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>wo.develop</groupId>
+            <artifactId>develop-common-wx</artifactId>
+            <version>1.0.23</version>
+        </dependency>
+        <!-- 开发平台工具jar -->
+        <dependency>
+            <groupId>wo.develop</groupId>
+            <artifactId>develop</artifactId>
+            <version>1.1.98.4</version>
+        </dependency>
+
+
+        <!-- 包含了解组期间通过ORB机制抛出异常的相关活动服务 -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <!-- AOP联盟的API包，里面包含了针对面向切面的接口。通常Spring等其它具备动态织入功能的框架依赖此包 -->
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- ASM是一个Java字节码操纵框架。它可以直接以二进制形式动态地生成stub类或其他代理类，或者在装载时动态地修改类。ASM提供类似于BCEL和SERP之类的工具包的功能，但是被设计得更小巧、更快速，这使它适用于实时代码插装 -->
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+
+        <!-- Spring AOP -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <!-- Java 平台的开放源码的轻量级密码术包 -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>1.46</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <!-- BeanUtils工具包是由Apache公司所开发，主要是方便程序员对Bean类能够进行简便的操作 -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-chain</groupId>
+            <artifactId>commons-chain</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <!-- common-sdl-1.1.1-TAG20120213-SNAPSHOT commons-fileupload-1.3.1 -->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <!-- 使用json时要依赖的jar文件,在使用jquery的json时,没有引用该文件的时候容易报错。 -->
+        <dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <!-- 阿里巴巴FastJson是一个Json处理工具包，包括“序列化”和“反序列化”两部分，它具备如下特征： 速度最快，测试表明，fastjson具有极快的性能，超越任其他的Java
+            Json parser。包括自称最快的JackJson； 功能强大，完全支持Java Bean、集合、Map、日期、Enum，支持范型，支持自省；无依赖，能够直接运行在Java
+            SE 5.0以上版本 源码地址：https://github.com/alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <!-- Strus2支持的一种表现层框架 -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.20</version>
+        </dependency>
+
+        <!-- 为Java标准的Collections API提供了相当好的补充。在此基础上对其常用的数据结构操作进行了很好的封装、抽象和补充。保证性能的同时大大简化代码
+            根据集合类型，大致将此包的类归纳为9类： Bag 在org.apache.commons.collections包中定义的接口，它extends
+            java.util.Collection， 而它的实现类都被放在下面的bag包中。HashBag是Bag接口的一个标准实现。而BagUtils提供一组static的方法让调用者获取经过不同装饰后的Bag实例.
+            具体用法见代码样例 Buffer 定义在org.apache.commons.collections包下面的接口，用于表示按一定顺序除去成员对象的collection如队列等。
+            具体的实现类在org.apache.commons.collections.buffer 包下可以找到。最简单直接的Buffer实现类是UnboundedFifoBuffer，提供先进先出的
+            大小可变的队列。而BoundedFifoBuffer则是对其大小进行了限制，是固定大小的先进先出队列。BlockingBuffer要在多线程的环境中才能体现出它的价值，
+            尤其是当我们需要实现某种流水线时这个BlockingBuffer很有用：每个流水线上的组件从上游的BlockingBuffer获取数据，处理后放到下一个BlockingBuffer中依次传递。
+            BlockingBuffer的核心特色通俗点说就是如果你向它要东西，而它暂时还没有的话，你可以一直等待直至拿到为止。 PriorityBuffer则提供比一般的先进先出Buffer更强的控制力：我们可以自定义Comparator给它，告诉它怎么判定它的成员的先后顺序，优先级最高的最先走。
+            此外还有执行类型检查的TypedBuffer、或者不可改变的UnmodifiableBuffer等等 Map 在java.util.Map的基础上扩展的接口和类。
+            BidiMap，直译就是双向Map，可以通过key找到value，也可以通过value找到key，这在我们日常的代码-名称匹配的时候很方便：因为我们除了需要通过代码找到名称之外，
+            往往也需要处理用户输入的名称，然后获取其代码。需要注意的是BidiMap当中不光key不能重复，value也不可以。MultiMap，就是说一个key不在是简单的指向一个对象，
+            而是一组对象，add()和remove()的时候跟普通的Map无异，只是在get()时返回一个Collection，利用MultiMap，我们就可以很方便的往一个key上放数量不定的对象，
+            也就实现了一对多。LazyMap，意思就是这个Map中的键/值对一开始并不存在，当被调用到时才创建。 Collection 用也各collection之间的类型转换。
+            典型的是TypedCollection，它实际上的作用就是提供一个decorate方法，我们传进去一个Collection和需要的类型甄别信息java.lang.Class，
+            它给我们创建一个全新的强类型的Collection。（暂无样例代码，以后补充） Comparator 提供了一些Comparator的实现类（ 都在org.apache.commons.collections.comparators包下面）BooleanComparator
+            – 用于排序一组Boolean对象， 指明先true还是先false；ComparableComparator – 用于排序实现了java.lang.Comparable接口的对象（
+            我们常用的Java类如String、Integer、Date、Double、File、Character等等都实现了Comparable接口）；
+            ComparatorChain – 定义一组Comparator链，链中的Comparator对象会被依次执行； FixedOrderComparator
+            – 用于定义一个特殊的顺序，对一组对象按照这样的自定义顺序进行排序； NullComparator – 让null值也可参与比较，可以设定为先null或者后null；
+            ReverseComparator – 将原有的Comparator效果反转；TransformingComparator – 将一个Comparator装饰为具有Transformer效果的Comparator。
+            Predicate 它以一个Object对象为参数，处理后返回一个boolean值，检验某个对象是否满足某个条件。 Commons Collections也提供了一组定义好的Predicate类供我们使用，这些类都放在org.apache.commons.collections.functors包中。
+            当然，我们也可以自定义Predicate，只要实现这个Predicate接口即可。 Transformer 我们有时候需要将某个对象转换成另一个对象供另一组方法调用，而这两类对象的类型有可能并不是出于同一个继承体系的，
+            或者说出了很基本的Object之外没有共同的父类，或者我们根本不关心他们是不是有其他继承关系，甚至就是同一个类的实例只是对我们而言无所谓， 我们为了它能够被后续的调用者有意义的识别和处理，在这样的情形，我们就可以利用Transformer。除了基本的转型Transformer之外，
+            Commons Collections还提供了Transformer链和带条件的Transformer，使得我们很方便的组装出有意义的转型逻辑。
+            Closure 这一组接口和类提供一个操作对象的execute方法，为我们在处理一系列对象时可以将处理逻辑分离出来。 ChainedClosure可以包装一组Closure作为整体执行；IfClosure在创建时需要提供给它一个Predicate和两个Closure，
+            执行时先做Predicate判定再决定执行哪一个Closure；SwitchClosure跟SwitchTransformer类似，根据创建时传入的Predicate组和Closure组对应执行；
+            WhileClosure则根据创建时传入的Predicate做判断，如果为true则执行Closure，直到Predicate返回false；等等。
+            Iterator java.util.Iterator接口定义了标准的Collection遍历方法，但是如果不做改变的使用它，我们得到的是从头到尾一次性的遍历。
+            假如我们需要循环遍历，假如我们需要遍历某一段，假如我们需要遍历满足某些条件的元素，等等等等，我们就不能完全依赖于这个Iterator的标准实现了。
+            除非我们宁可在此基础上在调用的代码中多加一些判断，不过这样的话代码就会显得混乱，时间长了就容易变得难以维护。 Commons Collections的这一组Iterator为我们带来了便利。 -->
+        <!-- <dependency> <groupId>com.google.collections</groupId> <artifactId>google-collections</artifactId>
+            <version>1.0</version> </dependency> -->
+        <!-- 提到了服务端通进行网络请求的方式。也讲述了在并发量大的情况下使用HttpClient的连接池来提高性能。此方法虽然很有效果， 但是当访问量极大或网络不好的情况下也会出现某些网络请求慢导致其它请求阻塞的情况，为此本文引入了异步的HttpClient包，将网络请求变成一个异步的请求，不影响其它的请求 -->
+        <!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpasyncclient</artifactId>
+            <version>4.1.3</version> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId> <version>4.4.1</version> </dependency>
+            <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId>
+            <version>4.4.1</version> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient-cache</artifactId> <version>4.3.4</version> </dependency>
+            <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpcore-nio</artifactId>
+            <version>4.4.1</version> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId> <version>4.5.2</version> </dependency>
+            <dependency> <groupId>org.hamcrest</groupId> <artifactId>hamcrest-core</artifactId>
+            <version>1.1</version> </dependency> -->
+
+        <!-- jackson是将普通数据与json数据互转的。 annotations是注解的意思。 springmvc框架整合AJAX使用@ResponseBody需要此包 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-lgpl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <!-- Jetty Http服务器jar -->
+        <!-- <dependency> <groupId>org.mortbay.jetty</groupId> <artifactId>jetty</artifactId>
+            <version>6.1.19</version> </dependency> <dependency> <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty-util</artifactId> <version>6.1.19</version> </dependency> -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
+        <!-- <dependency> <groupId>net.sf.json-lib</groupId> <artifactId>json-lib</artifactId>
+            <version>2.4</version> <classifier>jdk15</classifier> </dependency> -->
+
+        <!-- Sql解析工具 -->
+        <!-- <dependency> <groupId>com.github.jsqlparser</groupId> <artifactId>jsqlparser</artifactId>
+            <version>0.9.5</version> </dependency> -->
+        <!-- 标准的 JAVA 事务处理接口 -->
+        <dependency>
+            <groupId>javax.transaction</groupId>
+            <artifactId>jta</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <!-- 日志 slf4j 依赖包 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <!-- 邮件 -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <!-- mapapi_base-3.6.1 mapapi_util-3.6.1 mapapo_android-23 -->
+        <!-- nio框架 -->
+        <!-- <dependency> <groupId>org.apache.mina</groupId> <artifactId>mina-core</artifactId>
+            <version>2.0.4</version> </dependency> -->
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.25</version>
+        </dependency>
+        <!-- ojdbc14-10.2.0.1.0 -->
+        <!-- OKHttp是一款高效的HTTP客户端，支持连接同一地址的链接共享同一个socket，通过连接池来减小响应延迟，还有透明的GZIP压缩，请求缓存等优势。
+            Android为我们提供了两种HTTP交互的方式：HttpURLConnection 和 Apache HTTP Client -->
+        <!-- <dependency> <groupId>com.squareup.okhttp</groupId> <artifactId>okhttp</artifactId>
+            <version>2.7.5</version> </dependency> <dependency> <groupId>com.squareup.okio</groupId>
+            <artifactId>okio</artifactId> <version>1.6.0</version> </dependency> -->
+        <!-- org.aspectj.matcher -->
+        <!-- 一套文本处理工具，提供per15.0兼容的表达式，AWK-like表达式，Glob表达式 -->
+        <!-- <dependency> <groupId>oro</groupId> <artifactId>oro</artifactId> <version>2.0.8</version>
+            </dependency> -->
+        <!-- Mybatis分页插件PageHelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.2.1</version>
+        </dependency>
+        <!-- 操作exce所需jar包 -->
+        <!-- <dependency> <groupId>org.apache.poi</groupId> <artifactId>poi</artifactId>
+            <version>3.9</version> </dependency> <dependency> <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId> <version>3.9</version> </dependency> <dependency>
+            <groupId>org.apache.poi</groupId> <artifactId>poi-ooxml-schemas</artifactId>
+            <version>3.9</version> </dependency> <dependency> <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId> <version>3.0.0</version> </dependency> -->
+        <!-- 开源作业调度框架 -->
+        <!-- <dependency> <groupId>org.quartz-scheduler</groupId> <artifactId>quartz</artifactId>
+            <version>1.8.5</version> </dependency> -->
+        <!-- 使用axis所需的jar -->
+        <!-- <dependency> <groupId>javax.xml.soap</groupId> <artifactId>saaj-api</artifactId>
+            <version>1.3</version> </dependency> -->
+        <!-- 使用axis所需的jar -->
+        <!-- <dependency> <groupId>com.sun.xml.messaging.saaj</groupId> <artifactId>saaj-impl</artifactId>
+            <version>1.3.23</version> </dependency> -->
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>3.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc-portlet</artifactId>
+            <version>4.0.7.RELEASE</version>
+        </dependency>
+
+        <!-- sslext-1.2-0 -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- 图片进行编辑的Java工具类, 可以通过简单的代码对图片进行任意比例缩放, 旋转, 剪切等 -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+        <!-- 用于通过从request请求中的User-Agent中获取客户端浏览器类型、客户端操作系统、ip地址等信息 -->
+        <dependency>
+            <groupId>nl.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.2.4</version>
+        </dependency>
+        <!-- 一个免费的开源模板框架 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-tools</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-sts</artifactId>
+            <version>2.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.mns</groupId>
+            <artifactId>aliyun-sdk-mns</artifactId>
+            <version>1.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>alicom-mns</groupId>
+            <artifactId>receive-sdk</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>aliyun-java-sdk</groupId>
+            <artifactId>dybaseapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>aliyun-java-sdk</groupId>
+            <artifactId>dyvmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>matcher</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j -->
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <!-- 编译不出错，但执行启动出错，具体哪里依赖，暂未知 -->
+        <dependency>
+            <groupId>se.jiderhamn.classloader-leak-prevention</groupId>
+            <artifactId>classloader-leak-prevention-servlet</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <!-- 文字转语音或朗读工具类 把dll文件放在%JAVA_HOME%\bin下（注意系统是32位还是64位），也可以放在C:\Windows\System32下，如果是64位应该放在C:\Windows\SysWOW64
+            下 -->
+        <dependency>
+            <groupId>com.hynnet</groupId>
+            <artifactId>jacob</artifactId>
+            <version>1.18</version>
+        </dependency>
+        <!-- socket通信jar spring websocket jar -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>4.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>4.0.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--jwt工具包 -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <!-- 生成条形码 -->
+        <dependency>
+            <groupId>javax.media</groupId>
+            <artifactId>jbarcode</artifactId>
+            <version>0.2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <!-- 图片进行编辑的Java工具类, 可以通过简单的代码对图片进行任意比例缩放, 旋转, 剪切等 -->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+        <!-- 生成二维码 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!-- 使用lingpipe自然语言处理包 -->
+        <!--<dependency>-->
+            <!--<groupId>de.julielab</groupId>-->
+            <!--<artifactId>aliasi-lingpipe</artifactId>-->
+            <!--<version>4.1.0</version>-->
+        <!--</dependency>-->
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>develop</id>
+            <name>develop</name>
+            <url>http://106.14.221.181:9081/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+</project>

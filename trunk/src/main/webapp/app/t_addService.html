@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_addService.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>客户运营云-添加辅助功能</title>
+</head>
+<body>
+    <div class="assList">
+
+    </div>
+
+
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="js/tips.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+    <script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+    <script type="text/javascript">
+        /**
+         * 可开通的主题列表
+         */
+        $(function() {
+            updatecom("/wo/run/searchlist/getAbleTaskList", {ptype:getCookie("ptype")}, function (response) {
+                if (response.error_code == 10000) {
+                    var list = response.data;
+                    console.log(response.data);
+                    for(var i=0;i<list.length;i++){
+                        var showtitle = list[i].showtitle;
+                        var uiid = list[i].uiid;
+                        var csiuiid = list[i].csiuiid;
+                        $(".assList").append("<div class=\"replyInfo\">\n" +
+                            "            <div class=\"replyCon\">"+showtitle+"</div>\n" +
+                            "            <div class=\"delete\" onclick=\"addSer('"+uiid+"','"+csiuiid+"')\">添加</div>\n" +
+                            "        </div>");
+                    }
+                }else{
+                    tip(response.error);
+                }
+            });
+        });
+
+        var adduiid = "";
+        var csuiid = "";
+
+        /**
+         * 添加服务
+         */
+        function addSer(uiid,csiuiid) {
+            adduiid = uiid;
+            csuiid = csiuiid;
+            confirmLike("确定添加吗？");
+        }
+
+        /**
+         * 提示框确认函数
+         */
+        function ok() {
+            var cuiuiid = getCookie("uiid");
+                updatecom("/userRefSubject/save", {csiuiid:csuiid,catuiid:adduiid,cuiuiid:getCookie("uiid")}, function (response) {
+                    if (response.error_code == 10000) {
+                        window.location.href = "t_index.html";
+                    }else{
+                        tip(response.error);
+                    }
+                });
+        }
+
+    </script>
+</body>
+</html>

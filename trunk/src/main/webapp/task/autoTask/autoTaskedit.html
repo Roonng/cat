@@ -1,0 +1,89 @@
+<!DOCTYPE html><!--[if IE 8]> <html lang="en" class="ie8"> <![endif]--><!--[if IE 9]> <html lang="en" class="ie9"> <![endif]--><!--[if !IE]><!--><html lang="ch"><!--<![endif]--><!-- BEGIN HEAD --><head><meta charset="utf-8" /><title>自动化业务管理edithtml数据维护</title><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="1564389582135820" name="wssuiid" /><meta content="" name="description" /><meta content="" name="author" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-responsive.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/font-awesome.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-responsive.css" /><link rel="stylesheet" type="text/css" href="../../media/css/default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/uniform.default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-fileupload.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.gritter.css" /><link rel="stylesheet" type="text/css" href="../../media/css/chosen.css" /><link rel="stylesheet" type="text/css" href="../../media/css/select2.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.tagsinput.css" /><link rel="stylesheet" type="text/css" href="../../media/css/clockface.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-wysihtml5.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/timepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/colorpicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-toggle-buttons.css" /><link rel="stylesheet" type="text/css" href="../../media/css/daterangepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datetimepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/multi-select-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-modal.css" /><link rel="stylesheet" type="text/css" href="../../media/css/fileinput.css" /></head><body class="page-header-fixed">	<div class="page-container row-fluid" style="margin-top:0px;">		<div class="page-content" style="margin-left:0px;">			<div id="portlet-config" class="modal hide">				<div class="modal-header">					<button data-dismiss="modal" class="close" type="button"></button>					<h3>属性自定义</h3>				</div>				<div class="modal-body">					<p>这里设置属性的显示项目及显示次序</p>				</div>			</div>			<div class="container-fluid">				<div class="row-fluid">					<div class="span12">						<ul class="breadcrumb">							<li><i class="icon-home"></i> <a href="/index.html">首页</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">自动化业务管理edithtml数据维护</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">数据编辑</a></li>						</ul>					</div>				</div>				<div class="row-fluid">					<div class="span12">						<div class="tabbable tabbable-custom boxless">							<div class="tab-content">								<div class="tab-pane active" id="tab_1">									<div class="portlet box blue">										<div class="portlet-title">											<div class="caption">												<i class="icon-reorder"></i>自动化业务管理edithtml数据维护											</div>											<div class="tools">												<!-- <a href="javascript:;" class="collapse"></a> --> 												<a href="#portlet-config" data-toggle="modal" class="config"></a> 												<a href="javascript:;" class="reload"></a>											</div>										</div>										<div class="portlet-body form">										<form id="catdataform" name="catdataform" action="" class="form-horizontal" style="margin: 0px;">
+				<div class="row clearfix row-fluid">
+					<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group" wsfid="ptype">
+	<label class="control-label">产品编码</label>
+	<div class="controls">
+		<select id="ptype" name="ptype" multiple="multiple" class="span12 m-wrap" placeholder="请选择产品编码" tabindex="1"       wsfinputuiid="code"  wsfshowuiid="name"          >
+		</select><span id="ptypehelpinline" class="help-inline"></span><p id="ptypehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="csiuiid">
+	<label class="control-label">软件名称<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="csiuiid" name="csiuiid" class="span12 chosen" data-placeholder="请选择软件名称" tabindex="1" placeholder="请选择软件名称"  wsfnotnull="notnull" onchange="woformvalidate('cat',this)"     wsfinputuiid="uiid"  wsfshowuiid="title"          >
+		</select><span id="csiuiidhelpinline" class="help-inline"></span><p id="csiuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="cstuiid">
+	<label class="control-label">业务名称<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="cstuiid" name="cstuiid" class="span12 chosen" data-placeholder="请选择业务名称" tabindex="1" placeholder="请选择业务名称"  wsfnotnull="notnull" onchange="woformvalidate('cat',this)"     wsfinputuiid="uiid"  wsfshowuiid="title"          >
+		</select><span id="cstuiidhelpinline" class="help-inline"></span><p id="cstuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="title">
+	<label class="control-label">业务标题<span style="color:red;">*</span></label>
+	<div class="controls">
+		<input id="title" name="title" type="text" placeholder="请输入业务标题" value="" class="span12 m-wrap" wsfnotnull="notnull" onblur="woformvalidate('cat',this)"                  /><span id="titlehelpinline" class="help-inline"></span><p id="titlehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="showtitle">
+	<label class="control-label">显示标题<span style="color:red;">*</span></label>
+	<div class="controls">
+		<input id="showtitle" name="showtitle" type="text" placeholder="请输入显示标题" value="" class="span12 m-wrap" wsfnotnull="notnull" onblur="woformvalidate('cat',this)"                  /><span id="showtitlehelpinline" class="help-inline"></span><p id="showtitlehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="maxcount">
+	<label class="control-label">最多操作数</label>
+	<div class="controls">
+		<input id="maxcount" name="maxcount" type="number" placeholder="最多操作数" value="" class="span12 m-wrap"                    /><span id="maxcounthelpinline" class="help-inline"></span><p id="maxcounthelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ifcache">
+	<label class="control-label">离线缓存回复信息<span style="color:red;">*</span></label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="ifcache0" name="ifcache" value="0" /> 不缓存</label><label class="radio"><input type="radio" id="ifcache1" name="ifcache" value="1" /> 缓存</label><span id="ifcachehelpinline" class="help-inline"></span><p id="ifcachehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="extparam">
+	<label class="control-label">扩展参数信息</label>
+	<div class="controls">
+		<textarea id="extparam" name="extparam" class="span12 m-wrap" rows="3" placeholder="扩展参数信息，JSON格式配置需要的参数"                   ></textarea><span id="extparamhelpinline" class="help-inline"></span><p id="extparamhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="marprice">
+	<label class="control-label">市场价</label>
+	<div class="controls">
+		<div class="input-prepend input-append">
+			<span class="add-on">$</span><input id="marprice" name="marprice" class="m-wrap " type="number" value="0.00" placeholder="市场价"                    />
+		</div>
+<span id="marpricehelpinline" class="help-inline"></span><p id="marpricehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="actprice">
+	<label class="control-label">活动价</label>
+	<div class="controls">
+		<div class="input-prepend input-append">
+			<span class="add-on">$</span><input id="actprice" name="actprice" class="m-wrap " type="number" value="0.00" placeholder="活动价"                    />
+		</div>
+<span id="actpricehelpinline" class="help-inline"></span><p id="actpricehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="state">
+	<label class="control-label">状态<span style="color:red;">*</span></label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="state0" name="state" value="0" /> 草稿</label><label class="radio"><input type="radio" id="state1" name="state" value="1" /> 有效</label><label class="radio"><input type="radio" id="state2" name="state" value="2" /> 无效</label><span id="statehelpinline" class="help-inline"></span><p id="statehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="targetuser">
+	<label class="control-label">客户群体</label>
+	<div class="controls">
+		<input id="targetuser" name="targetuser" type="text" placeholder="请输入客户群体" value="" class="span12 m-wrap"                    /><span id="targetuserhelpinline" class="help-inline"></span><p id="targetuserhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="taskvalue">
+	<label class="control-label">业务价值</label>
+	<div class="controls">
+		<input id="taskvalue" name="taskvalue" type="text" placeholder="请输入业务价值" value="" class="span12 m-wrap"                    /><span id="taskvaluehelpinline" class="help-inline"></span><p id="taskvaluehelpblock" class="help-block"></p>
+	</div>
+</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><p>
+	<a id="catsumbitbutton" href="javscript:;" class="btn blue btn-block" type="sumbit">提交 <i class="m-icon-swapright m-icon-white"></i> </a>
+</p></div>
+			</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group">
+	<div class="controls">
+		<input id="uiid" name="uiid" value="" type="hidden"/>
+	</div>
+</div></div>
+			</div></div>
+				</div>
+			</form>										</div>									</div>								</div>							</div>						</div>					</div>				</div>			</div>		</div>	</div>	<script type="text/javascript" src="../../media/js/jquery-1.10.1.min.js"></script>	<script type="text/javascript" src="../../js/develop.js"></script>	<script type="text/javascript" src="../../media/js/jquery-migrate-1.2.1.min.js"></script>	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->	<script type="text/javascript" src="../../media/js/jquery-ui-1.10.1.custom.min.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap.min.js"></script>	<!--[if lt IE 9]>	<script src="media/js/excanvas.min.js"></script>	<script src="media/js/respond.min.js"></script>  	<![endif]-->	<script type="text/javascript" src="../../media/js/jquery.slimscroll.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.blockui.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.cookie.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.uniform.min.js"></script>	<script type="text/javascript" src="../../media/js/ckeditor.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-fileupload.js"></script>	<script type="text/javascript" src="../../media/js/chosen.jquery.min.js"></script>	<script type="text/javascript" src="../../media/js/select2.min.js"></script>	<script type="text/javascript" src="../../media/js/wysihtml5-0.3.0.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-wysihtml5.js"></script>	<script type="text/javascript" src="../../media/js/jquery.tagsinput.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.toggle.buttons.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datetimepicker.js"></script>	<script type="text/javascript" src="../../media/js/clockface.js"></script>	<script type="text/javascript" src="../../media/js/date.js"></script>	<script type="text/javascript" src="../../media/js/daterangepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-colorpicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-timepicker.js"></script>	<script type="text/javascript" src="../../media/js/jquery.inputmask.bundle.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.input-ip-address-control-1.0.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.multi-select.js"></script>	<script type="text/javascript" src="../../media/js/sortable.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modal.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modalmanager.js"></script>	<script type="text/javascript" src="../../media/js/fileinput.js"></script>	<script type="text/javascript" src="../../media/js/fileinput_locale_zh.js"></script>	<script type="text/javascript" src="../../media/js/app.js"></script>	<!-- <script src="../media/js/form-samples.js"></script> -->	<script type="text/javascript" src="../../media/js/form-components.js"></script>	<script type="text/javascript" src="../../../js/ajaxfileupload.js"></script>	<script type="text/javascript" src="../../js/fileinputextend.js"></script>	<script type="text/javascript" src="autoTaskedit.js"></script>		<script>		jQuery(document).ready(function() {			App.init();			FormComponents.init();		});	</script></body></html>

@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IAProductReleaseDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.AProductReleaseVO">
+		
+		<id column="capr_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 产品主键 -->
+		<result column="ref_capuiid" property="capuiid" jdbcType="VARCHAR" />  <!-- 产品名称，关联产品主键 -->
+		<result column="ref_cuiuiid" property="cuiuiid" jdbcType="VARCHAR" />  <!-- 发布人，关联用户主键 -->
+		<result column="capr_releasetime" property="releasetime" jdbcType="TIMESTAMP" />  <!-- 发布时间 -->
+		<result column="capr_state" property="state" jdbcType="CHAR" />  <!-- 发布状态，1已发布0待发布 -->
+		<result column="capr_activitytime" property="activitytime" jdbcType="TIMESTAMP" />  <!-- 生效时间 -->
+		<result column="capr_downurl" property="downurl" jdbcType="VARCHAR" />  <!-- 安装包 -->
+		<result column="capr_ver" property="ver" jdbcType="INTEGER" />  <!-- 版本号，数字 -->
+		<result column="capr_version" property="version" jdbcType="VARCHAR" />  <!-- 版本号，字符串 -->
+		<result column="capr_ptype" property="ptype" jdbcType="CHAR" />  <!-- 类别，1生成包0测试包 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		capr_uiid ,
+		ref_capuiid ,
+		ref_cuiuiid ,
+		capr_releasetime ,
+		capr_state ,
+		capr_activitytime ,
+		capr_downurl ,
+		capr_ver ,
+		capr_version ,
+		capr_ptype 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		insert into com_a_product_release
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				capr_uiid ,
+			</if>
+			<if test="capuiid != null">
+				ref_capuiid ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid ,
+			</if>
+			<if test="releasetime != null">
+				capr_releasetime ,
+			</if>
+			<if test="state != null">
+				capr_state ,
+			</if>
+			<if test="activitytime != null">
+				capr_activitytime ,
+			</if>
+			<if test="downurl != null">
+				capr_downurl ,
+			</if>
+			<if test="ver != null">
+				capr_ver ,
+			</if>
+			<if test="version != null">
+				capr_version ,
+			</if>
+			<if test="ptype != null">
+				capr_ptype 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="capuiid != null">
+				#{capuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				#{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="releasetime != null">
+				#{releasetime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="activitytime != null">
+				#{activitytime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="downurl != null">
+				#{downurl,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ver != null">
+				#{ver,jdbcType=INTEGER} ,
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ptype != null">
+				#{ptype,jdbcType=CHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		insert into com_a_product_release
+		(
+			capr_uiid ,
+			ref_capuiid ,
+			ref_cuiuiid ,
+			capr_releasetime ,
+			capr_state ,
+			capr_activitytime ,
+			capr_downurl ,
+			capr_ver ,
+			capr_version ,
+			capr_ptype 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.capuiid} ,
+			#{item.cuiuiid} ,
+			#{item.releasetime} ,
+			#{item.state} ,
+			#{item.activitytime} ,
+			#{item.downurl} ,
+			#{item.ver} ,
+			#{item.version} ,
+			#{item.ptype} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		update com_a_product_release
+		<set>
+			<if test="capuiid != null">
+				ref_capuiid = #{capuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="releasetime != null">
+				capr_releasetime = #{releasetime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="state != null">
+				capr_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="activitytime != null">
+				capr_activitytime = #{activitytime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="downurl != null">
+				capr_downurl = #{downurl,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ver != null">
+				capr_ver = #{ver,jdbcType=INTEGER} ,
+			</if>
+			<if test="version != null">
+				capr_version = #{version,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ptype != null">
+				capr_ptype = #{ptype,jdbcType=CHAR} 
+			</if>
+		</set>
+		where capr_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_a_product_release
+			<set>
+				<if test="item.capuiid != null">
+					ref_capuiid = #{item.capuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.releasetime != null">
+					capr_releasetime = #{item.releasetime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.state != null">
+					capr_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.activitytime != null">
+					capr_activitytime = #{item.activitytime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.downurl != null">
+					capr_downurl = #{item.downurl,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ver != null">
+					capr_ver = #{item.ver,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.version != null">
+					capr_version = #{item.version,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ptype != null">
+					capr_ptype = #{item.ptype,jdbcType=CHAR} 
+				</if>
+			</set>
+			where capr_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_a_product_release
+			<set>
+				<if test="item.capuiid != null">
+					ref_capuiid = #{item.capuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.releasetime != null">
+					capr_releasetime = #{item.releasetime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.state != null">
+					capr_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.activitytime != null">
+					capr_activitytime = #{item.activitytime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.downurl != null">
+					capr_downurl = #{item.downurl,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ver != null">
+					capr_ver = #{item.ver,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.version != null">
+					capr_version = #{item.version,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.ptype != null">
+					capr_ptype = #{item.ptype,jdbcType=CHAR} 
+				</if>
+			</set>
+			where capr_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from com_a_product_release
+		where capr_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		delete from com_a_product_release
+		where 1=1 
+			<if test="uiid != null">
+				and capr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="capuiid != null">
+				and ref_capuiid = #{capuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="releasetime != null">
+				and capr_releasetime = #{releasetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null">
+				and capr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="activitytime != null">
+				and capr_activitytime = #{activitytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="downurl != null">
+				and capr_downurl = #{downurl,jdbcType=VARCHAR}
+			</if>
+			<if test="ver != null">
+				and capr_ver = #{ver,jdbcType=INTEGER}
+			</if>
+			<if test="version != null">
+				and capr_version = #{version,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null">
+				and capr_ptype = #{ptype,jdbcType=CHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from com_a_product_release
+		where capr_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from com_a_product_release
+		where 1=1 
+			<if test="uiid != null">
+				and capr_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="capuiid != null">
+				and ref_capuiid in 
+				<foreach collection="capuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="releasetime != null">
+				and capr_releasetime in 
+				<foreach collection="releasetime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and capr_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="activitytime != null">
+				and capr_activitytime in 
+				<foreach collection="activitytime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="downurl != null">
+				and capr_downurl in 
+				<foreach collection="downurl" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ver != null">
+				and capr_ver in 
+				<foreach collection="ver" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="version != null">
+				and capr_version in 
+				<foreach collection="version" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null">
+				and capr_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from com_a_product_release where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_a_product_release
+		where capr_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_a_product_release
+		where capr_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from com_a_product_release
+		where capr_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by
+				capr_releasetime asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select * from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid in 
+				<foreach collection="capuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime in 
+				<foreach collection="releasetime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime in 
+				<foreach collection="activitytime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl in 
+				<foreach collection="downurl" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver in 
+				<foreach collection="ver" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version in 
+				<foreach collection="version" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select * from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid = #{capuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime = #{releasetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime = #{activitytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl = #{downurl,jdbcType=VARCHAR}
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver = #{ver,jdbcType=INTEGER}
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version = #{version,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype = #{ptype,jdbcType=CHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select count(*) from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid like CONCAT('%',#{capuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime like CONCAT('%',#{releasetime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime like CONCAT('%',#{activitytime},'%' )
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl like CONCAT('%',#{downurl},'%' )
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver like CONCAT('%',#{ver},'%' )
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version like CONCAT('%',#{version},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select * from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid = #{capuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime = #{releasetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime = #{activitytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl = #{downurl,jdbcType=VARCHAR}
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver = #{ver,jdbcType=INTEGER}
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version = #{version,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype = #{ptype,jdbcType=CHAR}
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select * from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid like CONCAT('%',#{capuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime like CONCAT('%',#{releasetime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime like CONCAT('%',#{activitytime},'%' )
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl like CONCAT('%',#{downurl},'%' )
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver like CONCAT('%',#{ver},'%' )
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version like CONCAT('%',#{version},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		select * from com_a_product_release
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or capr_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				or ref_capuiid like CONCAT('%',#{capuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				or ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				or capr_releasetime like CONCAT('%',#{releasetime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or capr_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				or capr_activitytime like CONCAT('%',#{activitytime},'%' )
+			</if>
+			<if test="downurl != null and downurl != ''">
+				or capr_downurl like CONCAT('%',#{downurl},'%' )
+			</if>
+			<if test="ver != null and ver != ''">
+				or capr_ver like CONCAT('%',#{ver},'%' )
+			</if>
+			<if test="version != null and version != ''">
+				or capr_version like CONCAT('%',#{version},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				or capr_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		 select com_a_product_release.capr_uiid as uiid,com_a_product_release.ref_capuiid as capuiid, (select GROUP_CONCAT( rt1.cap_name) from com_auto_product rt1 where FIND_IN_SET( rt1.cap_uiid ,com_a_product_release.ref_capuiid) )  as capuiidname, (select GROUP_CONCAT( rt1.cap_code) from com_auto_product rt1 where FIND_IN_SET( rt1.cap_uiid ,com_a_product_release.ref_capuiid) )  as capuiidcode,com_a_product_release.ref_cuiuiid as cuiuiid, (select GROUP_CONCAT( rt2.cui_name) from con_user_info rt2 where FIND_IN_SET( rt2.cui_uiid ,com_a_product_release.ref_cuiuiid) )  as cuiuiidname, (select GROUP_CONCAT( rt2.cui_mobile) from con_user_info rt2 where FIND_IN_SET( rt2.cui_uiid ,com_a_product_release.ref_cuiuiid) )  as cuiuiidmobile,com_a_product_release.capr_releasetime as releasetime,com_a_product_release.capr_state as state,com_a_product_release.capr_activitytime as activitytime,com_a_product_release.capr_downurl as downurl,com_a_product_release.capr_ver as ver,com_a_product_release.capr_version as version,com_a_product_release.capr_ptype as ptype from com_a_product_release
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid = #{capuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime = #{releasetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime = #{activitytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl = #{downurl,jdbcType=VARCHAR}
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver = #{ver,jdbcType=INTEGER}
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version = #{version,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype = #{ptype,jdbcType=CHAR}
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.AProductReleaseVO">
+		 select com_a_product_release.capr_uiid as uiid,com_a_product_release.ref_capuiid as capuiid,com_a_product_release.ref_capuiid as capuiidrefid,com_auto_productref_capuiid.cap_name,cap_code as capuiidrefview,com_a_product_release.ref_cuiuiid as cuiuiid,com_a_product_release.ref_cuiuiid as cuiuiidrefid,con_user_inforef_cuiuiid.cui_name,cui_mobile as cuiuiidrefview,com_a_product_release.capr_releasetime as releasetime,com_a_product_release.capr_state as state,com_a_product_release.capr_activitytime as activitytime,com_a_product_release.capr_downurl as downurl,com_a_product_release.capr_ver as ver,com_a_product_release.capr_version as version,com_a_product_release.capr_ptype as ptype from com_a_product_release left outer join com_auto_product com_auto_productref_capuiid on com_auto_productref_capuiid.cap_uiid = com_a_product_release.ref_capuiid left outer join con_user_info con_user_inforef_cuiuiid on con_user_inforef_cuiuiid.cui_uiid = com_a_product_release.ref_cuiuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and capr_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="capuiid != null and capuiid != ''">
+				and ref_capuiid = #{capuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="releasetime != null and releasetime != ''">
+				and capr_releasetime = #{releasetime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and capr_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="activitytime != null and activitytime != ''">
+				and capr_activitytime = #{activitytime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="downurl != null and downurl != ''">
+				and capr_downurl = #{downurl,jdbcType=VARCHAR}
+			</if>
+			<if test="ver != null and ver != ''">
+				and capr_ver = #{ver,jdbcType=INTEGER}
+			</if>
+			<if test="version != null and version != ''">
+				and capr_version = #{version,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and capr_ptype = #{ptype,jdbcType=CHAR}
+			</if>
+			order by
+				capr_releasetime asc
+	</select>
+
+</mapper>

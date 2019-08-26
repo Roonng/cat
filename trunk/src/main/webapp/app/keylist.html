@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/keylist.css"/>
+<head>
+    <meta charset="UTF-8">
+    <title>授权密钥清单</title>
+</head>
+<body>
+<div class="search">
+
+    <div class="condition">
+        <input type="text" class="mark" onblur="search()" placeholder="请输入备注关键词"/>
+        <input type="text" id="start" class="start" onblur="search()" placeholder="选择开始日期"/>
+        <input type="text" id="end" class="end" onblur="search()" placeholder="选择结束日期"/>
+
+    </div>
+</div>
+<div id="keylist"></div>
+<div id="paging">
+    <div class="con"></div>
+
+</div>
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/laydate/laydate.js"></script>
+<script type="text/javascript" src="js/laypage/laypage.js"></script>
+<script type="text/javascript" src="../media/js/md5.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        });
+    })
+
+
+
+
+    //搜索-模糊查询
+    function search(pageNum) {
+        pageNum = pageNum || 1;
+        var searchObj = {};
+        var remark = $(".mark").val();
+        var starttime = $(".start").val();
+        var endtime = $(".end").val();
+        searchObj.dhuuiid = getCookie("uiid");
+        if (remark) {
+            searchObj.remark = remark;
+        }
+        if (starttime) {
+            searchObj.starttime = starttime;
+        }
+        if (endtime) {
+            searchObj.endtime = endtime;
+        }
+        searchObj.pageNum = pageNum;
+        searchObj.pageSize = 8;
+        console.log(searchObj);
+        //好像很实用的样子，后端的同学再也不用写分页逻辑了。
+
+        updatecom("/helperCode/tolistdata", searchObj, function (response) {
+            console.log(response)
+            if (response.error_code == 10000) {
+
+
+                var pageCount = response.data.navigatepageNums;
+                var pagen = pageNum;
+                $("#keylist").empty();
+                $(".con").empty();
+                for (var j = 0; j < pageCount.length; j++) {
+                    var k = j + 1;
+                    $(".con").append("<div class=\"pagenum\" id=\"page-" + k + "\" onclick=\"search(" + k + ")\">" + pageCount[j] + "</div>");
+                    if (pagen == k) {
+                        var pid = "#page-" + k
+                        $(pid).attr("style", "background:#8CDEC7");
+                    }
+                }
+
+                var list = response.data.list;
+                for (var i = 0; i < list.length; i++) {
+                    var remark = list[i].remark;
+                    var time = new Date(parseInt(list[i].starttime)).Format("yyyy-MM-dd");
+                    var key = list[i].keycon;
+                    $("#keylist").append("<div class=\"user\" onclick=\"info('" + remark + "','" + time + "','" + key + "')\">\n" +
+                        "        <div class=\"con\">\n" +
+                        "            <image class=\"img-head\" src=\"img/head.png\"></image>\n" +
+                        "            <div class=\"info\">\n" +
+                        "                <div class=\"remark\">" + remark + "</div>\n" +
+                        "            </div>\n" +
+                        "            <div class=\"time\">" + time + "</div>\n" +
+                        "        </div>\n" +
+                        "    </div>");
+                }
+                console.log(list)
+            }else{
+                tip(response.error);
+            }
+        });
+    }
+
+
+    laydate.render({
+        elem: '#start'
+    });
+    laydate.render({
+        elem: '#end'
+    });
+
+    function info(remark, time, key) {
+        setCookiech("remark", remark);
+        setCookiech("time", time);
+        setCookiech("key", key);
+        window.location.href = "keylist_info.html";
+    }
+
+    $(function () {
+        search();
+    });
+
+</script>
+</body>
+</html>

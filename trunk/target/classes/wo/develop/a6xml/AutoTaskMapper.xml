@@ -1,0 +1,1151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IAutoTaskDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.AutoTaskVO">
+		
+		<id column="cat_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 业务主键 -->
+		<result column="cat_ptype" property="ptype" jdbcType="VARCHAR" />  <!-- 产品编码 -->
+		<result column="ref_csiuiid" property="csiuiid" jdbcType="VARCHAR" />  <!-- 软件名称，关联软件主键 -->
+		<result column="ref_cstuiid" property="cstuiid" jdbcType="VARCHAR" />  <!-- 业务名称，关联软件业务主键 -->
+		<result column="cat_title" property="title" jdbcType="VARCHAR" />  <!-- 业务标题 -->
+		<result column="cat_showtitle" property="showtitle" jdbcType="VARCHAR" />  <!-- 显示标题 -->
+		<result column="cat_desp" property="desp" jdbcType="VARCHAR" />  <!-- 业务说明 -->
+		<result column="cat_conaccount" property="conaccount" jdbcType="VARCHAR" />  <!-- 联动账号设置，多个之间通过英文半角逗号分隔 -->
+		<result column="cat_maxcount" property="maxcount" jdbcType="INTEGER" />  <!-- 最多操作数 -->
+		<result column="cat_ifcache" property="ifcache" jdbcType="CHAR" />  <!-- 离线缓存回复信息，1缓存0不缓存，默认0 -->
+		<result column="cat_extparam" property="extparam" jdbcType="VARCHAR" />  <!-- 扩展参数信息，JSON格式配置需要的参数 -->
+		<result column="cat_marprice" property="marprice" jdbcType="DECIMAL" />  <!-- 市场价 -->
+		<result column="cat_actprice" property="actprice" jdbcType="DECIMAL" />  <!-- 活动价 -->
+		<result column="cat_state" property="state" jdbcType="CHAR" />  <!-- 状态，0草稿1有效2无效 -->
+		<result column="cat_targetuser" property="targetuser" jdbcType="VARCHAR" />  <!-- 客户群体 -->
+		<result column="cat_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="cat_taskvalue" property="taskvalue" jdbcType="VARCHAR" />  <!-- 业务价值 -->
+		<result column="cat_mardesp" property="mardesp" jdbcType="VARCHAR" />  <!-- 活动说明 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cat_uiid ,
+		cat_ptype ,
+		ref_csiuiid ,
+		ref_cstuiid ,
+		cat_title ,
+		cat_showtitle ,
+		cat_desp ,
+		cat_conaccount ,
+		cat_maxcount ,
+		cat_ifcache ,
+		cat_extparam ,
+		cat_marprice ,
+		cat_actprice ,
+		cat_state ,
+		cat_targetuser ,
+		cat_sort ,
+		cat_taskvalue ,
+		cat_mardesp 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.AutoTaskVO">
+		insert into com_auto_task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cat_uiid ,
+			</if>
+			<if test="ptype != null">
+				cat_ptype ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid ,
+			</if>
+			<if test="cstuiid != null">
+				ref_cstuiid ,
+			</if>
+			<if test="title != null">
+				cat_title ,
+			</if>
+			<if test="showtitle != null">
+				cat_showtitle ,
+			</if>
+			<if test="desp != null">
+				cat_desp ,
+			</if>
+			<if test="conaccount != null">
+				cat_conaccount ,
+			</if>
+			<if test="maxcount != null">
+				cat_maxcount ,
+			</if>
+			<if test="ifcache != null">
+				cat_ifcache ,
+			</if>
+			<if test="extparam != null">
+				cat_extparam ,
+			</if>
+			<if test="marprice != null">
+				cat_marprice ,
+			</if>
+			<if test="actprice != null">
+				cat_actprice ,
+			</if>
+			<if test="state != null">
+				cat_state ,
+			</if>
+			<if test="targetuser != null">
+				cat_targetuser ,
+			</if>
+			<if test="sort != null">
+				cat_sort ,
+			</if>
+			<if test="taskvalue != null">
+				cat_taskvalue ,
+			</if>
+			<if test="mardesp != null">
+				cat_mardesp 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ptype != null">
+				#{ptype,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				#{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cstuiid != null">
+				#{cstuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="showtitle != null">
+				#{showtitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				#{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="conaccount != null">
+				#{conaccount,jdbcType=VARCHAR} ,
+			</if>
+			<if test="maxcount != null">
+				#{maxcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="ifcache != null">
+				#{ifcache,jdbcType=CHAR} ,
+			</if>
+			<if test="extparam != null">
+				#{extparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="marprice != null">
+				#{marprice,jdbcType=DECIMAL} ,
+			</if>
+			<if test="actprice != null">
+				#{actprice,jdbcType=DECIMAL} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="targetuser != null">
+				#{targetuser,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="taskvalue != null">
+				#{taskvalue,jdbcType=VARCHAR} ,
+			</if>
+			<if test="mardesp != null">
+				#{mardesp,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.AutoTaskVO">
+		insert into com_auto_task
+		(
+			cat_uiid ,
+			cat_ptype ,
+			ref_csiuiid ,
+			ref_cstuiid ,
+			cat_title ,
+			cat_showtitle ,
+			cat_desp ,
+			cat_conaccount ,
+			cat_maxcount ,
+			cat_ifcache ,
+			cat_extparam ,
+			cat_marprice ,
+			cat_actprice ,
+			cat_state ,
+			cat_targetuser ,
+			cat_sort ,
+			cat_taskvalue ,
+			cat_mardesp 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.ptype} ,
+			#{item.csiuiid} ,
+			#{item.cstuiid} ,
+			#{item.title} ,
+			#{item.showtitle} ,
+			#{item.desp} ,
+			#{item.conaccount} ,
+			#{item.maxcount} ,
+			#{item.ifcache} ,
+			#{item.extparam} ,
+			#{item.marprice} ,
+			#{item.actprice} ,
+			#{item.state} ,
+			#{item.targetuser} ,
+			#{item.sort} ,
+			#{item.taskvalue} ,
+			#{item.mardesp} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.AutoTaskVO">
+		update com_auto_task
+		<set>
+			<if test="ptype != null">
+				cat_ptype = #{ptype,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid = #{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cstuiid != null">
+				ref_cstuiid = #{cstuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				cat_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="showtitle != null">
+				cat_showtitle = #{showtitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				cat_desp = #{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="conaccount != null">
+				cat_conaccount = #{conaccount,jdbcType=VARCHAR} ,
+			</if>
+			<if test="maxcount != null">
+				cat_maxcount = #{maxcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="ifcache != null">
+				cat_ifcache = #{ifcache,jdbcType=CHAR} ,
+			</if>
+			<if test="extparam != null">
+				cat_extparam = #{extparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="marprice != null">
+				cat_marprice = #{marprice,jdbcType=DECIMAL} ,
+			</if>
+			<if test="actprice != null">
+				cat_actprice = #{actprice,jdbcType=DECIMAL} ,
+			</if>
+			<if test="state != null">
+				cat_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="targetuser != null">
+				cat_targetuser = #{targetuser,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				cat_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="taskvalue != null">
+				cat_taskvalue = #{taskvalue,jdbcType=VARCHAR} ,
+			</if>
+			<if test="mardesp != null">
+				cat_mardesp = #{mardesp,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where cat_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_auto_task
+			<set>
+				<if test="item.ptype != null">
+					cat_ptype = #{item.ptype,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cstuiid != null">
+					ref_cstuiid = #{item.cstuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cat_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.showtitle != null">
+					cat_showtitle = #{item.showtitle,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cat_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.conaccount != null">
+					cat_conaccount = #{item.conaccount,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.maxcount != null">
+					cat_maxcount = #{item.maxcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.ifcache != null">
+					cat_ifcache = #{item.ifcache,jdbcType=CHAR} ,
+				</if>
+				<if test="item.extparam != null">
+					cat_extparam = #{item.extparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.marprice != null">
+					cat_marprice = #{item.marprice,jdbcType=DECIMAL} ,
+				</if>
+				<if test="item.actprice != null">
+					cat_actprice = #{item.actprice,jdbcType=DECIMAL} ,
+				</if>
+				<if test="item.state != null">
+					cat_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.targetuser != null">
+					cat_targetuser = #{item.targetuser,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cat_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.taskvalue != null">
+					cat_taskvalue = #{item.taskvalue,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.mardesp != null">
+					cat_mardesp = #{item.mardesp,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cat_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_auto_task
+			<set>
+				<if test="item.ptype != null">
+					cat_ptype = #{item.ptype,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cstuiid != null">
+					ref_cstuiid = #{item.cstuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cat_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.showtitle != null">
+					cat_showtitle = #{item.showtitle,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cat_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.conaccount != null">
+					cat_conaccount = #{item.conaccount,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.maxcount != null">
+					cat_maxcount = #{item.maxcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.ifcache != null">
+					cat_ifcache = #{item.ifcache,jdbcType=CHAR} ,
+				</if>
+				<if test="item.extparam != null">
+					cat_extparam = #{item.extparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.marprice != null">
+					cat_marprice = #{item.marprice,jdbcType=DECIMAL} ,
+				</if>
+				<if test="item.actprice != null">
+					cat_actprice = #{item.actprice,jdbcType=DECIMAL} ,
+				</if>
+				<if test="item.state != null">
+					cat_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.targetuser != null">
+					cat_targetuser = #{item.targetuser,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cat_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.taskvalue != null">
+					cat_taskvalue = #{item.taskvalue,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.mardesp != null">
+					cat_mardesp = #{item.mardesp,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cat_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from com_auto_task
+		where cat_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.AutoTaskVO">
+		delete from com_auto_task
+		where 1=1 
+			<if test="uiid != null">
+				and cat_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null">
+				and cat_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and cat_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null">
+				and cat_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null">
+				and cat_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="conaccount != null">
+				and cat_conaccount = #{conaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="maxcount != null">
+				and cat_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+			<if test="ifcache != null">
+				and cat_ifcache = #{ifcache,jdbcType=CHAR}
+			</if>
+			<if test="extparam != null">
+				and cat_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="marprice != null">
+				and cat_marprice = #{marprice,jdbcType=DECIMAL}
+			</if>
+			<if test="actprice != null">
+				and cat_actprice = #{actprice,jdbcType=DECIMAL}
+			</if>
+			<if test="state != null">
+				and cat_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="targetuser != null">
+				and cat_targetuser = #{targetuser,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null">
+				and cat_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="taskvalue != null">
+				and cat_taskvalue = #{taskvalue,jdbcType=VARCHAR}
+			</if>
+			<if test="mardesp != null">
+				and cat_mardesp = #{mardesp,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from com_auto_task
+		where cat_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from com_auto_task
+		where 1=1 
+			<if test="uiid != null">
+				and cat_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null">
+				and cat_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstuiid != null">
+				and ref_cstuiid in 
+				<foreach collection="cstuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and cat_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtitle != null">
+				and cat_showtitle in 
+				<foreach collection="showtitle" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null">
+				and cat_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="conaccount != null">
+				and cat_conaccount in 
+				<foreach collection="conaccount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxcount != null">
+				and cat_maxcount in 
+				<foreach collection="maxcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifcache != null">
+				and cat_ifcache in 
+				<foreach collection="ifcache" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extparam != null">
+				and cat_extparam in 
+				<foreach collection="extparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="marprice != null">
+				and cat_marprice in 
+				<foreach collection="marprice" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actprice != null">
+				and cat_actprice in 
+				<foreach collection="actprice" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and cat_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="targetuser != null">
+				and cat_targetuser in 
+				<foreach collection="targetuser" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and cat_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="taskvalue != null">
+				and cat_taskvalue in 
+				<foreach collection="taskvalue" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="mardesp != null">
+				and cat_mardesp in 
+				<foreach collection="mardesp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from com_auto_task where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_auto_task
+		where cat_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_auto_task
+		where cat_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from com_auto_task
+		where cat_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by cat_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select * from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid in 
+				<foreach collection="cstuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle in 
+				<foreach collection="showtitle" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount in 
+				<foreach collection="conaccount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount in 
+				<foreach collection="maxcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache in 
+				<foreach collection="ifcache" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam in 
+				<foreach collection="extparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice in 
+				<foreach collection="marprice" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice in 
+				<foreach collection="actprice" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser in 
+				<foreach collection="targetuser" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue in 
+				<foreach collection="taskvalue" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp in 
+				<foreach collection="mardesp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by cat_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select * from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount = #{conaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache = #{ifcache,jdbcType=CHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice = #{marprice,jdbcType=DECIMAL}
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice = #{actprice,jdbcType=DECIMAL}
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser = #{targetuser,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue = #{taskvalue,jdbcType=VARCHAR}
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp = #{mardesp,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select count(*) from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount like CONCAT('%',#{conaccount},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache like CONCAT('%',#{ifcache},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice like CONCAT('%',#{marprice},'%' )
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice like CONCAT('%',#{actprice},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser like CONCAT('%',#{targetuser},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue like CONCAT('%',#{taskvalue},'%' )
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp like CONCAT('%',#{mardesp},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select * from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount = #{conaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache = #{ifcache,jdbcType=CHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice = #{marprice,jdbcType=DECIMAL}
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice = #{actprice,jdbcType=DECIMAL}
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser = #{targetuser,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue = #{taskvalue,jdbcType=VARCHAR}
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp = #{mardesp,jdbcType=VARCHAR}
+			</if>
+			order by cat_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select * from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount like CONCAT('%',#{conaccount},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache like CONCAT('%',#{ifcache},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice like CONCAT('%',#{marprice},'%' )
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice like CONCAT('%',#{actprice},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser like CONCAT('%',#{targetuser},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue like CONCAT('%',#{taskvalue},'%' )
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp like CONCAT('%',#{mardesp},'%' )
+			</if>
+			order by cat_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoTaskVO">
+		select * from com_auto_task
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cat_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				or cat_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				or ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				or ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or cat_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				or cat_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				or cat_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				or cat_conaccount like CONCAT('%',#{conaccount},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				or cat_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				or cat_ifcache like CONCAT('%',#{ifcache},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				or cat_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="marprice != null and marprice != ''">
+				or cat_marprice like CONCAT('%',#{marprice},'%' )
+			</if>
+			<if test="actprice != null and actprice != ''">
+				or cat_actprice like CONCAT('%',#{actprice},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or cat_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				or cat_targetuser like CONCAT('%',#{targetuser},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or cat_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				or cat_taskvalue like CONCAT('%',#{taskvalue},'%' )
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				or cat_mardesp like CONCAT('%',#{mardesp},'%' )
+			</if>
+			order by cat_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoTaskVO">
+		 select com_auto_task.cat_uiid as uiid,com_auto_task.cat_ptype as ptype, (select GROUP_CONCAT( rt1.cap_name) from com_auto_product rt1 where FIND_IN_SET( rt1.cap_code ,com_auto_task.cat_ptype) )  as ptypename,com_auto_task.ref_csiuiid as csiuiid, (select GROUP_CONCAT( rt2.csi_title) from con_soft_info rt2 where FIND_IN_SET( rt2.csi_uiid ,com_auto_task.ref_csiuiid) )  as csiuiidtitle,com_auto_task.ref_cstuiid as cstuiid, (select GROUP_CONCAT( rt3.cst_title) from con_soft_task rt3 where FIND_IN_SET( rt3.cst_uiid ,com_auto_task.ref_cstuiid) )  as cstuiidtitle,com_auto_task.cat_title as title,com_auto_task.cat_showtitle as showtitle,com_auto_task.cat_desp as desp,com_auto_task.cat_conaccount as conaccount,com_auto_task.cat_maxcount as maxcount,com_auto_task.cat_ifcache as ifcache,com_auto_task.cat_extparam as extparam,com_auto_task.cat_marprice as marprice,com_auto_task.cat_actprice as actprice,com_auto_task.cat_state as state,com_auto_task.cat_targetuser as targetuser,com_auto_task.cat_sort as sort,com_auto_task.cat_taskvalue as taskvalue,com_auto_task.cat_mardesp as mardesp from com_auto_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount = #{conaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache = #{ifcache,jdbcType=CHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice = #{marprice,jdbcType=DECIMAL}
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice = #{actprice,jdbcType=DECIMAL}
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser = #{targetuser,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue = #{taskvalue,jdbcType=VARCHAR}
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp = #{mardesp,jdbcType=VARCHAR}
+			</if>
+			order by cat_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoTaskVO">
+		 select com_auto_task.cat_uiid as uiid,com_auto_task.cat_ptype as ptype,com_auto_task.cat_ptype as ptyperefid,com_auto_productcat_ptype.cap_name as ptyperefview,com_auto_task.ref_csiuiid as csiuiid,com_auto_task.ref_csiuiid as csiuiidrefid,con_soft_inforef_csiuiid.csi_title as csiuiidrefview,com_auto_task.ref_cstuiid as cstuiid,com_auto_task.ref_cstuiid as cstuiidrefid,con_soft_taskref_cstuiid.cst_title as cstuiidrefview,com_auto_task.cat_title as title,com_auto_task.cat_showtitle as showtitle,com_auto_task.cat_desp as desp,com_auto_task.cat_conaccount as conaccount,com_auto_task.cat_maxcount as maxcount,com_auto_task.cat_ifcache as ifcache,com_auto_task.cat_extparam as extparam,com_auto_task.cat_marprice as marprice,com_auto_task.cat_actprice as actprice,com_auto_task.cat_state as state,com_auto_task.cat_targetuser as targetuser,com_auto_task.cat_sort as sort,com_auto_task.cat_taskvalue as taskvalue,com_auto_task.cat_mardesp as mardesp from com_auto_task left outer join com_auto_product com_auto_productcat_ptype on com_auto_productcat_ptype.cap_code = com_auto_task.cat_ptype left outer join con_soft_info con_soft_inforef_csiuiid on con_soft_inforef_csiuiid.csi_uiid = com_auto_task.ref_csiuiid left outer join con_soft_task con_soft_taskref_cstuiid on con_soft_taskref_cstuiid.cst_uiid = com_auto_task.ref_cstuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cat_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cat_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cat_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cat_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cat_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="conaccount != null and conaccount != ''">
+				and cat_conaccount = #{conaccount,jdbcType=VARCHAR}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cat_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+			<if test="ifcache != null and ifcache != ''">
+				and cat_ifcache = #{ifcache,jdbcType=CHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and cat_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="marprice != null and marprice != ''">
+				and cat_marprice = #{marprice,jdbcType=DECIMAL}
+			</if>
+			<if test="actprice != null and actprice != ''">
+				and cat_actprice = #{actprice,jdbcType=DECIMAL}
+			</if>
+			<if test="state != null and state != ''">
+				and cat_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="targetuser != null and targetuser != ''">
+				and cat_targetuser = #{targetuser,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cat_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="taskvalue != null and taskvalue != ''">
+				and cat_taskvalue = #{taskvalue,jdbcType=VARCHAR}
+			</if>
+			<if test="mardesp != null and mardesp != ''">
+				and cat_mardesp = #{mardesp,jdbcType=VARCHAR}
+			</if>
+			order by cat_sort asc
+	</select>
+
+</mapper>

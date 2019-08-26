@@ -1,0 +1,82 @@
+<!DOCTYPE html><!--[if IE 8]> <html lang="en" class="ie8"> <![endif]--><!--[if IE 9]> <html lang="en" class="ie9"> <![endif]--><!--[if !IE]><!--><html lang="ch"><!--<![endif]--><!-- BEGIN HEAD --><head><meta charset="utf-8" /><title>步骤查找规则edithtml数据维护</title><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="1564389584879353" name="wssuiid" /><meta content="" name="description" /><meta content="" name="author" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-responsive.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/font-awesome.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-responsive.css" /><link rel="stylesheet" type="text/css" href="../../media/css/default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/uniform.default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-fileupload.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.gritter.css" /><link rel="stylesheet" type="text/css" href="../../media/css/chosen.css" /><link rel="stylesheet" type="text/css" href="../../media/css/select2.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.tagsinput.css" /><link rel="stylesheet" type="text/css" href="../../media/css/clockface.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-wysihtml5.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/timepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/colorpicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-toggle-buttons.css" /><link rel="stylesheet" type="text/css" href="../../media/css/daterangepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datetimepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/multi-select-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-modal.css" /><link rel="stylesheet" type="text/css" href="../../media/css/fileinput.css" /></head><body class="page-header-fixed">	<div class="page-container row-fluid" style="margin-top:0px;">		<div class="page-content" style="margin-left:0px;">			<div id="portlet-config" class="modal hide">				<div class="modal-header">					<button data-dismiss="modal" class="close" type="button"></button>					<h3>属性自定义</h3>				</div>				<div class="modal-body">					<p>这里设置属性的显示项目及显示次序</p>				</div>			</div>			<div class="container-fluid">				<div class="row-fluid">					<div class="span12">						<ul class="breadcrumb">							<li><i class="icon-home"></i> <a href="/index.html">首页</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">步骤查找规则edithtml数据维护</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">数据编辑</a></li>						</ul>					</div>				</div>				<div class="row-fluid">					<div class="span12">						<div class="tabbable tabbable-custom boxless">							<div class="tab-content">								<div class="tab-pane active" id="tab_1">									<div class="portlet box blue">										<div class="portlet-title">											<div class="caption">												<i class="icon-reorder"></i>步骤查找规则edithtml数据维护											</div>											<div class="tools">												<!-- <a href="javascript:;" class="collapse"></a> --> 												<a href="#portlet-config" data-toggle="modal" class="config"></a> 												<a href="javascript:;" class="reload"></a>											</div>										</div>										<div class="portlet-body form">										<form id="cstrdataform" name="cstrdataform" action="" class="form-horizontal" style="margin: 0px;">
+				<div class="row clearfix row-fluid">
+					<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group" wsfid="cstsuiid">
+	<label class="control-label">步骤标题<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="cstsuiid" name="cstsuiid" class="span12 chosen" data-placeholder="请选择步骤标题" tabindex="1" placeholder="请选择步骤标题"  wsfnotnull="notnull" onchange="woformvalidate('cstr',this)"     wsfinputuiid="uiid"  wsfshowuiid="title"          >
+		</select><span id="cstsuiidhelpinline" class="help-inline"></span><p id="cstsuiidhelpblock" class="help-block">每一个寻址规则必须与步骤绑定，目前同一个步骤仅支持设定一个寻址规则，暂不支持设置多条；</p>
+	</div>
+</div><div class="control-group" wsfid="loccode">
+	<label class="control-label">位置编码</label>
+	<div class="controls">
+		<input id="loccode" name="loccode" type="text" placeholder="请输入位置编码" value="" class="span12 m-wrap"                    /><span id="loccodehelpinline" class="help-inline"></span><p id="loccodehelpblock" class="help-block">为找到当前控件的XPATH位置序列信息，不同位置之间通过英文“-”减号分隔，多个位置之间通过英文“,”半角逗号分隔。APP可能涉及不同页面状态，控件XPATH不同，因此需要执行不同操作调整APP页面结构后，多次获取下当前控件的XPATH位置编码，通过逗号分隔填入。
+每个位置数之间请通过数字减号分隔，对于回退操作，配置-1，表示强制退回到手机桌面；或配置退回到目标页面的可识别元素；</p>
+	</div>
+</div><div class="control-group" wsfid="idcon1">
+	<label class="control-label">ID等于内容</label>
+	<div class="controls">
+		<input id="idcon1" name="idcon1" type="text" placeholder="请输入ID等于内容" value="" class="span12 m-wrap"                    /><span id="idcon1helpinline" class="help-inline"></span><p id="idcon1helpblock" class="help-block">为找到当前控件的resrouce-id属性；如当前APP为动态控件ID模式，请不要填写id；</p>
+	</div>
+</div><div class="control-group" wsfid="titlecon2">
+	<label class="control-label">标题等于内容</label>
+	<div class="controls">
+		<input id="titlecon2" name="titlecon2" type="text" placeholder="请输入标题等于内容" value="" class="span12 m-wrap"                    /><span id="titlecon2helpinline" class="help-inline"></span><p id="titlecon2helpblock" class="help-block">为找到当前控件的text属性；</p>
+	</div>
+</div><div class="control-group" wsfid="despcon2">
+	<label class="control-label">描述等于内容</label>
+	<div class="controls">
+		<input id="despcon2" name="despcon2" type="text" placeholder="请输入描述等于内容" value="" class="span12 m-wrap"                    /><span id="despcon2helpinline" class="help-inline"></span><p id="despcon2helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="claname">
+	<label class="control-label">控件类名称</label>
+	<div class="controls">
+		<input id="claname" name="claname" type="text" placeholder="请输入控件类名称" value="" class="span12 m-wrap"                    /><span id="clanamehelpinline" class="help-inline"></span><p id="clanamehelpblock" class="help-block">找到当前控件的class属性；</p>
+	</div>
+</div><div class="control-group" wsfid="agloccode">
+	<label class="control-label">循环位置编码</label>
+	<div class="controls">
+		<input id="agloccode" name="agloccode" type="text" placeholder="请输入循环位置编码" value="" class="span12 m-wrap"                    /><span id="agloccodehelpinline" class="help-inline"></span><p id="agloccodehelpblock" class="help-block">主循环控件位置下，去除一级循环目录后，一直找到当前执行分析控件的XPATH位置序列；</p>
+	</div>
+</div><div class="control-group" wsfid="agidcon1">
+	<label class="control-label">循环ID等于</label>
+	<div class="controls">
+		<input id="agidcon1" name="agidcon1" type="text" placeholder="请输入循环ID等于" value="" class="span12 m-wrap"                    /><span id="agidcon1helpinline" class="help-inline"></span><p id="agidcon1helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="agtitle1">
+	<label class="control-label">循环标题等于</label>
+	<div class="controls">
+		<input id="agtitle1" name="agtitle1" type="text" placeholder="请输入循环标题等于" value="" class="span12 m-wrap"                    /><span id="agtitle1helpinline" class="help-inline"></span><p id="agtitle1helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="agdesp1">
+	<label class="control-label">循环描述等于</label>
+	<div class="controls">
+		<input id="agdesp1" name="agdesp1" type="text" placeholder="请输入循环描述等于" value="" class="span12 m-wrap"                    /><span id="agdesp1helpinline" class="help-inline"></span><p id="agdesp1helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="agclaname">
+	<label class="control-label">循环类名称</label>
+	<div class="controls">
+		<input id="agclaname" name="agclaname" type="text" placeholder="请输入循环类名称" value="" class="span12 m-wrap"                    /><span id="agclanamehelpinline" class="help-inline"></span><p id="agclanamehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="state">
+	<label class="control-label">状态<span style="color:red;">*</span></label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="state0" name="state" value="0" /> 草稿</label><label class="radio"><input type="radio" id="state1" name="state" value="1" /> 有效</label><label class="radio"><input type="radio" id="state2" name="state" value="2" /> 无效</label><span id="statehelpinline" class="help-inline"></span><p id="statehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="locrel">
+	<label class="control-label">相对定位</label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="locrel0" name="locrel" value="0" /> 绝对定位</label><label class="radio"><input type="radio" id="locrel1" name="locrel" value="1" /> 相对定位</label><span id="locrelhelpinline" class="help-inline"></span><p id="locrelhelpblock" class="help-block"></p>
+	</div>
+</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><p>
+	<a id="cstrsumbitbutton" href="javscript:;" class="btn blue btn-block" type="sumbit">提交 <i class="m-icon-swapright m-icon-white"></i> </a>
+</p></div>
+			</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group">
+	<div class="controls">
+		<input id="uiid" name="uiid" value="" type="hidden"/>
+	</div>
+</div></div>
+			</div></div>
+				</div>
+			</form>										</div>									</div>								</div>							</div>						</div>					</div>				</div>			</div>		</div>	</div>	<script type="text/javascript" src="../../media/js/jquery-1.10.1.min.js"></script>	<script type="text/javascript" src="../../js/develop.js"></script>	<script type="text/javascript" src="../../media/js/jquery-migrate-1.2.1.min.js"></script>	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->	<script type="text/javascript" src="../../media/js/jquery-ui-1.10.1.custom.min.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap.min.js"></script>	<!--[if lt IE 9]>	<script src="media/js/excanvas.min.js"></script>	<script src="media/js/respond.min.js"></script>  	<![endif]-->	<script type="text/javascript" src="../../media/js/jquery.slimscroll.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.blockui.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.cookie.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.uniform.min.js"></script>	<script type="text/javascript" src="../../media/js/ckeditor.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-fileupload.js"></script>	<script type="text/javascript" src="../../media/js/chosen.jquery.min.js"></script>	<script type="text/javascript" src="../../media/js/select2.min.js"></script>	<script type="text/javascript" src="../../media/js/wysihtml5-0.3.0.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-wysihtml5.js"></script>	<script type="text/javascript" src="../../media/js/jquery.tagsinput.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.toggle.buttons.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datetimepicker.js"></script>	<script type="text/javascript" src="../../media/js/clockface.js"></script>	<script type="text/javascript" src="../../media/js/date.js"></script>	<script type="text/javascript" src="../../media/js/daterangepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-colorpicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-timepicker.js"></script>	<script type="text/javascript" src="../../media/js/jquery.inputmask.bundle.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.input-ip-address-control-1.0.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.multi-select.js"></script>	<script type="text/javascript" src="../../media/js/sortable.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modal.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modalmanager.js"></script>	<script type="text/javascript" src="../../media/js/fileinput.js"></script>	<script type="text/javascript" src="../../media/js/fileinput_locale_zh.js"></script>	<script type="text/javascript" src="../../media/js/app.js"></script>	<!-- <script src="../media/js/form-samples.js"></script> -->	<script type="text/javascript" src="../../media/js/form-components.js"></script>	<script type="text/javascript" src="../../../js/ajaxfileupload.js"></script>	<script type="text/javascript" src="../../js/fileinputextend.js"></script>	<script type="text/javascript" src="softTaskRuleedit.js"></script>		<script>		jQuery(document).ready(function() {			App.init();			FormComponents.init();		});	</script></body></html>

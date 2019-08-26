@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/editpwd.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>设置密码</title>
+
+</head>
+<body>
+<div class="info">
+    <div class="ver">
+        <div class="yzm">验证码</div>
+        <input type="number" id="code" placeholder-class="place" placeholder="请输入验证码"></input>
+        <button class="getver" onclick="timing()">获取验证码</button>
+    </div>
+    <div class="phone">
+        <div class="mm">新密码</div>
+        <input type="password" id="pwd" placeholder-class="place" placeholder="请输入新密码"></input>
+    </div>
+    <div class="verifi">
+        <div class="qrmm">确认密码</div>
+        <input type="password" id="rpwd" placeholder-class="place-ver" placeholder="请再次输入密码"></input>
+    </div>
+</div>
+<div class="login" onclick="editpwd()">确定</div>
+<div class="other">
+</div>
+
+
+<!-- 自制confirm提示框-->
+<div class="conf" style="display: none">
+    <div class="prompt-con" style="display: none">
+        <div class="msg-con"></div>
+        <div class="ok-con" onclick="ok()">确定</div>
+        <div class="no-con" onclick="no()">取消</div>
+    </div>
+</div>
+
+
+<!-- //防止点击重置密码后  提示框一闪而过的情况-->
+<div class="outside_two">
+    <div class="prompt_two" style="display: none">
+        <div class="msg_two"></div>
+        <div class="ok_two" onclick="ret_two()">确定</div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript" src="../media/js/md5.js"></script>
+<script type="text/javascript">
+
+    var conf = $(".conf");
+    var prompt_con = $(".prompt-con");
+
+    function ret_two(){
+        $(".prompt_two").attr("style","display:none");
+        $(".outside_two").attr("style","display:none");
+        window.location.href = "index.html";
+    }
+    var prompt_two = $(".prompt_two");
+    var msg_two = $(".msg_two");
+    var out_two = $(".outside_two");
+
+    function timing(){
+        updatecom("/reset/smscode",{uiid:getCookie("uiid")},function (response) {
+            if(response.error_code == 10000){
+
+            }else{
+                tip(response.error);
+            }
+
+            var btn = $(".getver");
+            var count = 60;
+            btn.attr("disabled","disabled");
+            var resend = setInterval(function(){
+                count--;
+                if (count > 0){
+                    btn.html(count+"秒");
+                    setCookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                }else {
+                    clearInterval(resend);
+                    btn.html("获取验证码").removeAttr("disabled","");
+                }
+            }, 1000);
+        });
+    }
+
+    function editpwd(){
+        var pwd = $("#pwd").val();
+        var rpwd = $("#rpwd").val();
+        var code = $("#code").val();
+        if(!(code && code != "")){
+            tip("请输入验证码！");
+            return;
+        }
+        if(!(pwd && pwd != "")){
+            tip("请输入新密码！");
+            return;
+        }
+        if(!(rpwd && rpwd != "")){
+            tip("请再次输入密码！");
+            return;
+        }
+        if(pwd!=rpwd){
+            tip("两次密码输入不一致！");
+            return;
+        }
+
+        conf.attr("style","display:block");
+        prompt_con.attr("style","display:block");
+        $(".msg-con").html("确定重置密码吗？");
+
+    }
+    function ok(){
+        var code = $("#code").val();
+        var pwd = $("#pwd").val();
+            updatecom("/user/updatepass",{uiid:getCookie("uiid"),code:code,pass:hex_md5(pwd)},function (response) {
+                if(response.error_code == 10000){
+                    conf.attr("style","display:none");
+                    prompt_con.attr("style","display:none");
+                    prompt_two.attr("style","display:block");
+                    out_two.attr("style","display:block");
+                    msg_two.html("密码重置成功!");
+                }else{
+                    tip(response.error);
+                }
+            });
+
+    }
+
+    function no(){
+        conf.attr("style","display:none");
+        prompt_con.attr("style","display:none");
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

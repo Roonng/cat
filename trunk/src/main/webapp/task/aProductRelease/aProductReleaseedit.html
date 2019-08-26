@@ -1,0 +1,71 @@
+<!DOCTYPE html><!--[if IE 8]> <html lang="en" class="ie8"> <![endif]--><!--[if IE 9]> <html lang="en" class="ie9"> <![endif]--><!--[if !IE]><!--><html lang="ch"><!--<![endif]--><!-- BEGIN HEAD --><head><meta charset="utf-8" /><title>产品发布管理edithtml数据维护</title><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="1565840038552342" name="wssuiid" /><meta content="" name="description" /><meta content="" name="author" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-responsive.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/font-awesome.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-responsive.css" /><link rel="stylesheet" type="text/css" href="../../media/css/default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/uniform.default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-fileupload.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.gritter.css" /><link rel="stylesheet" type="text/css" href="../../media/css/chosen.css" /><link rel="stylesheet" type="text/css" href="../../media/css/select2.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.tagsinput.css" /><link rel="stylesheet" type="text/css" href="../../media/css/clockface.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-wysihtml5.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/timepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/colorpicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-toggle-buttons.css" /><link rel="stylesheet" type="text/css" href="../../media/css/daterangepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datetimepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/multi-select-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-modal.css" /><link rel="stylesheet" type="text/css" href="../../media/css/fileinput.css" /></head><body class="page-header-fixed">	<div class="page-container row-fluid" style="margin-top:0px;">		<div class="page-content" style="margin-left:0px;">			<div id="portlet-config" class="modal hide">				<div class="modal-header">					<button data-dismiss="modal" class="close" type="button"></button>					<h3>属性自定义</h3>				</div>				<div class="modal-body">					<p>这里设置属性的显示项目及显示次序</p>				</div>			</div>			<div class="container-fluid">				<div class="row-fluid">					<div class="span12">						<ul class="breadcrumb">							<li><i class="icon-home"></i> <a href="/index.html">首页</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">产品发布管理edithtml数据维护</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">数据编辑</a></li>						</ul>					</div>				</div>				<div class="row-fluid">					<div class="span12">						<div class="tabbable tabbable-custom boxless">							<div class="tab-content">								<div class="tab-pane active" id="tab_1">									<div class="portlet box blue">										<div class="portlet-title">											<div class="caption">												<i class="icon-reorder"></i>产品发布管理edithtml数据维护											</div>											<div class="tools">												<!-- <a href="javascript:;" class="collapse"></a> --> 												<a href="#portlet-config" data-toggle="modal" class="config"></a> 												<a href="javascript:;" class="reload"></a>											</div>										</div>										<div class="portlet-body form">										<form id="caprdataform" name="caprdataform" action="" class="form-horizontal" style="margin: 0px;">
+				<div class="row clearfix row-fluid">
+					<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group" wsfid="capuiid">
+	<label class="control-label">产品名称<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="capuiid" name="capuiid" class="span12 m-wrap" placeholder="请选择产品名称" tabindex="1" wsfnotnull="notnull" onchange="woformvalidate('capr',this)"     wsfinputuiid="uiid"  wsfshowuiid="name,code"          >
+			<option value="">请选择产品名称</option>
+		</select><span id="capuiidhelpinline" class="help-inline"></span><p id="capuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="cuiuiid">
+	<label class="control-label">发布人</label>
+	<div class="controls">
+		<select id="cuiuiid" name="cuiuiid" class="span12 chosen" data-placeholder="请选择发布人" tabindex="1" placeholder="请选择发布人"        wsfinputuiid="uiid"  wsfshowuiid="name,mobile"          >
+		</select><span id="cuiuiidhelpinline" class="help-inline"></span><p id="cuiuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="releasetime">
+	<label class="control-label">发布时间</label>
+	<div class="controls">
+		<div class="input-append date form_datetime">
+			<input id="releasetime" name="releasetime" size="16" type="text" value=""   readonly class="m-wrap"> <span class="add-on"><i class="icon-calendar"></i><span id="releasetimehelpinline" class="help-inline"></span><p id="releasetimehelpblock" class="help-block"></p>
+			</span>
+		</div>
+	</div>
+</div><div class="control-group" wsfid="state">
+	<label class="control-label">发布状态</label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="state0" name="state" value="0" /> 待发布</label><label class="radio"><input type="radio" id="state1" name="state" value="1" /> 已发布</label><span id="statehelpinline" class="help-inline"></span><p id="statehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="activitytime">
+	<label class="control-label">生效时间</label>
+	<div class="controls">
+		<div class="input-append date form_datetime">
+			<input id="activitytime" name="activitytime" size="16" type="text" value=""   readonly class="m-wrap"> <span class="add-on"><i class="icon-calendar"></i><span id="activitytimehelpinline" class="help-inline"></span><p id="activitytimehelpblock" class="help-block"></p>
+			</span>
+		</div>
+	</div>
+</div><div class="control-group" wsfid="downurl">
+	<label class="control-label">安装包</label>
+	<div class="controls">
+		<input id="downurl" name="downurl"   type="hidden" class="default" onchange="" />
+		<input id="downurlfile" name="myfiles" type="file" class="default" />
+<span id="downurlhelpinline" class="help-inline"></span><p id="downurlhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ver">
+	<label class="control-label">版本号</label>
+	<div class="controls">
+		<input id="ver" name="ver" type="number" placeholder="版本号，数字" value="" class="span12 m-wrap"                    /><span id="verhelpinline" class="help-inline"></span><p id="verhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="version">
+	<label class="control-label">版本号</label>
+	<div class="controls">
+		<input id="version" name="version" type="text" placeholder="请输入版本号" value="" class="span12 m-wrap"                    /><span id="versionhelpinline" class="help-inline"></span><p id="versionhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ptype">
+	<label class="control-label">类别</label>
+	<div class="controls">
+		<input id="ptype" name="ptype" type="text" placeholder="请输入类别" value="1" class="span12 m-wrap"                    /><span id="ptypehelpinline" class="help-inline"></span><p id="ptypehelpblock" class="help-block"></p>
+	</div>
+</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><p>
+	<a id="caprsumbitbutton" href="javscript:;" class="btn blue btn-block" type="sumbit">提交 <i class="m-icon-swapright m-icon-white"></i> </a>
+</p></div>
+			</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group">
+	<div class="controls">
+		<input id="uiid" name="uiid" value="" type="hidden"/>
+	</div>
+</div></div>
+			</div></div>
+				</div>
+			</form>										</div>									</div>								</div>							</div>						</div>					</div>				</div>			</div>		</div>	</div>	<script type="text/javascript" src="../../media/js/jquery-1.10.1.min.js"></script>	<script type="text/javascript" src="../../js/develop.js"></script>	<script type="text/javascript" src="../../media/js/jquery-migrate-1.2.1.min.js"></script>	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->	<script type="text/javascript" src="../../media/js/jquery-ui-1.10.1.custom.min.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap.min.js"></script>	<!--[if lt IE 9]>	<script src="media/js/excanvas.min.js"></script>	<script src="media/js/respond.min.js"></script>  	<![endif]-->	<script type="text/javascript" src="../../media/js/jquery.slimscroll.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.blockui.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.cookie.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.uniform.min.js"></script>	<script type="text/javascript" src="../../media/js/ckeditor.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-fileupload.js"></script>	<script type="text/javascript" src="../../media/js/chosen.jquery.min.js"></script>	<script type="text/javascript" src="../../media/js/select2.min.js"></script>	<script type="text/javascript" src="../../media/js/wysihtml5-0.3.0.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-wysihtml5.js"></script>	<script type="text/javascript" src="../../media/js/jquery.tagsinput.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.toggle.buttons.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datetimepicker.js"></script>	<script type="text/javascript" src="../../media/js/clockface.js"></script>	<script type="text/javascript" src="../../media/js/date.js"></script>	<script type="text/javascript" src="../../media/js/daterangepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-colorpicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-timepicker.js"></script>	<script type="text/javascript" src="../../media/js/jquery.inputmask.bundle.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.input-ip-address-control-1.0.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.multi-select.js"></script>	<script type="text/javascript" src="../../media/js/sortable.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modal.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modalmanager.js"></script>	<script type="text/javascript" src="../../media/js/fileinput.js"></script>	<script type="text/javascript" src="../../media/js/fileinput_locale_zh.js"></script>	<script type="text/javascript" src="../../media/js/app.js"></script>	<!-- <script src="../media/js/form-samples.js"></script> -->	<script type="text/javascript" src="../../media/js/form-components.js"></script>	<script type="text/javascript" src="../../../js/ajaxfileupload.js"></script>	<script type="text/javascript" src="../../js/fileinputextend.js"></script>	<script type="text/javascript" src="aProductReleaseedit.js"></script>		<script>		jQuery(document).ready(function() {			App.init();			FormComponents.init();		});	</script></body></html>

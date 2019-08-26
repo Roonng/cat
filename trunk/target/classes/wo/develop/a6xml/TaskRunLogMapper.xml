@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ITaskRunLogDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.TaskRunLogVO">
+		
+		<id column="ctrl_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 任务记录主键 -->
+		<result column="ref_cuiuiid" property="cuiuiid" jdbcType="VARCHAR" />  <!-- 用户名称，关联用户主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 主题名称，关联主题主键 -->
+		<result column="ctrl_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 执行开始时间 -->
+		<result column="ctrl_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 执行结束时间 -->
+		<result column="ctrl_destnum" property="destnum" jdbcType="INTEGER" />  <!-- 执行数量 -->
+		<result column="ctrl_state" property="state" jdbcType="CHAR" />  <!-- 成功状态，1成功0失败 -->
+		<result column="ctrl_runtime" property="runtime" jdbcType="INTEGER" />  <!-- 执行耗时 -->
+		<result column="ctrl_reason" property="reason" jdbcType="VARCHAR" />  <!-- 失败原因 -->
+		<result column="ctrl_errormsg" property="errormsg" jdbcType="VARCHAR" />  <!-- 内部错误 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		ctrl_uiid ,
+		ref_cuiuiid ,
+		ref_catuiid ,
+		ctrl_starttime ,
+		ctrl_endtime ,
+		ctrl_destnum ,
+		ctrl_state ,
+		ctrl_runtime ,
+		ctrl_reason ,
+		ctrl_errormsg 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		insert into con_task_run_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				ctrl_uiid ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="starttime != null">
+				ctrl_starttime ,
+			</if>
+			<if test="endtime != null">
+				ctrl_endtime ,
+			</if>
+			<if test="destnum != null">
+				ctrl_destnum ,
+			</if>
+			<if test="state != null">
+				ctrl_state ,
+			</if>
+			<if test="runtime != null">
+				ctrl_runtime ,
+			</if>
+			<if test="reason != null">
+				ctrl_reason ,
+			</if>
+			<if test="errormsg != null">
+				ctrl_errormsg 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				#{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="destnum != null">
+				#{destnum,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="runtime != null">
+				#{runtime,jdbcType=INTEGER} ,
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=VARCHAR} ,
+			</if>
+			<if test="errormsg != null">
+				#{errormsg,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		insert into con_task_run_log
+		(
+			ctrl_uiid ,
+			ref_cuiuiid ,
+			ref_catuiid ,
+			ctrl_starttime ,
+			ctrl_endtime ,
+			ctrl_destnum ,
+			ctrl_state ,
+			ctrl_runtime ,
+			ctrl_reason ,
+			ctrl_errormsg 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.cuiuiid} ,
+			#{item.catuiid} ,
+			#{item.starttime} ,
+			#{item.endtime} ,
+			#{item.destnum} ,
+			#{item.state} ,
+			#{item.runtime} ,
+			#{item.reason} ,
+			#{item.errormsg} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		update con_task_run_log
+		<set>
+			<if test="cuiuiid != null">
+				ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				ctrl_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				ctrl_endtime = #{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="destnum != null">
+				ctrl_destnum = #{destnum,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				ctrl_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="runtime != null">
+				ctrl_runtime = #{runtime,jdbcType=INTEGER} ,
+			</if>
+			<if test="reason != null">
+				ctrl_reason = #{reason,jdbcType=VARCHAR} ,
+			</if>
+			<if test="errormsg != null">
+				ctrl_errormsg = #{errormsg,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_task_run_log
+			<set>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					ctrl_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					ctrl_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.destnum != null">
+					ctrl_destnum = #{item.destnum,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					ctrl_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.runtime != null">
+					ctrl_runtime = #{item.runtime,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.reason != null">
+					ctrl_reason = #{item.reason,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.errormsg != null">
+					ctrl_errormsg = #{item.errormsg,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where ctrl_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_task_run_log
+			<set>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					ctrl_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					ctrl_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.destnum != null">
+					ctrl_destnum = #{item.destnum,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					ctrl_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.runtime != null">
+					ctrl_runtime = #{item.runtime,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.reason != null">
+					ctrl_reason = #{item.reason,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.errormsg != null">
+					ctrl_errormsg = #{item.errormsg,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where ctrl_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_task_run_log
+		where ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		delete from con_task_run_log
+		where 1=1 
+			<if test="uiid != null">
+				and ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null">
+				and ctrl_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null">
+				and ctrl_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="destnum != null">
+				and ctrl_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="state != null">
+				and ctrl_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="runtime != null">
+				and ctrl_runtime = #{runtime,jdbcType=INTEGER}
+			</if>
+			<if test="reason != null">
+				and ctrl_reason = #{reason,jdbcType=VARCHAR}
+			</if>
+			<if test="errormsg != null">
+				and ctrl_errormsg = #{errormsg,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_task_run_log
+		where ctrl_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_task_run_log
+		where 1=1 
+			<if test="uiid != null">
+				and ctrl_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and ctrl_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and ctrl_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="destnum != null">
+				and ctrl_destnum in 
+				<foreach collection="destnum" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and ctrl_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="runtime != null">
+				and ctrl_runtime in 
+				<foreach collection="runtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="reason != null">
+				and ctrl_reason in 
+				<foreach collection="reason" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="errormsg != null">
+				and ctrl_errormsg in 
+				<foreach collection="errormsg" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_task_run_log where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_task_run_log
+		where ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_task_run_log
+		where ctrl_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_task_run_log
+		where ctrl_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by
+				ctrl_starttime asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select * from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum in 
+				<foreach collection="destnum" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime in 
+				<foreach collection="runtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason in 
+				<foreach collection="reason" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg in 
+				<foreach collection="errormsg" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select * from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime = #{runtime,jdbcType=INTEGER}
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason = #{reason,jdbcType=VARCHAR}
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg = #{errormsg,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select count(*) from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime like CONCAT('%',#{runtime},'%' )
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason like CONCAT('%',#{reason},'%' )
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg like CONCAT('%',#{errormsg},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select * from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime = #{runtime,jdbcType=INTEGER}
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason = #{reason,jdbcType=VARCHAR}
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg = #{errormsg,jdbcType=VARCHAR}
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select * from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime like CONCAT('%',#{runtime},'%' )
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason like CONCAT('%',#{reason},'%' )
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg like CONCAT('%',#{errormsg},'%' )
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		select * from con_task_run_log
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or ctrl_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				or ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or ctrl_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or ctrl_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				or ctrl_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or ctrl_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="runtime != null and runtime != ''">
+				or ctrl_runtime like CONCAT('%',#{runtime},'%' )
+			</if>
+			<if test="reason != null and reason != ''">
+				or ctrl_reason like CONCAT('%',#{reason},'%' )
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				or ctrl_errormsg like CONCAT('%',#{errormsg},'%' )
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		 select con_task_run_log.ctrl_uiid as uiid,con_task_run_log.ref_cuiuiid as cuiuiid, (select GROUP_CONCAT( rt1.cui_name) from con_user_info rt1 where FIND_IN_SET( rt1.cui_uiid ,con_task_run_log.ref_cuiuiid) )  as cuiuiidname,con_task_run_log.ref_catuiid as catuiid, (select GROUP_CONCAT( rt2.cat_title) from com_auto_task rt2 where FIND_IN_SET( rt2.cat_uiid ,con_task_run_log.ref_catuiid) )  as catuiidtitle,con_task_run_log.ctrl_starttime as starttime,con_task_run_log.ctrl_endtime as endtime,con_task_run_log.ctrl_destnum as destnum,con_task_run_log.ctrl_state as state,con_task_run_log.ctrl_runtime as runtime,con_task_run_log.ctrl_reason as reason,con_task_run_log.ctrl_errormsg as errormsg from con_task_run_log
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime = #{runtime,jdbcType=INTEGER}
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason = #{reason,jdbcType=VARCHAR}
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg = #{errormsg,jdbcType=VARCHAR}
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.TaskRunLogVO">
+		 select con_task_run_log.ctrl_uiid as uiid,con_task_run_log.ref_cuiuiid as cuiuiid,con_task_run_log.ref_cuiuiid as cuiuiidrefid,con_user_inforef_cuiuiid.cui_name as cuiuiidrefview,con_task_run_log.ref_catuiid as catuiid,con_task_run_log.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,con_task_run_log.ctrl_starttime as starttime,con_task_run_log.ctrl_endtime as endtime,con_task_run_log.ctrl_destnum as destnum,con_task_run_log.ctrl_state as state,con_task_run_log.ctrl_runtime as runtime,con_task_run_log.ctrl_reason as reason,con_task_run_log.ctrl_errormsg as errormsg from con_task_run_log left outer join con_user_info con_user_inforef_cuiuiid on con_user_inforef_cuiuiid.cui_uiid = con_task_run_log.ref_cuiuiid left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = con_task_run_log.ref_catuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and ctrl_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and ctrl_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and ctrl_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and ctrl_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and ctrl_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="runtime != null and runtime != ''">
+				and ctrl_runtime = #{runtime,jdbcType=INTEGER}
+			</if>
+			<if test="reason != null and reason != ''">
+				and ctrl_reason = #{reason,jdbcType=VARCHAR}
+			</if>
+			<if test="errormsg != null and errormsg != ''">
+				and ctrl_errormsg = #{errormsg,jdbcType=VARCHAR}
+			</if>
+			order by
+				ctrl_starttime asc
+	</select>
+
+</mapper>

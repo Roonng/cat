@@ -1,0 +1,101 @@
+<!DOCTYPE html><!--[if IE 8]> <html lang="en" class="ie8"> <![endif]--><!--[if IE 9]> <html lang="en" class="ie9"> <![endif]--><!--[if !IE]><!--><html lang="ch"><!--<![endif]--><!-- BEGIN HEAD --><head><meta charset="utf-8" /><title>帖子回复信息edithtml数据维护</title><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="1564389588388416" name="wssuiid" /><meta content="" name="description" /><meta content="" name="author" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-responsive.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/font-awesome.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style.css" /><link rel="stylesheet" type="text/css" href="../../media/css/style-responsive.css" /><link rel="stylesheet" type="text/css" href="../../media/css/default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/uniform.default.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-fileupload.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.gritter.css" /><link rel="stylesheet" type="text/css" href="../../media/css/chosen.css" /><link rel="stylesheet" type="text/css" href="../../media/css/select2.min.css" /><link rel="stylesheet" type="text/css" href="../../media/css/jquery.tagsinput.css" /><link rel="stylesheet" type="text/css" href="../../media/css/clockface.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-wysihtml5.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/timepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/colorpicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-toggle-buttons.css" /><link rel="stylesheet" type="text/css" href="../../media/css/daterangepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/datetimepicker.css" /><link rel="stylesheet" type="text/css" href="../../media/css/multi-select-metro.css" /><link rel="stylesheet" type="text/css" href="../../media/css/bootstrap-modal.css" /><link rel="stylesheet" type="text/css" href="../../media/css/fileinput.css" /></head><body class="page-header-fixed">	<div class="page-container row-fluid" style="margin-top:0px;">		<div class="page-content" style="margin-left:0px;">			<div id="portlet-config" class="modal hide">				<div class="modal-header">					<button data-dismiss="modal" class="close" type="button"></button>					<h3>属性自定义</h3>				</div>				<div class="modal-body">					<p>这里设置属性的显示项目及显示次序</p>				</div>			</div>			<div class="container-fluid">				<div class="row-fluid">					<div class="span12">						<ul class="breadcrumb">							<li><i class="icon-home"></i> <a href="/index.html">首页</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">帖子回复信息edithtml数据维护</a> <span class="icon-angle-right"></span>							</li>							<li><a href="#">数据编辑</a></li>						</ul>					</div>				</div>				<div class="row-fluid">					<div class="span12">						<div class="tabbable tabbable-custom boxless">							<div class="tab-content">								<div class="tab-pane active" id="tab_1">									<div class="portlet box blue">										<div class="portlet-title">											<div class="caption">												<i class="icon-reorder"></i>帖子回复信息edithtml数据维护											</div>											<div class="tools">												<!-- <a href="javascript:;" class="collapse"></a> --> 												<a href="#portlet-config" data-toggle="modal" class="config"></a> 												<a href="javascript:;" class="reload"></a>											</div>										</div>										<div class="portlet-body form">										<form id="caaldataform" name="caaldataform" action="" class="form-horizontal" style="margin: 0px;">
+				<div class="row clearfix row-fluid">
+					<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group" wsfid="catuiid">
+	<label class="control-label">主题名称<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="catuiid" name="catuiid" class="span12 chosen" data-placeholder="请选择主题名称" tabindex="1" placeholder="请选择主题名称"  wsfnotnull="notnull" onchange="woformvalidate('caal',this)"     wsfinputuiid="uiid"  wsfshowuiid="title"          >
+		</select><span id="catuiidhelpinline" class="help-inline"></span><p id="catuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="cuiuiid">
+	<label class="control-label">用户名称<span style="color:red;">*</span></label>
+	<div class="controls">
+		<select id="cuiuiid" name="cuiuiid" class="span12 chosen" data-placeholder="请选择用户名称" tabindex="1" placeholder="请选择用户名称"  wsfnotnull="notnull" onchange="woformvalidate('caal',this)"     wsfinputuiid="uiid"  wsfshowuiid="name"          >
+		</select><span id="cuiuiidhelpinline" class="help-inline"></span><p id="cuiuiidhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="content">
+	<label class="control-label">帖子内容<span style="color:red;">*</span></label>
+	<div class="controls">
+		<input id="content" name="content" type="text" placeholder="请输入帖子内容" value="" class="span12 m-wrap" wsfnotnull="notnull" onblur="woformvalidate('caal',this)"                  /><span id="contenthelpinline" class="help-inline"></span><p id="contenthelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="answer">
+	<label class="control-label">帖子回复内容</label>
+	<div class="controls">
+		<input id="answer" name="answer" type="text" placeholder="请输入帖子回复内容" value="" class="span12 m-wrap"                    /><span id="answerhelpinline" class="help-inline"></span><p id="answerhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="addtime">
+	<label class="control-label">采集时间<span style="color:red;">*</span></label>
+	<div class="controls">
+		<div class="input-append date form_datetime">
+			<input id="addtime" name="addtime" size="16" type="text" value="" wsfnotnull="notnull" onblur="woformvalidate('caal',this)" readonly class="m-wrap"> <span class="add-on"><i class="icon-calendar"></i><span id="addtimehelpinline" class="help-inline"></span><p id="addtimehelpblock" class="help-block"></p>
+			</span>
+		</div>
+	</div>
+</div><div class="control-group" wsfid="username">
+	<label class="control-label">用户名称</label>
+	<div class="controls">
+		<input id="username" name="username" type="text" placeholder="请输入用户名称" value="" class="span12 m-wrap"                    /><span id="usernamehelpinline" class="help-inline"></span><p id="usernamehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ctype">
+	<label class="control-label">帖子类型<span style="color:red;">*</span></label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="ctype0" name="ctype" value="0" /> 未设置</label><label class="radio"><input type="radio" id="ctype1" name="ctype" value="1" /> 求职</label><label class="radio"><input type="radio" id="ctype2" name="ctype" value="2" /> 找人</label><label class="radio"><input type="radio" id="ctype3" name="ctype" value="3" /> 其他</label><span id="ctypehelpinline" class="help-inline"></span><p id="ctypehelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ifok">
+	<label class="control-label">分析结果</label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="ifok0" name="ifok" value="0" /> 不符合</label><label class="radio"><input type="radio" id="ifok1" name="ifok" value="1" /> 符合</label><span id="ifokhelpinline" class="help-inline"></span><p id="ifokhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="ifstand">
+	<label class="control-label">内部主题学习</label>
+	<div class="controls">
+<label class="radio"><input type="radio" id="ifstand0" name="ifstand" value="0" /> 未学习</label><label class="radio"><input type="radio" id="ifstand1" name="ifstand" value="1" /> 已学习</label><span id="ifstandhelpinline" class="help-inline"></span><p id="ifstandhelpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="exttype1">
+	<label class="control-label">分类信息1</label>
+	<div class="controls">
+		<input id="exttype1" name="exttype1" type="text" placeholder="请输入分类信息1" value="" class="span12 m-wrap"                    /><span id="exttype1helpinline" class="help-inline"></span><p id="exttype1helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="exttype2">
+	<label class="control-label">分类信息2</label>
+	<div class="controls">
+		<input id="exttype2" name="exttype2" type="text" placeholder="请输入分类信息2" value="" class="span12 m-wrap"                    /><span id="exttype2helpinline" class="help-inline"></span><p id="exttype2helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="exttype3">
+	<label class="control-label">分类信息3</label>
+	<div class="controls">
+		<input id="exttype3" name="exttype3" type="text" placeholder="请输入分类信息3" value="" class="span12 m-wrap"                    /><span id="exttype3helpinline" class="help-inline"></span><p id="exttype3helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="catuiid2">
+	<label class="control-label">内部主题设置</label>
+	<div class="controls">
+		<select id="catuiid2" name="catuiid2" class="span12 chosen" data-placeholder="请选择内部主题设置" tabindex="1" placeholder="请选择内部主题设置"        wsfinputuiid="uiid"  wsfshowuiid="title"          >
+		</select><span id="catuiid2helpinline" class="help-inline"></span><p id="catuiid2helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="extvalue1">
+	<label class="control-label">扩展数据1</label>
+	<div class="controls">
+		<input id="extvalue1" name="extvalue1" type="text" placeholder="请输入扩展数据1" value="" class="span12 m-wrap"                    /><span id="extvalue1helpinline" class="help-inline"></span><p id="extvalue1helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="extvalue2">
+	<label class="control-label">扩展数据2</label>
+	<div class="controls">
+		<input id="extvalue2" name="extvalue2" type="text" placeholder="请输入扩展数据2" value="" class="span12 m-wrap"                    /><span id="extvalue2helpinline" class="help-inline"></span><p id="extvalue2helpblock" class="help-block"></p>
+	</div>
+</div><div class="control-group" wsfid="extvalue3">
+	<label class="control-label">扩展数据3</label>
+	<div class="controls">
+		<input id="extvalue3" name="extvalue3" type="text" placeholder="请输入扩展数据3" value="" class="span12 m-wrap"                    /><span id="extvalue3helpinline" class="help-inline"></span><p id="extvalue3helpblock" class="help-block"></p>
+	</div>
+</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><p>
+	<a id="caalsumbitbutton" href="javscript:;" class="btn blue btn-block" type="sumbit">提交 <i class="m-icon-swapright m-icon-white"></i> </a>
+</p></div>
+			</div><div class="row clearfix row-fluid">
+				<div class="col-md-12 columnlayoutit span12" location="columnlocation0"><div class="control-group">
+	<div class="controls">
+		<input id="uiid" name="uiid" value="" type="hidden"/>
+	</div>
+</div></div>
+			</div></div>
+				</div>
+			</form>										</div>									</div>								</div>							</div>						</div>					</div>				</div>			</div>		</div>	</div>	<script type="text/javascript" src="../../media/js/jquery-1.10.1.min.js"></script>	<script type="text/javascript" src="../../js/develop.js"></script>	<script type="text/javascript" src="../../media/js/jquery-migrate-1.2.1.min.js"></script>	<!-- IMPORTANT! Load jquery-ui-1.10.1.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->	<script type="text/javascript" src="../../media/js/jquery-ui-1.10.1.custom.min.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap.min.js"></script>	<!--[if lt IE 9]>	<script src="media/js/excanvas.min.js"></script>	<script src="media/js/respond.min.js"></script>  	<![endif]-->	<script type="text/javascript" src="../../media/js/jquery.slimscroll.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.blockui.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.cookie.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.uniform.min.js"></script>	<script type="text/javascript" src="../../media/js/ckeditor.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-fileupload.js"></script>	<script type="text/javascript" src="../../media/js/chosen.jquery.min.js"></script>	<script type="text/javascript" src="../../media/js/select2.min.js"></script>	<script type="text/javascript" src="../../media/js/wysihtml5-0.3.0.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-wysihtml5.js"></script>	<script type="text/javascript" src="../../media/js/jquery.tagsinput.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.toggle.buttons.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-datetimepicker.js"></script>	<script type="text/javascript" src="../../media/js/clockface.js"></script>	<script type="text/javascript" src="../../media/js/date.js"></script>	<script type="text/javascript" src="../../media/js/daterangepicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-colorpicker.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-timepicker.js"></script>	<script type="text/javascript" src="../../media/js/jquery.inputmask.bundle.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.input-ip-address-control-1.0.min.js"></script>	<script type="text/javascript" src="../../media/js/jquery.multi-select.js"></script>	<script type="text/javascript" src="../../media/js/sortable.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modal.js"></script>	<script type="text/javascript" src="../../media/js/bootstrap-modalmanager.js"></script>	<script type="text/javascript" src="../../media/js/fileinput.js"></script>	<script type="text/javascript" src="../../media/js/fileinput_locale_zh.js"></script>	<script type="text/javascript" src="../../media/js/app.js"></script>	<!-- <script src="../media/js/form-samples.js"></script> -->	<script type="text/javascript" src="../../media/js/form-components.js"></script>	<script type="text/javascript" src="../../../js/ajaxfileupload.js"></script>	<script type="text/javascript" src="../../js/fileinputextend.js"></script>	<script type="text/javascript" src="autoAnswerLogedit.js"></script>		<script>		jQuery(document).ready(function() {			App.init();			FormComponents.init();		});	</script></body></html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <title>运营云平台-下载</title>
+    <link rel="stylesheet" type="text/css" href="css/download.css"/>
+</head>
+<body>
+    <img class="down-img" id="productlogo" src="img/download.png" />
+    <div class="name" id="pruducttitle">客户运营云</div>
+
+    <div id="productdesp" style="padding: 20px;"></div>
+
+    <button class="btn" id="b1" >下载</button>
+    <button class="btn" id="b2" style="display: none">下载</button>
+
+    <div class="wxtip" id="JweixinTip">
+
+        <img class="tip-img" src="img/tips.png" />
+    </div>
+
+    <div style="margin-top: 60px;margin-left: 20px;display: none;">
+        <a id="vtitle" href="">这里显示视频的标题</a>
+    </div>
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+    var downloadurl = "";
+    /**
+     * 获取当前请求安装包的产品信息
+     */
+    function loadProductInfo(){
+        var ptype = GetQueryString("ptype");
+        if(!(ptype && ptype != "")){
+            alert("错误的请求地址");
+            return;
+        }
+        updatecom("/get/productinfo",{ptype:ptype},function (response) {
+            if(response.error_code == 10000){
+                var productinfo = eval(response.data);
+                if(productinfo && productinfo.length > 0){
+                    var pinfo = productinfo[0];
+                    $(document).attr("title","下载"+pinfo.name);
+                    $("title").html("下载"+pinfo.name);
+                    $("#productlogo").attr('src',pinfo.logoimg);
+                    $("#pruducttitle").text(pinfo.name);
+                    $("#productdesp").text(pinfo.desp);
+                    if(pinfo.vurl && pinfo.vurl != ""){
+                        $("#vtitle").parent().css("display","inline-block");
+                        $("#vtitle").text((pinfo.title && pinfo.title != "")?pinfo.title:pinfo.name);
+                        $('#vtitle').attr('href',pinfo.vurl);
+                    }
+                    downloadurl = pinfo.durl;
+                }
+            }else{
+                alert("验证码获取失败！")
+            }
+        });
+    }
+    $(function(){
+        loadProductInfo();
+    });
+
+
+    var b1 = $("#b1");
+    var b2 = $("#b2");
+    function download(){
+        var ua = navigator.userAgent;
+        var isWeixin = !!/MicroMessenger/i.test(ua);
+
+        if(isWeixin){
+            b1.attr("style","display:none");
+            b2.attr("style","display:block");
+            b2.click(function () {
+                $(".wxtip").attr("style","display:block");
+            });
+        }else{
+            b1.click(function () {
+                window.location.href = downloadurl;
+            });
+        }
+    }
+    download();
+
+
+</script>
+
+</body>
+</html>

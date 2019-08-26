@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ISoftTaskStepDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.SoftTaskStepVO">
+		
+		<id column="csts_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 步骤主键 -->
+		<result column="ref_cstuiid" property="cstuiid" jdbcType="VARCHAR" />  <!-- 业务名称，关联业务主键 -->
+		<result column="csts_precstsuiid" property="precstsuiid" jdbcType="VARCHAR" />  <!-- 上步骤名称，关联步骤主键 -->
+		<result column="csts_title" property="title" jdbcType="VARCHAR" />  <!-- 步骤标题 -->
+		<result column="csts_tasktype" property="tasktype" jdbcType="CHAR" />  <!-- 步骤业务，1单一寻址2循环寻址3事务操作 -->
+		<result column="csts_opetype" property="opetype" jdbcType="CHAR" />  <!-- 具体操作，1取值2赋值3滑动4单击5回退6循环 -->
+		<result column="csts_clicktype" property="clicktype" jdbcType="CHAR" />  <!-- 单击技术，1单击2长按3滑动4滑动长按 -->
+		<result column="csts_agmodel" property="agmodel" jdbcType="CHAR" />  <!-- 循环模式，1单次0无限次 -->
+		<result column="csts_agcount" property="agcount" jdbcType="INTEGER" />  <!-- 循环次数 -->
+		<result column="csts_movesize" property="movesize" jdbcType="INTEGER" />  <!-- 滑动阀值 -->
+		<result column="csts_pagemodel" property="pagemodel" jdbcType="CHAR" />  <!-- 页面模式，1新页面0原页面 -->
+		<result column="csts_desp" property="desp" jdbcType="VARCHAR" />  <!-- 步骤说明 -->
+		<result column="csts_state" property="state" jdbcType="CHAR" />  <!-- 状态，0草稿1有效2无效 -->
+		<result column="csts_submitdata" property="submitdata" jdbcType="CHAR" />  <!-- 数据上报，1是0否 -->
+		<result column="csts_predelay" property="predelay" jdbcType="INTEGER" />  <!-- 执行前延时 -->
+		<result column="csts_aftdelay" property="aftdelay" jdbcType="INTEGER" />  <!-- 执行后延时 -->
+		<result column="csts_ingoresta" property="ingoresta" jdbcType="CHAR" />  <!-- 忽略状态，1允许0必须，默认0 -->
+		<result column="csts_extracount" property="extracount" jdbcType="INTEGER" />  <!-- 辅助次数 -->
+		<result column="csts_iffinish" property="iffinish" jdbcType="CHAR" />  <!-- 可标记完成，1是0否 -->
+		<result column="csts_moveto" property="moveto" jdbcType="CHAR" />  <!-- 滑动方向，1下滑动2上滑动3左滑动4右滑动5自主上下6自主左右 -->
+		<result column="csts_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		csts_uiid ,
+		ref_cstuiid ,
+		csts_precstsuiid ,
+		csts_title ,
+		csts_tasktype ,
+		csts_opetype ,
+		csts_clicktype ,
+		csts_agmodel ,
+		csts_agcount ,
+		csts_movesize ,
+		csts_pagemodel ,
+		csts_desp ,
+		csts_state ,
+		csts_submitdata ,
+		csts_predelay ,
+		csts_aftdelay ,
+		csts_ingoresta ,
+		csts_extracount ,
+		csts_iffinish ,
+		csts_moveto ,
+		csts_sort 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		insert into con_soft_task_step
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				csts_uiid ,
+			</if>
+			<if test="cstuiid != null">
+				ref_cstuiid ,
+			</if>
+			<if test="precstsuiid != null">
+				csts_precstsuiid ,
+			</if>
+			<if test="title != null">
+				csts_title ,
+			</if>
+			<if test="tasktype != null">
+				csts_tasktype ,
+			</if>
+			<if test="opetype != null">
+				csts_opetype ,
+			</if>
+			<if test="clicktype != null">
+				csts_clicktype ,
+			</if>
+			<if test="agmodel != null">
+				csts_agmodel ,
+			</if>
+			<if test="agcount != null">
+				csts_agcount ,
+			</if>
+			<if test="movesize != null">
+				csts_movesize ,
+			</if>
+			<if test="pagemodel != null">
+				csts_pagemodel ,
+			</if>
+			<if test="desp != null">
+				csts_desp ,
+			</if>
+			<if test="state != null">
+				csts_state ,
+			</if>
+			<if test="submitdata != null">
+				csts_submitdata ,
+			</if>
+			<if test="predelay != null">
+				csts_predelay ,
+			</if>
+			<if test="aftdelay != null">
+				csts_aftdelay ,
+			</if>
+			<if test="ingoresta != null">
+				csts_ingoresta ,
+			</if>
+			<if test="extracount != null">
+				csts_extracount ,
+			</if>
+			<if test="iffinish != null">
+				csts_iffinish ,
+			</if>
+			<if test="moveto != null">
+				csts_moveto ,
+			</if>
+			<if test="sort != null">
+				csts_sort 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cstuiid != null">
+				#{cstuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="precstsuiid != null">
+				#{precstsuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="tasktype != null">
+				#{tasktype,jdbcType=CHAR} ,
+			</if>
+			<if test="opetype != null">
+				#{opetype,jdbcType=CHAR} ,
+			</if>
+			<if test="clicktype != null">
+				#{clicktype,jdbcType=CHAR} ,
+			</if>
+			<if test="agmodel != null">
+				#{agmodel,jdbcType=CHAR} ,
+			</if>
+			<if test="agcount != null">
+				#{agcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="movesize != null">
+				#{movesize,jdbcType=INTEGER} ,
+			</if>
+			<if test="pagemodel != null">
+				#{pagemodel,jdbcType=CHAR} ,
+			</if>
+			<if test="desp != null">
+				#{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="submitdata != null">
+				#{submitdata,jdbcType=CHAR} ,
+			</if>
+			<if test="predelay != null">
+				#{predelay,jdbcType=INTEGER} ,
+			</if>
+			<if test="aftdelay != null">
+				#{aftdelay,jdbcType=INTEGER} ,
+			</if>
+			<if test="ingoresta != null">
+				#{ingoresta,jdbcType=CHAR} ,
+			</if>
+			<if test="extracount != null">
+				#{extracount,jdbcType=INTEGER} ,
+			</if>
+			<if test="iffinish != null">
+				#{iffinish,jdbcType=CHAR} ,
+			</if>
+			<if test="moveto != null">
+				#{moveto,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		insert into con_soft_task_step
+		(
+			csts_uiid ,
+			ref_cstuiid ,
+			csts_precstsuiid ,
+			csts_title ,
+			csts_tasktype ,
+			csts_opetype ,
+			csts_clicktype ,
+			csts_agmodel ,
+			csts_agcount ,
+			csts_movesize ,
+			csts_pagemodel ,
+			csts_desp ,
+			csts_state ,
+			csts_submitdata ,
+			csts_predelay ,
+			csts_aftdelay ,
+			csts_ingoresta ,
+			csts_extracount ,
+			csts_iffinish ,
+			csts_moveto ,
+			csts_sort 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.cstuiid} ,
+			#{item.precstsuiid} ,
+			#{item.title} ,
+			#{item.tasktype} ,
+			#{item.opetype} ,
+			#{item.clicktype} ,
+			#{item.agmodel} ,
+			#{item.agcount} ,
+			#{item.movesize} ,
+			#{item.pagemodel} ,
+			#{item.desp} ,
+			#{item.state} ,
+			#{item.submitdata} ,
+			#{item.predelay} ,
+			#{item.aftdelay} ,
+			#{item.ingoresta} ,
+			#{item.extracount} ,
+			#{item.iffinish} ,
+			#{item.moveto} ,
+			#{item.sort} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		update con_soft_task_step
+		<set>
+			<if test="cstuiid != null">
+				ref_cstuiid = #{cstuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="precstsuiid != null">
+				csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				csts_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="tasktype != null">
+				csts_tasktype = #{tasktype,jdbcType=CHAR} ,
+			</if>
+			<if test="opetype != null">
+				csts_opetype = #{opetype,jdbcType=CHAR} ,
+			</if>
+			<if test="clicktype != null">
+				csts_clicktype = #{clicktype,jdbcType=CHAR} ,
+			</if>
+			<if test="agmodel != null">
+				csts_agmodel = #{agmodel,jdbcType=CHAR} ,
+			</if>
+			<if test="agcount != null">
+				csts_agcount = #{agcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="movesize != null">
+				csts_movesize = #{movesize,jdbcType=INTEGER} ,
+			</if>
+			<if test="pagemodel != null">
+				csts_pagemodel = #{pagemodel,jdbcType=CHAR} ,
+			</if>
+			<if test="desp != null">
+				csts_desp = #{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="state != null">
+				csts_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="submitdata != null">
+				csts_submitdata = #{submitdata,jdbcType=CHAR} ,
+			</if>
+			<if test="predelay != null">
+				csts_predelay = #{predelay,jdbcType=INTEGER} ,
+			</if>
+			<if test="aftdelay != null">
+				csts_aftdelay = #{aftdelay,jdbcType=INTEGER} ,
+			</if>
+			<if test="ingoresta != null">
+				csts_ingoresta = #{ingoresta,jdbcType=CHAR} ,
+			</if>
+			<if test="extracount != null">
+				csts_extracount = #{extracount,jdbcType=INTEGER} ,
+			</if>
+			<if test="iffinish != null">
+				csts_iffinish = #{iffinish,jdbcType=CHAR} ,
+			</if>
+			<if test="moveto != null">
+				csts_moveto = #{moveto,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				csts_sort = #{sort,jdbcType=INTEGER} 
+			</if>
+		</set>
+		where csts_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task_step
+			<set>
+				<if test="item.cstuiid != null">
+					ref_cstuiid = #{item.cstuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.precstsuiid != null">
+					csts_precstsuiid = #{item.precstsuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					csts_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.tasktype != null">
+					csts_tasktype = #{item.tasktype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.opetype != null">
+					csts_opetype = #{item.opetype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.clicktype != null">
+					csts_clicktype = #{item.clicktype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.agmodel != null">
+					csts_agmodel = #{item.agmodel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.agcount != null">
+					csts_agcount = #{item.agcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.movesize != null">
+					csts_movesize = #{item.movesize,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.pagemodel != null">
+					csts_pagemodel = #{item.pagemodel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.desp != null">
+					csts_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.state != null">
+					csts_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.submitdata != null">
+					csts_submitdata = #{item.submitdata,jdbcType=CHAR} ,
+				</if>
+				<if test="item.predelay != null">
+					csts_predelay = #{item.predelay,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.aftdelay != null">
+					csts_aftdelay = #{item.aftdelay,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.ingoresta != null">
+					csts_ingoresta = #{item.ingoresta,jdbcType=CHAR} ,
+				</if>
+				<if test="item.extracount != null">
+					csts_extracount = #{item.extracount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.iffinish != null">
+					csts_iffinish = #{item.iffinish,jdbcType=CHAR} ,
+				</if>
+				<if test="item.moveto != null">
+					csts_moveto = #{item.moveto,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					csts_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where csts_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task_step
+			<set>
+				<if test="item.cstuiid != null">
+					ref_cstuiid = #{item.cstuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.precstsuiid != null">
+					csts_precstsuiid = #{item.precstsuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					csts_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.tasktype != null">
+					csts_tasktype = #{item.tasktype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.opetype != null">
+					csts_opetype = #{item.opetype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.clicktype != null">
+					csts_clicktype = #{item.clicktype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.agmodel != null">
+					csts_agmodel = #{item.agmodel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.agcount != null">
+					csts_agcount = #{item.agcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.movesize != null">
+					csts_movesize = #{item.movesize,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.pagemodel != null">
+					csts_pagemodel = #{item.pagemodel,jdbcType=CHAR} ,
+				</if>
+				<if test="item.desp != null">
+					csts_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.state != null">
+					csts_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.submitdata != null">
+					csts_submitdata = #{item.submitdata,jdbcType=CHAR} ,
+				</if>
+				<if test="item.predelay != null">
+					csts_predelay = #{item.predelay,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.aftdelay != null">
+					csts_aftdelay = #{item.aftdelay,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.ingoresta != null">
+					csts_ingoresta = #{item.ingoresta,jdbcType=CHAR} ,
+				</if>
+				<if test="item.extracount != null">
+					csts_extracount = #{item.extracount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.iffinish != null">
+					csts_iffinish = #{item.iffinish,jdbcType=CHAR} ,
+				</if>
+				<if test="item.moveto != null">
+					csts_moveto = #{item.moveto,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					csts_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where csts_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_soft_task_step
+		where csts_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		delete from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null">
+				and csts_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="precstsuiid != null">
+				and csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and csts_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="tasktype != null">
+				and csts_tasktype = #{tasktype,jdbcType=CHAR}
+			</if>
+			<if test="opetype != null">
+				and csts_opetype = #{opetype,jdbcType=CHAR}
+			</if>
+			<if test="clicktype != null">
+				and csts_clicktype = #{clicktype,jdbcType=CHAR}
+			</if>
+			<if test="agmodel != null">
+				and csts_agmodel = #{agmodel,jdbcType=CHAR}
+			</if>
+			<if test="agcount != null">
+				and csts_agcount = #{agcount,jdbcType=INTEGER}
+			</if>
+			<if test="movesize != null">
+				and csts_movesize = #{movesize,jdbcType=INTEGER}
+			</if>
+			<if test="pagemodel != null">
+				and csts_pagemodel = #{pagemodel,jdbcType=CHAR}
+			</if>
+			<if test="desp != null">
+				and csts_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null">
+				and csts_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="submitdata != null">
+				and csts_submitdata = #{submitdata,jdbcType=CHAR}
+			</if>
+			<if test="predelay != null">
+				and csts_predelay = #{predelay,jdbcType=INTEGER}
+			</if>
+			<if test="aftdelay != null">
+				and csts_aftdelay = #{aftdelay,jdbcType=INTEGER}
+			</if>
+			<if test="ingoresta != null">
+				and csts_ingoresta = #{ingoresta,jdbcType=CHAR}
+			</if>
+			<if test="extracount != null">
+				and csts_extracount = #{extracount,jdbcType=INTEGER}
+			</if>
+			<if test="iffinish != null">
+				and csts_iffinish = #{iffinish,jdbcType=CHAR}
+			</if>
+			<if test="moveto != null">
+				and csts_moveto = #{moveto,jdbcType=CHAR}
+			</if>
+			<if test="sort != null">
+				and csts_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_soft_task_step
+		where csts_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null">
+				and csts_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstuiid != null">
+				and ref_cstuiid in 
+				<foreach collection="cstuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="precstsuiid != null">
+				and csts_precstsuiid in 
+				<foreach collection="precstsuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and csts_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="tasktype != null">
+				and csts_tasktype in 
+				<foreach collection="tasktype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="opetype != null">
+				and csts_opetype in 
+				<foreach collection="opetype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="clicktype != null">
+				and csts_clicktype in 
+				<foreach collection="clicktype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agmodel != null">
+				and csts_agmodel in 
+				<foreach collection="agmodel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agcount != null">
+				and csts_agcount in 
+				<foreach collection="agcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="movesize != null">
+				and csts_movesize in 
+				<foreach collection="movesize" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pagemodel != null">
+				and csts_pagemodel in 
+				<foreach collection="pagemodel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null">
+				and csts_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and csts_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="submitdata != null">
+				and csts_submitdata in 
+				<foreach collection="submitdata" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="predelay != null">
+				and csts_predelay in 
+				<foreach collection="predelay" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="aftdelay != null">
+				and csts_aftdelay in 
+				<foreach collection="aftdelay" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ingoresta != null">
+				and csts_ingoresta in 
+				<foreach collection="ingoresta" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extracount != null">
+				and csts_extracount in 
+				<foreach collection="extracount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="iffinish != null">
+				and csts_iffinish in 
+				<foreach collection="iffinish" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="moveto != null">
+				and csts_moveto in 
+				<foreach collection="moveto" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and csts_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_soft_task_step where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task_step
+		where csts_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task_step
+		where csts_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_soft_task_step
+		where csts_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by csts_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select * from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid in 
+				<foreach collection="cstuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid in 
+				<foreach collection="precstsuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype in 
+				<foreach collection="tasktype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype in 
+				<foreach collection="opetype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype in 
+				<foreach collection="clicktype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel in 
+				<foreach collection="agmodel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount in 
+				<foreach collection="agcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize in 
+				<foreach collection="movesize" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel in 
+				<foreach collection="pagemodel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata in 
+				<foreach collection="submitdata" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay in 
+				<foreach collection="predelay" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay in 
+				<foreach collection="aftdelay" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta in 
+				<foreach collection="ingoresta" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount in 
+				<foreach collection="extracount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish in 
+				<foreach collection="iffinish" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto in 
+				<foreach collection="moveto" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by csts_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select * from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype = #{tasktype,jdbcType=CHAR}
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype = #{opetype,jdbcType=CHAR}
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype = #{clicktype,jdbcType=CHAR}
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel = #{agmodel,jdbcType=CHAR}
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount = #{agcount,jdbcType=INTEGER}
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize = #{movesize,jdbcType=INTEGER}
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel = #{pagemodel,jdbcType=CHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata = #{submitdata,jdbcType=CHAR}
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay = #{predelay,jdbcType=INTEGER}
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay = #{aftdelay,jdbcType=INTEGER}
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta = #{ingoresta,jdbcType=CHAR}
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount = #{extracount,jdbcType=INTEGER}
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish = #{iffinish,jdbcType=CHAR}
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto = #{moveto,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select count(*) from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid like CONCAT('%',#{precstsuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype like CONCAT('%',#{tasktype},'%' )
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype like CONCAT('%',#{opetype},'%' )
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype like CONCAT('%',#{clicktype},'%' )
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel like CONCAT('%',#{agmodel},'%' )
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount like CONCAT('%',#{agcount},'%' )
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize like CONCAT('%',#{movesize},'%' )
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel like CONCAT('%',#{pagemodel},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata like CONCAT('%',#{submitdata},'%' )
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay like CONCAT('%',#{predelay},'%' )
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay like CONCAT('%',#{aftdelay},'%' )
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta like CONCAT('%',#{ingoresta},'%' )
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount like CONCAT('%',#{extracount},'%' )
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish like CONCAT('%',#{iffinish},'%' )
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto like CONCAT('%',#{moveto},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort like CONCAT('%',#{sort},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select * from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype = #{tasktype,jdbcType=CHAR}
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype = #{opetype,jdbcType=CHAR}
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype = #{clicktype,jdbcType=CHAR}
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel = #{agmodel,jdbcType=CHAR}
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount = #{agcount,jdbcType=INTEGER}
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize = #{movesize,jdbcType=INTEGER}
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel = #{pagemodel,jdbcType=CHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata = #{submitdata,jdbcType=CHAR}
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay = #{predelay,jdbcType=INTEGER}
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay = #{aftdelay,jdbcType=INTEGER}
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta = #{ingoresta,jdbcType=CHAR}
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount = #{extracount,jdbcType=INTEGER}
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish = #{iffinish,jdbcType=CHAR}
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto = #{moveto,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by csts_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select * from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid like CONCAT('%',#{precstsuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype like CONCAT('%',#{tasktype},'%' )
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype like CONCAT('%',#{opetype},'%' )
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype like CONCAT('%',#{clicktype},'%' )
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel like CONCAT('%',#{agmodel},'%' )
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount like CONCAT('%',#{agcount},'%' )
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize like CONCAT('%',#{movesize},'%' )
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel like CONCAT('%',#{pagemodel},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata like CONCAT('%',#{submitdata},'%' )
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay like CONCAT('%',#{predelay},'%' )
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay like CONCAT('%',#{aftdelay},'%' )
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta like CONCAT('%',#{ingoresta},'%' )
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount like CONCAT('%',#{extracount},'%' )
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish like CONCAT('%',#{iffinish},'%' )
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto like CONCAT('%',#{moveto},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by csts_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		select * from con_soft_task_step
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or csts_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				or ref_cstuiid like CONCAT('%',#{cstuiid},'%' )
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				or csts_precstsuiid like CONCAT('%',#{precstsuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or csts_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				or csts_tasktype like CONCAT('%',#{tasktype},'%' )
+			</if>
+			<if test="opetype != null and opetype != ''">
+				or csts_opetype like CONCAT('%',#{opetype},'%' )
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				or csts_clicktype like CONCAT('%',#{clicktype},'%' )
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				or csts_agmodel like CONCAT('%',#{agmodel},'%' )
+			</if>
+			<if test="agcount != null and agcount != ''">
+				or csts_agcount like CONCAT('%',#{agcount},'%' )
+			</if>
+			<if test="movesize != null and movesize != ''">
+				or csts_movesize like CONCAT('%',#{movesize},'%' )
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				or csts_pagemodel like CONCAT('%',#{pagemodel},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				or csts_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or csts_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				or csts_submitdata like CONCAT('%',#{submitdata},'%' )
+			</if>
+			<if test="predelay != null and predelay != ''">
+				or csts_predelay like CONCAT('%',#{predelay},'%' )
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				or csts_aftdelay like CONCAT('%',#{aftdelay},'%' )
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				or csts_ingoresta like CONCAT('%',#{ingoresta},'%' )
+			</if>
+			<if test="extracount != null and extracount != ''">
+				or csts_extracount like CONCAT('%',#{extracount},'%' )
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				or csts_iffinish like CONCAT('%',#{iffinish},'%' )
+			</if>
+			<if test="moveto != null and moveto != ''">
+				or csts_moveto like CONCAT('%',#{moveto},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or csts_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by csts_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		 select con_soft_task_step.csts_uiid as uiid,con_soft_task_step.ref_cstuiid as cstuiid, (select GROUP_CONCAT( rt1.cst_title) from con_soft_task rt1 where FIND_IN_SET( rt1.cst_uiid ,con_soft_task_step.ref_cstuiid) )  as cstuiidtitle,con_soft_task_step.csts_precstsuiid as precstsuiid, (select GROUP_CONCAT( rt2.csts_title) from con_soft_task_step rt2 where FIND_IN_SET( rt2.csts_uiid ,con_soft_task_step.csts_precstsuiid) )  as precstsuiidtitle,con_soft_task_step.csts_title as title,con_soft_task_step.csts_tasktype as tasktype,con_soft_task_step.csts_opetype as opetype,con_soft_task_step.csts_clicktype as clicktype,con_soft_task_step.csts_agmodel as agmodel,con_soft_task_step.csts_agcount as agcount,con_soft_task_step.csts_movesize as movesize,con_soft_task_step.csts_pagemodel as pagemodel,con_soft_task_step.csts_desp as desp,con_soft_task_step.csts_state as state,con_soft_task_step.csts_submitdata as submitdata,con_soft_task_step.csts_predelay as predelay,con_soft_task_step.csts_aftdelay as aftdelay,con_soft_task_step.csts_ingoresta as ingoresta,con_soft_task_step.csts_extracount as extracount,con_soft_task_step.csts_iffinish as iffinish,con_soft_task_step.csts_moveto as moveto,con_soft_task_step.csts_sort as sort from con_soft_task_step
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype = #{tasktype,jdbcType=CHAR}
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype = #{opetype,jdbcType=CHAR}
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype = #{clicktype,jdbcType=CHAR}
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel = #{agmodel,jdbcType=CHAR}
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount = #{agcount,jdbcType=INTEGER}
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize = #{movesize,jdbcType=INTEGER}
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel = #{pagemodel,jdbcType=CHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata = #{submitdata,jdbcType=CHAR}
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay = #{predelay,jdbcType=INTEGER}
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay = #{aftdelay,jdbcType=INTEGER}
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta = #{ingoresta,jdbcType=CHAR}
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount = #{extracount,jdbcType=INTEGER}
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish = #{iffinish,jdbcType=CHAR}
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto = #{moveto,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by csts_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskStepVO">
+		 select con_soft_task_step.csts_uiid as uiid,con_soft_task_step.ref_cstuiid as cstuiid,con_soft_task_step.ref_cstuiid as cstuiidrefid,con_soft_taskref_cstuiid.cst_title as cstuiidrefview,con_soft_task_step.csts_precstsuiid as precstsuiid,con_soft_task_step.csts_precstsuiid as precstsuiidrefid,con_soft_task_stepcsts_precstsuiid.csts_title as precstsuiidrefview,con_soft_task_step.csts_title as title,con_soft_task_step.csts_tasktype as tasktype,con_soft_task_step.csts_opetype as opetype,con_soft_task_step.csts_clicktype as clicktype,con_soft_task_step.csts_agmodel as agmodel,con_soft_task_step.csts_agcount as agcount,con_soft_task_step.csts_movesize as movesize,con_soft_task_step.csts_pagemodel as pagemodel,con_soft_task_step.csts_desp as desp,con_soft_task_step.csts_state as state,con_soft_task_step.csts_submitdata as submitdata,con_soft_task_step.csts_predelay as predelay,con_soft_task_step.csts_aftdelay as aftdelay,con_soft_task_step.csts_ingoresta as ingoresta,con_soft_task_step.csts_extracount as extracount,con_soft_task_step.csts_iffinish as iffinish,con_soft_task_step.csts_moveto as moveto,con_soft_task_step.csts_sort as sort from con_soft_task_step left outer join con_soft_task con_soft_taskref_cstuiid on con_soft_taskref_cstuiid.cst_uiid = con_soft_task_step.ref_cstuiid left outer join con_soft_task_step con_soft_task_stepcsts_precstsuiid on con_soft_task_stepcsts_precstsuiid.csts_uiid = con_soft_task_step.csts_precstsuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csts_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cstuiid != null and cstuiid != ''">
+				and ref_cstuiid = #{cstuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="precstsuiid != null and precstsuiid != ''">
+				and csts_precstsuiid = #{precstsuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and csts_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="tasktype != null and tasktype != ''">
+				and csts_tasktype = #{tasktype,jdbcType=CHAR}
+			</if>
+			<if test="opetype != null and opetype != ''">
+				and csts_opetype = #{opetype,jdbcType=CHAR}
+			</if>
+			<if test="clicktype != null and clicktype != ''">
+				and csts_clicktype = #{clicktype,jdbcType=CHAR}
+			</if>
+			<if test="agmodel != null and agmodel != ''">
+				and csts_agmodel = #{agmodel,jdbcType=CHAR}
+			</if>
+			<if test="agcount != null and agcount != ''">
+				and csts_agcount = #{agcount,jdbcType=INTEGER}
+			</if>
+			<if test="movesize != null and movesize != ''">
+				and csts_movesize = #{movesize,jdbcType=INTEGER}
+			</if>
+			<if test="pagemodel != null and pagemodel != ''">
+				and csts_pagemodel = #{pagemodel,jdbcType=CHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and csts_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and csts_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="submitdata != null and submitdata != ''">
+				and csts_submitdata = #{submitdata,jdbcType=CHAR}
+			</if>
+			<if test="predelay != null and predelay != ''">
+				and csts_predelay = #{predelay,jdbcType=INTEGER}
+			</if>
+			<if test="aftdelay != null and aftdelay != ''">
+				and csts_aftdelay = #{aftdelay,jdbcType=INTEGER}
+			</if>
+			<if test="ingoresta != null and ingoresta != ''">
+				and csts_ingoresta = #{ingoresta,jdbcType=CHAR}
+			</if>
+			<if test="extracount != null and extracount != ''">
+				and csts_extracount = #{extracount,jdbcType=INTEGER}
+			</if>
+			<if test="iffinish != null and iffinish != ''">
+				and csts_iffinish = #{iffinish,jdbcType=CHAR}
+			</if>
+			<if test="moveto != null and moveto != ''">
+				and csts_moveto = #{moveto,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and csts_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by csts_sort asc
+	</select>
+
+</mapper>

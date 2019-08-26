@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_otherset.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>其他设置</title>
+</head>
+<body>
+    <div class="setcon">
+        <div class="plannum">
+            <text class="conKey">任务数量:</text>
+            <input class="pnum" type="number"  placeholder="请输入任务数量" />
+        </div>
+        <div class="openstate" >
+            <text class="conKey">启动状态:</text>
+            <input class="ready" type="radio" name="openstate" value="0">待启动
+            <input class="startup" type="radio" name="openstate" value="1">启动
+        </div>
+    </div>
+    <div class="save" onclick="save()">保存</div>
+    <div class="ret" onclick="goback()">返回</div>
+
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+    <script type="text/javascript" src="js/tips.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+    <script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+
+    <script type="text/javascript">
+        /**
+         * 获取编辑内容并回显
+         */
+        $(function () {
+            updatecom("/userRefSubject/toEditData", {uiid: getCookie("id")}, function (response) {
+                if (response.error_code == 10000) {
+                    $(".pnum").val(response.data.destnum);
+                    if(response.data.state == "0"){
+                        $(".ready").prop("checked",true);
+                    }else{
+                        $(".startup").prop("checked",true);
+                    }
+                }
+            });
+        });
+
+        /**
+         * 保存编辑
+         */
+        function save() {
+            confirmLike("确认保存吗?");
+        }
+        function ok() {
+            var pnum = $(".pnum").val();
+            var state;
+            if($(".ready").prop("checked")) {
+                state = "0";
+            }else{
+                state = "1";
+            }
+            updatecom("/userRefSubject/edit", {uiid: getCookie("id"),destnum:pnum,state:state}, function (response) {
+                if (response.error_code == 10000) {
+                    // tip("保存成功!");
+                    window.history.back();
+                }else{
+                    tip(response.error);
+                }
+            });
+            $('body').css({
+                "overflow-x":"auto",
+                "overflow-y":"auto"
+            });
+            conf.attr("style","display:none");
+            prompt_con.attr("style","display:none");
+        }
+
+        function goback() {
+            window.history.back();
+        }
+
+    </script>
+</body>
+</html>

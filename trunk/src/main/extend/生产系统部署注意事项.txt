@@ -1,0 +1,20 @@
+
+
+1，确保fileinputextend2.js扩展文件中的附件地址正确；否则全部附件将无法使用；
+
+2，确保app/js/develop.js 中  var basePath = localhostPath + "/";  代码为启用；否则app中移动页面将无法使用；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

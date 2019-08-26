@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ISoftTaskDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.SoftTaskVO">
+		
+		<id column="cst_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 软件业务主键 -->
+		<result column="ref_csiuiid" property="csiuiid" jdbcType="VARCHAR" />  <!-- 软件名称，关联软件主键 -->
+		<result column="cst_title" property="title" jdbcType="VARCHAR" />  <!-- 业务名称 -->
+		<result column="cst_code" property="code" jdbcType="VARCHAR" />  <!-- 业务编码 -->
+		<result column="cst_desp" property="desp" jdbcType="VARCHAR" />  <!-- 业务描述 -->
+		<result column="cst_versionstr" property="versionstr" jdbcType="VARCHAR" />  <!-- 支持版本信息，多个之间逗号分隔 -->
+		<result column="cst_minversion" property="minversion" jdbcType="INTEGER" />  <!-- 最大版本号 -->
+		<result column="cst_maxversion" property="maxversion" jdbcType="INTEGER" />  <!-- 最小版本号 -->
+		<result column="cst_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cst_uiid ,
+		ref_csiuiid ,
+		cst_title ,
+		cst_code ,
+		cst_desp ,
+		cst_versionstr ,
+		cst_minversion ,
+		cst_maxversion ,
+		cst_sort 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.SoftTaskVO">
+		insert into con_soft_task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cst_uiid ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid ,
+			</if>
+			<if test="title != null">
+				cst_title ,
+			</if>
+			<if test="code != null">
+				cst_code ,
+			</if>
+			<if test="desp != null">
+				cst_desp ,
+			</if>
+			<if test="versionstr != null">
+				cst_versionstr ,
+			</if>
+			<if test="minversion != null">
+				cst_minversion ,
+			</if>
+			<if test="maxversion != null">
+				cst_maxversion ,
+			</if>
+			<if test="sort != null">
+				cst_sort 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				#{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				#{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="versionstr != null">
+				#{versionstr,jdbcType=VARCHAR} ,
+			</if>
+			<if test="minversion != null">
+				#{minversion,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxversion != null">
+				#{maxversion,jdbcType=INTEGER} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.SoftTaskVO">
+		insert into con_soft_task
+		(
+			cst_uiid ,
+			ref_csiuiid ,
+			cst_title ,
+			cst_code ,
+			cst_desp ,
+			cst_versionstr ,
+			cst_minversion ,
+			cst_maxversion ,
+			cst_sort 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.csiuiid} ,
+			#{item.title} ,
+			#{item.code} ,
+			#{item.desp} ,
+			#{item.versionstr} ,
+			#{item.minversion} ,
+			#{item.maxversion} ,
+			#{item.sort} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.SoftTaskVO">
+		update con_soft_task
+		<set>
+			<if test="csiuiid != null">
+				ref_csiuiid = #{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				cst_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="code != null">
+				cst_code = #{code,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				cst_desp = #{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="versionstr != null">
+				cst_versionstr = #{versionstr,jdbcType=VARCHAR} ,
+			</if>
+			<if test="minversion != null">
+				cst_minversion = #{minversion,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxversion != null">
+				cst_maxversion = #{maxversion,jdbcType=INTEGER} ,
+			</if>
+			<if test="sort != null">
+				cst_sort = #{sort,jdbcType=INTEGER} 
+			</if>
+		</set>
+		where cst_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cst_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.code != null">
+					cst_code = #{item.code,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cst_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.versionstr != null">
+					cst_versionstr = #{item.versionstr,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.minversion != null">
+					cst_minversion = #{item.minversion,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxversion != null">
+					cst_maxversion = #{item.maxversion,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.sort != null">
+					cst_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cst_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_task
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cst_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.code != null">
+					cst_code = #{item.code,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cst_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.versionstr != null">
+					cst_versionstr = #{item.versionstr,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.minversion != null">
+					cst_minversion = #{item.minversion,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxversion != null">
+					cst_maxversion = #{item.maxversion,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.sort != null">
+					cst_sort = #{item.sort,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cst_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_soft_task
+		where cst_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.SoftTaskVO">
+		delete from con_soft_task
+		where 1=1 
+			<if test="uiid != null">
+				and cst_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and cst_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null">
+				and cst_code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null">
+				and cst_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="versionstr != null">
+				and cst_versionstr = #{versionstr,jdbcType=VARCHAR}
+			</if>
+			<if test="minversion != null">
+				and cst_minversion = #{minversion,jdbcType=INTEGER}
+			</if>
+			<if test="maxversion != null">
+				and cst_maxversion = #{maxversion,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null">
+				and cst_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_soft_task
+		where cst_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_soft_task
+		where 1=1 
+			<if test="uiid != null">
+				and cst_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and cst_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="code != null">
+				and cst_code in 
+				<foreach collection="code" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null">
+				and cst_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="versionstr != null">
+				and cst_versionstr in 
+				<foreach collection="versionstr" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="minversion != null">
+				and cst_minversion in 
+				<foreach collection="minversion" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxversion != null">
+				and cst_maxversion in 
+				<foreach collection="maxversion" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and cst_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_soft_task where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task
+		where cst_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_task
+		where cst_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_soft_task
+		where cst_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by cst_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select * from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code in 
+				<foreach collection="code" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr in 
+				<foreach collection="versionstr" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion in 
+				<foreach collection="minversion" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion in 
+				<foreach collection="maxversion" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by cst_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select * from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr = #{versionstr,jdbcType=VARCHAR}
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion = #{minversion,jdbcType=INTEGER}
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion = #{maxversion,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort = #{sort,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select count(*) from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code like CONCAT('%',#{code},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr like CONCAT('%',#{versionstr},'%' )
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion like CONCAT('%',#{minversion},'%' )
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion like CONCAT('%',#{maxversion},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort like CONCAT('%',#{sort},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select * from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr = #{versionstr,jdbcType=VARCHAR}
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion = #{minversion,jdbcType=INTEGER}
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion = #{maxversion,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cst_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select * from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code like CONCAT('%',#{code},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr like CONCAT('%',#{versionstr},'%' )
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion like CONCAT('%',#{minversion},'%' )
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion like CONCAT('%',#{maxversion},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by cst_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftTaskVO">
+		select * from con_soft_task
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cst_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				or ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or cst_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="code != null and code != ''">
+				or cst_code like CONCAT('%',#{code},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				or cst_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				or cst_versionstr like CONCAT('%',#{versionstr},'%' )
+			</if>
+			<if test="minversion != null and minversion != ''">
+				or cst_minversion like CONCAT('%',#{minversion},'%' )
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				or cst_maxversion like CONCAT('%',#{maxversion},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or cst_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			order by cst_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskVO">
+		 select con_soft_task.cst_uiid as uiid,con_soft_task.ref_csiuiid as csiuiid, (select GROUP_CONCAT( rt1.csi_title) from con_soft_info rt1 where FIND_IN_SET( rt1.csi_uiid ,con_soft_task.ref_csiuiid) )  as csiuiidtitle,con_soft_task.cst_title as title,con_soft_task.cst_code as code,con_soft_task.cst_desp as desp,con_soft_task.cst_versionstr as versionstr,con_soft_task.cst_minversion as minversion,con_soft_task.cst_maxversion as maxversion,con_soft_task.cst_sort as sort from con_soft_task
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr = #{versionstr,jdbcType=VARCHAR}
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion = #{minversion,jdbcType=INTEGER}
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion = #{maxversion,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cst_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftTaskVO">
+		 select con_soft_task.cst_uiid as uiid,con_soft_task.ref_csiuiid as csiuiid,con_soft_task.ref_csiuiid as csiuiidrefid,con_soft_inforef_csiuiid.csi_title as csiuiidrefview,con_soft_task.cst_title as title,con_soft_task.cst_code as code,con_soft_task.cst_desp as desp,con_soft_task.cst_versionstr as versionstr,con_soft_task.cst_minversion as minversion,con_soft_task.cst_maxversion as maxversion,con_soft_task.cst_sort as sort from con_soft_task left outer join con_soft_info con_soft_inforef_csiuiid on con_soft_inforef_csiuiid.csi_uiid = con_soft_task.ref_csiuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cst_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cst_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="code != null and code != ''">
+				and cst_code = #{code,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cst_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="versionstr != null and versionstr != ''">
+				and cst_versionstr = #{versionstr,jdbcType=VARCHAR}
+			</if>
+			<if test="minversion != null and minversion != ''">
+				and cst_minversion = #{minversion,jdbcType=INTEGER}
+			</if>
+			<if test="maxversion != null and maxversion != ''">
+				and cst_maxversion = #{maxversion,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cst_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			order by cst_sort asc
+	</select>
+
+</mapper>

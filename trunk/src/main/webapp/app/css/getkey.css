@@ -1,0 +1,120 @@
+body{
+    background: #F5F5F5;
+    margin: 0px;
+    overflow:hidden;
+}
+.code{
+    margin: 30px 3.4% 0 3.4%;
+    height: 100px;
+    width: 92%;
+    border: 1px solid gray;
+    resize:none;
+}
+.getkey{
+    background: #0AC28D;
+    color: white;
+    height: 45px;
+    width: 93.7%;
+    margin-top: 27.4px;
+    margin-left: 3.1%;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 4px;
+}
+.tips{
+    margin-top: 30px;
+}
+.tips span{
+    margin-left: 3.1%;
+}
+.remark{
+    height: 45px;
+    margin: 27.4px 0 0 3.1%;
+}
+.remark .mark{
+    height: 30px;
+    width: 69.3%;
+    border: none;
+}
+.key{
+    margin: 10px 3.4% 0 3.4%;
+    height: 100px;
+    width: 92%;
+    border: 1px solid gray;
+    resize:none;
+}
+.prompt{
+    padding: 20px 5px 0 5px;
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 30px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    height: 60px;
+    width: 300px;
+    text-align: center;
+    word-wrap: break-word;word-break: break-all;overflow: hidden;
+
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+
+}
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+
+
+
+
+
+.prompt-con{
+    padding: 20px 5px 0 5px;
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 30px;
+    left: 9%;
+    border:1px solid #B1B1B1;
+}
+.msg-con{
+    height: 60px;
+    width: 300px;
+    text-align: center;
+    word-wrap: break-word;word-break: break-all;overflow: hidden;
+
+}
+.ok-con,.no-con{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 10%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.conf{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+}

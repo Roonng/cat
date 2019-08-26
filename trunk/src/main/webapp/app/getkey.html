@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/getkey.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>获取授权密钥</title>
+</head>
+<body>
+    <textarea class="code"></textarea>
+    <div class="remark">
+        开单备注： <input type="text" placeholder="请输入开单备注" class="mark"/>
+    </div>
+    <div class="getkey" onclick="getkeys()">获取密钥</div>
+
+    <div class="tips">
+        <span>您的密钥：</span>
+        <textarea class="key" readonly></textarea>
+    </div>
+
+    <div class="conf" style="display: none">
+        <div class="prompt-con" style="display: none">
+            <div class="msg-con"></div>
+            <div class="ok-con" onclick="ok()">确定</div>
+            <div class="no-con" onclick="no()">取消</div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+    <script type="text/javascript" src="js/tips.js"></script>
+    <script type="text/javascript" src="../media/js/md5.js"></script>
+
+    <script type="text/javascript">
+        var conf = $(".conf");
+        var prompt_con = $(".prompt-con");
+
+        function getkeys(){
+            var code = $(".code").val();
+            if(!(code && code != "")){
+                tip("请输入有效密匙激活文本!");
+                return;
+            }
+
+            conf.attr("style","display:block");
+            prompt_con.attr("style","display:block");
+            $(".msg-con").html("确定获取密钥吗？");
+
+        }
+        function ok(){
+            var code = $(".code").val();
+            var mark = $(".mark").val();
+            updatecom("/sale/one", {uiid: getCookie("uiid"), applycon: code, remark: mark}, function (response) {
+                if (response.error_code == 10000) {
+                    setCookie("count",getCookie("count") - 1);
+                    var key = response.data.keycon;
+                    $(".key").html(key);
+                    conf.attr("style","display:none");
+                    prompt_con.attr("style","display:none");
+                }else{
+                    conf.attr("style","display:none");
+                    prompt_con.attr("style","display:none");
+                    // tip("您输入的钥激活文本错误！");
+                    tip(response.error);
+                }
+            });
+        }
+
+        function no(){
+            conf.attr("style","display:none");
+            prompt_con.attr("style","display:none");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/login_pwd.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>客户运营云-密码登陆</title>
+
+</head>
+<body>
+<div class="info">
+    <div class="phone">
+        <div class="sjh">手机号</div>
+        <input type="number" id="mobile" placeholder-class="place" placeholder="请输入手机号"></input>
+    </div>
+    <div class="verifi">
+        <div class="yzm">密码</div>
+        <input type="password" id="pwd" placeholder-class="place-ver" placeholder="请输入密码"></input>
+    </div>
+</div>
+<button class="login" onclick="login()">登录</button>
+<div class="other">
+    <div class="register" onclick="javascript:window.location.href='register.html';">点击注册</div>
+    <div class="pwd" onclick="javascript:window.location.href='login_ver.html';">验证码登录</div>
+</div>
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="../media/js/md5.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var deviceid = GetQueryString("deviceid");
+        setCookie("deviceid",deviceid);
+
+        var ptype = GetQueryString("ptype");
+        setCookie("ptype",ptype);
+    })
+
+
+    /**
+     * 登录
+     */
+    function login() {
+        var mobile = $("#mobile").val();
+        var pwd = hex_md5($("#pwd").val());
+        if(!(mobile && mobile != "")){
+            // alert("请输入手机号！");
+            tip("请输入手机号!");
+            return;
+        }
+        var TEL_REGEXP = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+        if(!(TEL_REGEXP.test(mobile))){
+            tip("您的手机号格式有误！");
+            return;
+        }
+        if(!($("#pwd").val() && $("#pwd").val() != "")){
+            tip("请输入密码！");
+            return;
+        }
+        $(".login").attr("disabled",true);
+        updatecom("login/do",{mobile:mobile,pass:pwd},function (response) {
+            if(response.error_code == 10000){
+                setCookie("uiid",response.data.uiid);
+                setCookie("usertype",response.data.usertype);
+                setCookiech("name",response.data.name);
+                setCookie("count",response.data.count);
+                setCookie("accesstocken",response.data.accesstocken);
+                window.location.href = "index.html";
+            }else{
+                tip(response.error);
+            }
+        });
+        $(".login").attr("disabled",false);
+    }
+
+</script>
+</body>
+</html>

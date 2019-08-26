@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IAutoArticleDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.AutoArticleVO">
+		
+		<id column="caa_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 发帖数据主键 -->
+		<result column="ref_csiuiid" property="csiuiid" jdbcType="VARCHAR" />  <!-- 软件名称，关联软件主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 主题名称，关联主题主键 -->
+		<result column="caa_title" property="title" jdbcType="VARCHAR" />  <!-- 帖子标题 -->
+		<result column="caa_content" property="content" jdbcType="VARCHAR" />  <!-- 帖子内容 -->
+		<result column="caa_imgs" property="imgs" jdbcType="VARCHAR" />  <!-- 帖子图片 -->
+		<result column="caa_vidio" property="vidio" jdbcType="VARCHAR" />  <!-- 帖子视频 -->
+		<result column="caa_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="caa_state" property="state" jdbcType="CHAR" />  <!-- 有效状态，0草稿1待审核2审核通过3已下架 -->
+		<result column="caa_actparam" property="actparam" jdbcType="VARCHAR" />  <!-- 生效扩展参数 -->
+		<result column="caa_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 生效开始时间 -->
+		<result column="caa_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 生效结束时间 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		caa_uiid ,
+		ref_csiuiid ,
+		ref_catuiid ,
+		caa_title ,
+		caa_content ,
+		caa_imgs ,
+		caa_vidio ,
+		caa_sort ,
+		caa_state ,
+		caa_actparam ,
+		caa_starttime ,
+		caa_endtime 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.AutoArticleVO">
+		insert into con_auto_article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				caa_uiid ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="title != null">
+				caa_title ,
+			</if>
+			<if test="content != null">
+				caa_content ,
+			</if>
+			<if test="imgs != null">
+				caa_imgs ,
+			</if>
+			<if test="vidio != null">
+				caa_vidio ,
+			</if>
+			<if test="sort != null">
+				caa_sort ,
+			</if>
+			<if test="state != null">
+				caa_state ,
+			</if>
+			<if test="actparam != null">
+				caa_actparam ,
+			</if>
+			<if test="starttime != null">
+				caa_starttime ,
+			</if>
+			<if test="endtime != null">
+				caa_endtime 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				#{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR} ,
+			</if>
+			<if test="imgs != null">
+				#{imgs,jdbcType=VARCHAR} ,
+			</if>
+			<if test="vidio != null">
+				#{vidio,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="actparam != null">
+				#{actparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.AutoArticleVO">
+		insert into con_auto_article
+		(
+			caa_uiid ,
+			ref_csiuiid ,
+			ref_catuiid ,
+			caa_title ,
+			caa_content ,
+			caa_imgs ,
+			caa_vidio ,
+			caa_sort ,
+			caa_state ,
+			caa_actparam ,
+			caa_starttime ,
+			caa_endtime 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.csiuiid} ,
+			#{item.catuiid} ,
+			#{item.title} ,
+			#{item.content} ,
+			#{item.imgs} ,
+			#{item.vidio} ,
+			#{item.sort} ,
+			#{item.state} ,
+			#{item.actparam} ,
+			#{item.starttime} ,
+			#{item.endtime} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.AutoArticleVO">
+		update con_auto_article
+		<set>
+			<if test="csiuiid != null">
+				ref_csiuiid = #{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				caa_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="content != null">
+				caa_content = #{content,jdbcType=VARCHAR} ,
+			</if>
+			<if test="imgs != null">
+				caa_imgs = #{imgs,jdbcType=VARCHAR} ,
+			</if>
+			<if test="vidio != null">
+				caa_vidio = #{vidio,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				caa_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				caa_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="actparam != null">
+				caa_actparam = #{actparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				caa_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				caa_endtime = #{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		where caa_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_auto_article
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					caa_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.content != null">
+					caa_content = #{item.content,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.imgs != null">
+					caa_imgs = #{item.imgs,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.vidio != null">
+					caa_vidio = #{item.vidio,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					caa_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					caa_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.actparam != null">
+					caa_actparam = #{item.actparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					caa_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					caa_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where caa_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_auto_article
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					caa_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.content != null">
+					caa_content = #{item.content,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.imgs != null">
+					caa_imgs = #{item.imgs,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.vidio != null">
+					caa_vidio = #{item.vidio,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					caa_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					caa_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.actparam != null">
+					caa_actparam = #{item.actparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					caa_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					caa_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where caa_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_auto_article
+		where caa_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.AutoArticleVO">
+		delete from con_auto_article
+		where 1=1 
+			<if test="uiid != null">
+				and caa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and caa_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null">
+				and caa_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null">
+				and caa_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidio != null">
+				and caa_vidio = #{vidio,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_auto_article
+		where caa_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_auto_article
+		where 1=1 
+			<if test="uiid != null">
+				and caa_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and caa_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="content != null">
+				and caa_content in 
+				<foreach collection="content" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="imgs != null">
+				and caa_imgs in 
+				<foreach collection="imgs" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="vidio != null">
+				and caa_vidio in 
+				<foreach collection="vidio" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and caa_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and caa_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actparam != null">
+				and caa_actparam in 
+				<foreach collection="actparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and caa_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and caa_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_auto_article where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_auto_article
+		where caa_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_auto_article
+		where caa_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_auto_article
+		where caa_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select * from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content in 
+				<foreach collection="content" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs in 
+				<foreach collection="imgs" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio in 
+				<foreach collection="vidio" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam in 
+				<foreach collection="actparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select * from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio = #{vidio,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select count(*) from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio like CONCAT('%',#{vidio},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select * from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio = #{vidio,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select * from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio like CONCAT('%',#{vidio},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoArticleVO">
+		select * from con_auto_article
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or caa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				or ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or caa_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="content != null and content != ''">
+				or caa_content like CONCAT('%',#{content},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				or caa_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidio != null and vidio != ''">
+				or caa_vidio like CONCAT('%',#{vidio},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				or caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoArticleVO">
+		 select con_auto_article.caa_uiid as uiid,con_auto_article.ref_csiuiid as csiuiid, (select GROUP_CONCAT( rt1.csi_title) from con_soft_info rt1 where FIND_IN_SET( rt1.csi_uiid ,con_auto_article.ref_csiuiid) )  as csiuiidtitle,con_auto_article.ref_catuiid as catuiid, (select GROUP_CONCAT( rt2.cat_title) from com_auto_task rt2 where FIND_IN_SET( rt2.cat_uiid ,con_auto_article.ref_catuiid) )  as catuiidtitle,con_auto_article.caa_title as title,con_auto_article.caa_content as content,con_auto_article.caa_imgs as imgs,con_auto_article.caa_vidio as vidio,con_auto_article.caa_sort as sort,con_auto_article.caa_state as state,con_auto_article.caa_actparam as actparam,con_auto_article.caa_starttime as starttime,con_auto_article.caa_endtime as endtime from con_auto_article
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio = #{vidio,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoArticleVO">
+		 select con_auto_article.caa_uiid as uiid,con_auto_article.ref_csiuiid as csiuiid,con_auto_article.ref_csiuiid as csiuiidrefid,con_soft_inforef_csiuiid.csi_title as csiuiidrefview,con_auto_article.ref_catuiid as catuiid,con_auto_article.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,con_auto_article.caa_title as title,con_auto_article.caa_content as content,con_auto_article.caa_imgs as imgs,con_auto_article.caa_vidio as vidio,con_auto_article.caa_sort as sort,con_auto_article.caa_state as state,con_auto_article.caa_actparam as actparam,con_auto_article.caa_starttime as starttime,con_auto_article.caa_endtime as endtime from con_auto_article left outer join con_soft_info con_soft_inforef_csiuiid on con_soft_inforef_csiuiid.csi_uiid = con_auto_article.ref_csiuiid left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = con_auto_article.ref_catuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and caa_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="content != null and content != ''">
+				and caa_content = #{content,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and caa_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidio != null and vidio != ''">
+				and caa_vidio = #{vidio,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+</mapper>

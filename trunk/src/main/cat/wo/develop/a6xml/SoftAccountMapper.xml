@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.ISoftAccountDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.SoftAccountVO">
+		
+		<id column="csa_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 帐号主键 -->
+		<result column="ref_csiuiid" property="csiuiid" jdbcType="VARCHAR" />  <!-- 软件名称，关联软件主键 -->
+		<result column="csa_accountname" property="accountname" jdbcType="VARCHAR" />  <!-- 帐号名称 -->
+		<result column="csa_pass" property="pass" jdbcType="VARCHAR" />  <!-- 帐号密码 -->
+		<result column="csa_passinfo" property="passinfo" jdbcType="VARCHAR" />  <!-- 密保信息 -->
+		<result column="csa_safeinfo" property="safeinfo" jdbcType="VARCHAR" />  <!-- 安全信息 -->
+		<result column="csa_remark" property="remark" jdbcType="VARCHAR" />  <!-- 备注信息 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		csa_uiid ,
+		ref_csiuiid ,
+		csa_accountname ,
+		csa_pass ,
+		csa_passinfo ,
+		csa_safeinfo ,
+		csa_remark 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.SoftAccountVO">
+		insert into con_soft_account
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				csa_uiid ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid ,
+			</if>
+			<if test="accountname != null">
+				csa_accountname ,
+			</if>
+			<if test="pass != null">
+				csa_pass ,
+			</if>
+			<if test="passinfo != null">
+				csa_passinfo ,
+			</if>
+			<if test="safeinfo != null">
+				csa_safeinfo ,
+			</if>
+			<if test="remark != null">
+				csa_remark 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				#{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="accountname != null">
+				#{accountname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pass != null">
+				#{pass,jdbcType=VARCHAR} ,
+			</if>
+			<if test="passinfo != null">
+				#{passinfo,jdbcType=VARCHAR} ,
+			</if>
+			<if test="safeinfo != null">
+				#{safeinfo,jdbcType=VARCHAR} ,
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.SoftAccountVO">
+		insert into con_soft_account
+		(
+			csa_uiid ,
+			ref_csiuiid ,
+			csa_accountname ,
+			csa_pass ,
+			csa_passinfo ,
+			csa_safeinfo ,
+			csa_remark 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.csiuiid} ,
+			#{item.accountname} ,
+			#{item.pass} ,
+			#{item.passinfo} ,
+			#{item.safeinfo} ,
+			#{item.remark} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.SoftAccountVO">
+		update con_soft_account
+		<set>
+			<if test="csiuiid != null">
+				ref_csiuiid = #{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="accountname != null">
+				csa_accountname = #{accountname,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pass != null">
+				csa_pass = #{pass,jdbcType=VARCHAR} ,
+			</if>
+			<if test="passinfo != null">
+				csa_passinfo = #{passinfo,jdbcType=VARCHAR} ,
+			</if>
+			<if test="safeinfo != null">
+				csa_safeinfo = #{safeinfo,jdbcType=VARCHAR} ,
+			</if>
+			<if test="remark != null">
+				csa_remark = #{remark,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where csa_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_account
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.accountname != null">
+					csa_accountname = #{item.accountname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pass != null">
+					csa_pass = #{item.pass,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.passinfo != null">
+					csa_passinfo = #{item.passinfo,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.safeinfo != null">
+					csa_safeinfo = #{item.safeinfo,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.remark != null">
+					csa_remark = #{item.remark,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where csa_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_soft_account
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.accountname != null">
+					csa_accountname = #{item.accountname,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pass != null">
+					csa_pass = #{item.pass,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.passinfo != null">
+					csa_passinfo = #{item.passinfo,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.safeinfo != null">
+					csa_safeinfo = #{item.safeinfo,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.remark != null">
+					csa_remark = #{item.remark,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where csa_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_soft_account
+		where csa_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.SoftAccountVO">
+		delete from con_soft_account
+		where 1=1 
+			<if test="uiid != null">
+				and csa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="accountname != null">
+				and csa_accountname = #{accountname,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null">
+				and csa_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="passinfo != null">
+				and csa_passinfo = #{passinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="safeinfo != null">
+				and csa_safeinfo = #{safeinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null">
+				and csa_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_soft_account
+		where csa_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_soft_account
+		where 1=1 
+			<if test="uiid != null">
+				and csa_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="accountname != null">
+				and csa_accountname in 
+				<foreach collection="accountname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pass != null">
+				and csa_pass in 
+				<foreach collection="pass" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="passinfo != null">
+				and csa_passinfo in 
+				<foreach collection="passinfo" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="safeinfo != null">
+				and csa_safeinfo in 
+				<foreach collection="safeinfo" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="remark != null">
+				and csa_remark in 
+				<foreach collection="remark" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_soft_account where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_account
+		where csa_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_soft_account
+		where csa_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_soft_account
+		where csa_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select * from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname in 
+				<foreach collection="accountname" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass in 
+				<foreach collection="pass" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo in 
+				<foreach collection="passinfo" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo in 
+				<foreach collection="safeinfo" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark in 
+				<foreach collection="remark" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select * from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname = #{accountname,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo = #{passinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo = #{safeinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select count(*) from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname like CONCAT('%',#{accountname},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo like CONCAT('%',#{passinfo},'%' )
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo like CONCAT('%',#{safeinfo},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark like CONCAT('%',#{remark},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select * from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname = #{accountname,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo = #{passinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo = #{safeinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select * from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname like CONCAT('%',#{accountname},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo like CONCAT('%',#{passinfo},'%' )
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo like CONCAT('%',#{safeinfo},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark like CONCAT('%',#{remark},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.SoftAccountVO">
+		select * from con_soft_account
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or csa_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				or ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="accountname != null and accountname != ''">
+				or csa_accountname like CONCAT('%',#{accountname},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				or csa_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				or csa_passinfo like CONCAT('%',#{passinfo},'%' )
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				or csa_safeinfo like CONCAT('%',#{safeinfo},'%' )
+			</if>
+			<if test="remark != null and remark != ''">
+				or csa_remark like CONCAT('%',#{remark},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftAccountVO">
+		 select con_soft_account.csa_uiid as uiid,con_soft_account.ref_csiuiid as csiuiid, (select GROUP_CONCAT( rt1.csi_title) from con_soft_info rt1 where FIND_IN_SET( rt1.csi_uiid ,con_soft_account.ref_csiuiid) )  as csiuiidtitle,con_soft_account.csa_accountname as accountname,con_soft_account.csa_pass as pass,con_soft_account.csa_passinfo as passinfo,con_soft_account.csa_safeinfo as safeinfo,con_soft_account.csa_remark as remark from con_soft_account
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname = #{accountname,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo = #{passinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo = #{safeinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.SoftAccountVO">
+		 select con_soft_account.csa_uiid as uiid,con_soft_account.ref_csiuiid as csiuiid,con_soft_account.ref_csiuiid as csiuiidrefid,con_soft_inforef_csiuiid.csi_title as csiuiidrefview,con_soft_account.csa_accountname as accountname,con_soft_account.csa_pass as pass,con_soft_account.csa_passinfo as passinfo,con_soft_account.csa_safeinfo as safeinfo,con_soft_account.csa_remark as remark from con_soft_account left outer join con_soft_info con_soft_inforef_csiuiid on con_soft_inforef_csiuiid.csi_uiid = con_soft_account.ref_csiuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and csa_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="accountname != null and accountname != ''">
+				and csa_accountname = #{accountname,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and csa_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="passinfo != null and passinfo != ''">
+				and csa_passinfo = #{passinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="safeinfo != null and safeinfo != ''">
+				and csa_safeinfo = #{safeinfo,jdbcType=VARCHAR}
+			</if>
+			<if test="remark != null and remark != ''">
+				and csa_remark = #{remark,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+</mapper>

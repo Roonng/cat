@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_editReply.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>编辑自动回复内容</title>
+</head>
+<body>
+    <div class="replyList">
+
+    </div>
+
+
+    <div class="add">
+        <input class="addInpu"  type="text" placeholder="请输入自动回复内容"/>
+        <div class="addbtn" onclick="addReply()">添加</div>
+    </div>
+
+
+    <div class="ret" onclick="goback()">返回</div>
+    <div class="tipinfo">
+        <div>添加的自动回复内容需审核,待审核的内容前<img style="height: 20px;width: 20px;margin-top:15px;" src="img/reddot.png"/>显示
+        审核通过后则<img style="height: 20px;width: 20px;margin-top:15px;" src="img/greendot.png"/>显示
+        </div>
+    </div>
+
+
+
+
+    <!--弹窗 编辑-->
+    <div class="cover">
+        <div class="eidtPop">
+            <textarea class="editCon"></textarea>
+            <button class="edit-ok" onclick="confEdit()">修改</button>
+            <button class="edit-no" onclick="noeidt()">返回</button>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+    <script type="text/javascript" src="js/tips.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+    <script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            showReply();
+        });
+
+
+        /**
+         * 返回至主页面
+         */
+        function goback() {
+            clearCookie("catuiid");
+            clearCookie("csiuiid");
+            window.history.back();
+        }
+
+        /**
+         *  显示自动回复内容列表
+         */
+        function showReply() {
+            updatecom("/autoAnswerMessage/tolist", {csiuiid:getCookie("csiuiid"),cuiuiid: getCookie("uiid"),catuiid:getCookie("catuiid")}, function (response) {
+                if (response.error_code == 10000) {
+                    var list = response.data.list;
+                    $(".replyList").empty();
+                    for(var i=0;i<list.length;i++){
+                        var answercon = list[i].answercon;
+                        var uiid = list[i].uiid;
+                        var state = list[i].state;
+                        var statecon = "";
+                        if(state==1){
+                            statecon = "img/reddot.png";
+                        }else if (state==2){
+                            statecon = "img/greendot.png";
+                        }
+
+
+                        $(".replyList").append("<div class=\"replyInfo\" onclick=\"editReply('"+uiid+"')\">\n" +
+                            "            <text class=\"uiid\" style=\"display: none\">"+uiid+"</text>\n" +
+                            "            <img class=\"statedot\" src=\""+statecon+"\" alt=\"状态点\"/>\n" +
+                            "            <div class=\"replyCon\">"+answercon+"</div>\n" +
+                            "            <div class=\"delete\" onclick=\"deleteReply(this,event)\">删除</div>\n" +
+                            "        </div>");
+                    }
+                }else{
+                    tip(response.error);
+                }
+            })
+        }
+
+        /**
+         * 添加自动回复内容
+         */
+        function addReply() {
+            var replycon = $(".addInpu").val();
+
+            if(!replycon || replycon==''){
+                tip("内容不能为空!");
+                return;
+            }
+            var obj = {};
+            obj.catuiid = getCookie("catuiid");
+            obj.csiuiid = getCookie("csiuiid");
+            obj.cuiuiid = getCookie("uiid");
+            obj.answercon = replycon;
+
+            updatecom("/autoAnswerMessage/save",obj, function (response) {
+                if (response.error_code == 10000) {
+                    $(".addInpu").val("");
+                    showReply();
+                }else{
+                    tip(response.error);
+                }
+            });
+        }
+
+        /**
+         * 删除自动回复内容
+         * @param obj
+         */
+        var uiid="";
+        function deleteReply(obj,event) {
+            event.stopPropagation();
+            uiid = $(obj).parent().children("text").text();
+            confirmLike("确定删除吗?");
+
+        }
+
+        function ok() {
+            updatecom("/autoAnswerMessage/delete",{uiid:uiid}, function (response) {
+                if (response.error_code == 10000) {
+                    showReply();
+                }else{
+                    tip(response.error);
+                }
+            });
+            $('body').css({
+                "overflow-x":"auto",
+                "overflow-y":"auto"
+            });
+            conf.attr("style","display:none");
+            prompt_con.attr("style","display:none");
+        }
+
+
+        /**
+         * 弹窗编辑自动回复内容
+         */
+        function editReply(uiid) {
+            $('body').css({
+                "overflow-x":"hidden",
+                "overflow-y":"hidden"
+            });
+            $(".eidtPop").attr("style","display:block");
+            $(".cover").attr("style","display:block");
+            updatecom("/autoAnswerMessage/toEditData", {uiid:uiid}, function (response) {
+                if (response.error_code == 10000) {
+                    console.log(response.data);
+                    $(".editCon").val(response.data.answercon);
+                    setCookie("tuiid",response.data.uiid);
+                }else{
+                    tip(response.error);
+                }
+            });
+            screenWidth = $(window).width();
+            //获取页面高度
+            screenHeight = $(window).height();
+            //计算left值
+            tcleft = (screenWidth-355)/2;
+            //计算top值
+            tctop = (screenHeight-350)/2;
+            //获取滚轮高度
+            scrollTop = $(document).scrollTop();
+            //弹窗的位置样式改变
+            $('.eidtPop').css({'top':tctop+scrollTop});
+            $('.cover').css({'height':screenHeight+scrollTop});
+
+        }
+
+        /**
+         * 取消编辑
+         */
+        function noeidt() {
+            $('body').css({
+                "overflow-x":"auto",
+                "overflow-y":"auto"
+            });
+            clearCookie("tuiid");
+            $(".eidtPop").attr("style","display:none");
+            $(".cover").attr("style","display:none");
+        }
+
+        /**
+         * 确认编辑
+         */
+        function confEdit() {
+            var editcon = $(".editCon").val();
+            var tuiid = getCookie("tuiid");
+            updatecom("/autoAnswerMessage/edit",{uiid:tuiid,answercon:editcon}, function (response) {
+                if (response.error_code == 10000) {
+                    clearCookie("tuiid");
+                    $(".eidtPop").attr("style","display:none");
+                    $(".cover").attr("style","display:none");
+                    showReply();
+                }else{
+                    tip(response.error);
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>

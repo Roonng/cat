@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IDeviceInfoDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.DeviceInfoVO">
+		
+		<id column="cdi_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 设备识别码 -->
+		<result column="cdi_spec" property="spec" jdbcType="VARCHAR" />  <!-- 设备型号 -->
+		<result column="cdi_title" property="title" jdbcType="VARCHAR" />  <!-- 设备标题 -->
+		<result column="cdi_desp" property="desp" jdbcType="VARCHAR" />  <!-- 设备说明 -->
+		<result column="cdi_onlinesta" property="onlinesta" jdbcType="CHAR" />  <!-- 在线状态，1在线0离线 -->
+		<result column="cdi_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 工作开始时间 -->
+		<result column="cdi_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 工作结束时间 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cdi_uiid ,
+		cdi_spec ,
+		cdi_title ,
+		cdi_desp ,
+		cdi_onlinesta ,
+		cdi_starttime ,
+		cdi_endtime 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		insert into con_device_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cdi_uiid ,
+			</if>
+			<if test="spec != null">
+				cdi_spec ,
+			</if>
+			<if test="title != null">
+				cdi_title ,
+			</if>
+			<if test="desp != null">
+				cdi_desp ,
+			</if>
+			<if test="onlinesta != null">
+				cdi_onlinesta ,
+			</if>
+			<if test="starttime != null">
+				cdi_starttime ,
+			</if>
+			<if test="endtime != null">
+				cdi_endtime 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="spec != null">
+				#{spec,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				#{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="onlinesta != null">
+				#{onlinesta,jdbcType=CHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		insert into con_device_info
+		(
+			cdi_uiid ,
+			cdi_spec ,
+			cdi_title ,
+			cdi_desp ,
+			cdi_onlinesta ,
+			cdi_starttime ,
+			cdi_endtime 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.spec} ,
+			#{item.title} ,
+			#{item.desp} ,
+			#{item.onlinesta} ,
+			#{item.starttime} ,
+			#{item.endtime} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		update con_device_info
+		<set>
+			<if test="spec != null">
+				cdi_spec = #{spec,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				cdi_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="desp != null">
+				cdi_desp = #{desp,jdbcType=VARCHAR} ,
+			</if>
+			<if test="onlinesta != null">
+				cdi_onlinesta = #{onlinesta,jdbcType=CHAR} ,
+			</if>
+			<if test="starttime != null">
+				cdi_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				cdi_endtime = #{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		where cdi_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_device_info
+			<set>
+				<if test="item.spec != null">
+					cdi_spec = #{item.spec,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cdi_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cdi_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.onlinesta != null">
+					cdi_onlinesta = #{item.onlinesta,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cdi_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					cdi_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where cdi_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_device_info
+			<set>
+				<if test="item.spec != null">
+					cdi_spec = #{item.spec,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cdi_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.desp != null">
+					cdi_desp = #{item.desp,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.onlinesta != null">
+					cdi_onlinesta = #{item.onlinesta,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cdi_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					cdi_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where cdi_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_device_info
+		where cdi_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		delete from con_device_info
+		where 1=1 
+			<if test="uiid != null">
+				and cdi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="spec != null">
+				and cdi_spec = #{spec,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and cdi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null">
+				and cdi_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="onlinesta != null">
+				and cdi_onlinesta = #{onlinesta,jdbcType=CHAR}
+			</if>
+			<if test="starttime != null">
+				and cdi_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null">
+				and cdi_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_device_info
+		where cdi_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_device_info
+		where 1=1 
+			<if test="uiid != null">
+				and cdi_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="spec != null">
+				and cdi_spec in 
+				<foreach collection="spec" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and cdi_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null">
+				and cdi_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="onlinesta != null">
+				and cdi_onlinesta in 
+				<foreach collection="onlinesta" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and cdi_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and cdi_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_device_info where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_device_info
+		where cdi_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_device_info
+		where cdi_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_device_info
+		where cdi_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select * from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec in 
+				<foreach collection="spec" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp in 
+				<foreach collection="desp" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta in 
+				<foreach collection="onlinesta" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select * from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec = #{spec,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta = #{onlinesta,jdbcType=CHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select count(*) from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec like CONCAT('%',#{spec},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta like CONCAT('%',#{onlinesta},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select * from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec = #{spec,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta = #{onlinesta,jdbcType=CHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select * from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec like CONCAT('%',#{spec},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta like CONCAT('%',#{onlinesta},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		select * from con_device_info
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cdi_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="spec != null and spec != ''">
+				or cdi_spec like CONCAT('%',#{spec},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or cdi_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="desp != null and desp != ''">
+				or cdi_desp like CONCAT('%',#{desp},'%' )
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				or cdi_onlinesta like CONCAT('%',#{onlinesta},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or cdi_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or cdi_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		 select con_device_info.cdi_uiid as uiid,con_device_info.cdi_spec as spec,con_device_info.cdi_title as title,con_device_info.cdi_desp as desp,con_device_info.cdi_onlinesta as onlinesta,con_device_info.cdi_starttime as starttime,con_device_info.cdi_endtime as endtime from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec = #{spec,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta = #{onlinesta,jdbcType=CHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.DeviceInfoVO">
+		 select con_device_info.cdi_uiid as uiid,con_device_info.cdi_spec as spec,con_device_info.cdi_title as title,con_device_info.cdi_desp as desp,con_device_info.cdi_onlinesta as onlinesta,con_device_info.cdi_starttime as starttime,con_device_info.cdi_endtime as endtime from con_device_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdi_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="spec != null and spec != ''">
+				and cdi_spec = #{spec,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cdi_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="desp != null and desp != ''">
+				and cdi_desp = #{desp,jdbcType=VARCHAR}
+			</if>
+			<if test="onlinesta != null and onlinesta != ''">
+				and cdi_onlinesta = #{onlinesta,jdbcType=CHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdi_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdi_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,65 @@
+body{
+    margin: 0px;
+}
+.setcon{
+    margin:20px 10px 0 10px;
+}
+
+.openstate{
+    margin-top: 20px;
+}
+
+
+.save,.ret{
+    height: 27px;
+    line-height: 27px;
+    /*width: 132.5px;*/
+    width: 35.3%;
+    background: #0AC28D;
+    text-align: center;
+    /*margin: 20px 0 0 121.25px;*/
+    margin: 20px 0 0 32.3%;
+    color: white;
+    border-radius: 12px;
+
+}
+
+
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.prompt{
+    /*padding: 20px 5px 0 5px;*/
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 200px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    margin-top: 20px;
+    height: 60px;
+    /*width: 300px;*/
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+}

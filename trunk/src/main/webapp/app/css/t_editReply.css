@@ -1,0 +1,183 @@
+body{
+    margin: 0px;
+}
+.replyList{
+    width: 100%;
+
+}
+
+.replyList .statedot{
+    vertical-align: middle;
+    display: inline-block;
+    /*width: 30px;*/
+    width: 8%;
+    height: 30px;
+    /*margin-left: 4px;*/
+    margin-left: 1.06%;
+}
+
+.replyList .replyCon{
+    vertical-align: middle;
+    display: inline-block;
+    /*width: 248px;*/
+    width: 66.1%;
+    margin: 10px 0 10px 0;
+    /*padding: 3px 8px;*/
+    padding: 3px 2.1%;
+    border-radius: 15px;
+    /*border: 1px solid #9F9F9F;*/
+    color: #9F9F9F;
+    background: white;
+
+}
+.delete{
+    vertical-align: middle;
+    display: inline-block;
+    /*width: 62px;*/
+    width: 16.53%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #0AC28D;
+    color: white;
+    border-radius: 13px;
+
+}
+
+/*input::-webkit-input-placeholder{*/
+    /*color:#9F9F9F;*/
+/*}*/
+.add{
+    height: 40px;
+    width: 100%;
+
+}
+.add .addInpu{
+    height: 35px;
+    /*width: 293px;*/
+    width: 78.1%;
+    font-size: 16px;
+    border-radius: 15px;
+    /*margin-left: 5px;*/
+    margin-left: 1.33%;
+    border: 1px solid #9F9F9F;
+}
+.add .addbtn{
+    display: inline-block;
+    /*width: 62px;*/
+    width: 16.53%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    background: #0AC28D;
+    color: white;
+    border-radius: 13px;
+    /*margin-left: 3px;*/
+    margin-left: 0.8%;
+}
+.replyInfo{
+    background: #EDEDED;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 10px;
+
+}
+
+
+
+/*.checkbox{*/
+    /*height: 40px;*/
+    /*width: 40px;*/
+/*}*/
+.deleteAll,.editReply,.ret{
+    height: 27px;
+    line-height: 27px;
+    /*width: 132.5px;*/
+    width: 35.3%;
+    background: #0AC28D;
+    text-align: center;
+    /*margin: 25px 0 0 121.25px;*/
+    margin: 25px 0 0 32.33%;
+    color: white;
+    border-radius: 12px;
+}
+.tipinfo{
+    color: #9F9F9F;
+    /*margin: 10px 10px 0 5px;*/
+    margin: 10px 10px 0 1.33%;
+}
+
+.cover{
+    display: none;
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+}
+.cover .eidtPop{
+    display: none;
+    position: absolute;
+    height: 350px;
+    /*width: 355px;*/
+    width: 94.6%;
+    left: 2.66%;
+    top: 85px;
+    background: #8CDEC7;
+}
+
+.eidtPop .editCon{
+    height: 200px;
+    /*width: 300px;*/
+    width: 84.5%;
+    margin: 10px 0 0 7.04%;
+    resize:none;
+}
+.edit-ok,.edit-no{
+    height: 40px;
+    /*width: 80px;*/
+    width: 22.53%;
+    font-size: 18px;
+    margin:15px 0 0 18.3%;
+}
+
+
+
+
+
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+
+.prompt{
+    /*padding: 20px 5px 0 5px;*/
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 200px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    margin-top: 20px;
+    height: 60px;
+    /*width: 300px;*/
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;word-break: break-all;overflow: hidden;
+
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+}

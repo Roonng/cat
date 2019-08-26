@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>运营云平台</title>
+</head>
+<body>
+    <div class="my">
+        <div class="head">
+            <image class="img-head" src="img/head.png"></image>
+        </div>
+        <div class="info">
+            <div class="name" >Seasonqi</div>
+            <div class="role">
+                <image class="img-role" src="img/role.png"></image>
+                <div class="rol">代理</div>
+            </div>
+        </div>
+
+        <div class="num">可用数量：<span id="n"></span></div>
+    </div>
+    <div class="operate">
+
+        <div class="sercon" onclick="javascript:window.location.href='t_index.html';">
+            <image class="img-keylist" src="img/keylist.png"></image>
+            <div class="info-keylist">
+                <div class="txt">服务管理</div>
+                <div class="mark">></div>
+            </div>
+        </div>
+
+
+        <div class="keylist" style="display: none;" onclick="javascript:window.location.href='keylist.html';">
+            <image class="img-keylist" src="img/keylist.png"></image>
+            <div class="info-keylist">
+                <div class="txt">授权密钥清单</div>
+                <div class="mark">></div>
+            </div>
+        </div>
+
+        <div class="getkey" style="display: none;" onclick="javascript:window.location.href='getkey.html';">
+            <image class="img-getkey" src="img/getkey.png"></image>
+            <div class="info-getkey">
+                <div class="txt">获取授权密匙</div>
+                <div class="mark">></div>
+            </div>
+        </div>
+    </div>
+    <div class="specal-operate" style="display: none;">
+        <div class="cheak" onclick="javascript:window.location.href='userlist.html';">
+            <image class="img-cheak"  src="img/cheakuser.png"></image>
+            <div class="info-cheak" >
+                <div class="txt">查看代理用户列表</div>
+                <div class="mark">></div>
+            </div>
+        </div>
+    </div>
+    <div class="edit">
+        <div class="editpwd" onclick="javascript:window.location.href='editpwd.html';">
+            <image class="img-editpwd"  src="img/num.png"></image>
+            <div class="info-editpwd" >
+                <div class="txt">设置密码</div>
+                <div class="mark">></div>
+            </div>
+        </div>
+    </div>
+    <div class="exit" onclick="exit()">退出账号</div>
+
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/confirmlike/confirm.css" />
+    <script type="text/javascript" src="js/confirmlike/confirm.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".name")[0].innerHTML = (getCookiech("name")?getCookiech("name"):"未设置");
+            $("#n").html(getCookie("count"));
+            if(getCookie("usertype") == 1){
+                $(".rol")[0].innerHTML = "代理";
+            }else if(getCookie("usertype") == 2){
+                $(".rol")[0].innerHTML = "金牌代理";
+                $(".specal-operate").attr("style","display:block");
+            }
+        })
+
+
+        function exit() {
+            confirmLike("确认退出吗？");
+        }
+        function ok() {
+            clearCookie("uiid");
+            clearCookie("usertype");
+            clearCookie("name");
+            clearCookie("count");
+            window.location.href="login_ver.html";
+        }
+    </script>
+</body>
+</html>

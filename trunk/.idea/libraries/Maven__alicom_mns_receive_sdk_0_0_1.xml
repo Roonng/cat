@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: alicom-mns:receive-sdk:0.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.m2/repository/alicom-mns/receive-sdk/0.0.1/receive-sdk-0.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.m2/repository/alicom-mns/receive-sdk/0.0.1/receive-sdk-0.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.m2/repository/alicom-mns/receive-sdk/0.0.1/receive-sdk-0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

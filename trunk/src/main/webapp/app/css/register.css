@@ -1,0 +1,143 @@
+body{
+    background: #F5F5F5;
+    margin: 0px;
+    overflow:hidden;
+}
+
+.info{
+    font-size: 16px;
+    padding: 0 3.1% 0 3.1%;
+    height: 184.4px;
+    width: 100%;
+    background: white;
+    margin-top: 9.8px;
+}
+.phone,.name,.verifi{
+    width: 93.7%;
+    height: 45px;
+    border-bottom: 1px solid #F5F5F5;
+}
+.refer{
+    width: 93.7%;
+    height: 45px;
+}
+.sjh ,.yzm,.xm,.tjr{
+    vertical-align: middle;
+    display: inline-block;
+    height: 45px;
+    width: 20.5%;
+    line-height: 45px;
+}
+
+.refer input{
+    vertical-align: middle;
+    display: inline-block;
+    height: 43px;
+    width: 70%;
+    border: none;
+}
+#mobile{
+    vertical-align: middle;
+    display: inline-block;
+    height: 43px;
+    width: 45%;
+    border: none;
+}
+.inp{
+    vertical-align: middle;
+    display: inline-block;
+    height: 43px;
+    width: 70%;
+    border: none;
+}
+
+.place{
+    font-size: 16px;
+}
+.getver{
+    background: #F7F7F7;
+    line-height: 29.4px;
+    font-size: 16px;
+    display: inline-block;
+    height: 29.4px;
+    width: 31.2%;
+    float: right;
+    margin-top: 7.8px;
+    color: #0AC28D;
+    text-align: center;
+    border: 1px solid #EBEBEB;
+    border-radius: 4px;
+
+}
+
+
+.other{
+    padding: 0 11.7px 0 11.7px;
+    width: 93.7%;
+    height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    color: #0AC28D;
+}
+.register{
+    display: inline-block;
+    height: 40px;
+    width: 20%;
+    text-align: center;
+}
+.pwd{
+    display: inline-block;
+    height: 40px;
+    width: 20%;
+    float: right;
+    text-align: center;
+}
+.submit{
+    border:none;
+    background: #0AC28D;
+    color: white;
+    height: 45px;
+    width: 93.7%;
+    margin-top: 27.4px;
+    margin-left: 3.1%;
+    text-align: center;
+    line-height: 45px;
+    border-radius: 4px;
+}
+.prompt,.prompt_two{
+    padding: 20px 5px 0 5px;
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 30px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+    z-index: 2;
+}
+.msg,.msg_two{
+    height: 60px;
+    width: 300px;
+    text-align: center;
+    word-wrap: break-word;word-break: break-all;overflow: hidden;
+
+}
+.ok,.ok_two{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+
+}
+.outside,.outside_two{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+

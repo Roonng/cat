@@ -1,0 +1,1426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IUserRefSubjectDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.UserRefSubjectVO">
+		
+		<id column="curs_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 用户主题关系 -->
+		<result column="ref_cuiuiid" property="cuiuiid" jdbcType="VARCHAR" />  <!-- 用户名称，关联用户主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 主题名称，关联主题主键 -->
+		<result column="curs_openstate" property="openstate" jdbcType="CHAR" />  <!-- 开通状态，0未开通1已开通 -->
+		<result column="curs_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 服务到期时间 -->
+		<result column="curs_state" property="state" jdbcType="CHAR" />  <!-- 启用状态，0待启动1执行中 -->
+		<result column="curs_starttype" property="starttype" jdbcType="CHAR" />  <!-- 启动方式，1开机启动2手动触发3定时启动 -->
+		<result column="curs_starttim" property="starttim" jdbcType="VARCHAR" />  <!-- 启动时间，多个时间之间请通过英文半角逗号分隔 -->
+		<result column="curs_extparam" property="extparam" jdbcType="VARCHAR" />  <!-- 扩展参数信息，JSON格式配置需求参数，由自动化业务提供 -->
+		<result column="curs_allowkey" property="allowkey" jdbcType="VARCHAR" />  <!-- 包含关键字，多个之间请通过逗号分隔 -->
+		<result column="curs_delowkey" property="delowkey" jdbcType="VARCHAR" />  <!-- 排除关键字，多个之间请通过逗号分隔 -->
+		<result column="curs_answertype" property="answertype" jdbcType="CHAR" />  <!-- 回复内容选择模式，1随机2均态3次序，默认1 -->
+		<result column="curs_advanchek" property="advanchek" jdbcType="CHAR" />  <!-- 开通语言机器人，1是0或，默认0 -->
+		<result column="curs_checkrepeat" property="checkrepeat" jdbcType="CHAR" />  <!-- 开启滤重，1开启0禁用 -->
+		<result column="curs_repeatday" property="repeatday" jdbcType="INTEGER" />  <!-- 滤重时效天数，默认3天 -->
+		<result column="curs_checscore" property="checscore" jdbcType="INTEGER" />  <!-- 匹配度分值 -->
+		<result column="curs_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="curs_destnum" property="destnum" jdbcType="INTEGER" />  <!-- 任务目标数量 -->
+		<result column="curs_repeatin" property="repeatin" jdbcType="CHAR" />  <!-- 前端重复计数，1允许0不允许，默认0 -->
+		<result column="curs_timelength" property="timelength" jdbcType="INTEGER" />  <!-- 最大执行时长，单位秒 -->
+		<result column="curs_strongstart" property="strongstart" jdbcType="CHAR" />  <!-- 允许强制启动，1是0否 -->
+		<result column="curs_strongend" property="strongend" jdbcType="CHAR" />  <!-- 允许强制中断，1是0否 -->
+		<result column="curs_runlevel" property="runlevel" jdbcType="INTEGER" />  <!-- 运行等级，0普通1高2非常高 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		curs_uiid ,
+		ref_cuiuiid ,
+		ref_catuiid ,
+		curs_openstate ,
+		curs_endtime ,
+		curs_state ,
+		curs_starttype ,
+		curs_starttim ,
+		curs_extparam ,
+		curs_allowkey ,
+		curs_delowkey ,
+		curs_answertype ,
+		curs_advanchek ,
+		curs_checkrepeat ,
+		curs_repeatday ,
+		curs_checscore ,
+		curs_sort ,
+		curs_destnum ,
+		curs_repeatin ,
+		curs_timelength ,
+		curs_strongstart ,
+		curs_strongend ,
+		curs_runlevel 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		insert into con_user_ref_subject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				curs_uiid ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="openstate != null">
+				curs_openstate ,
+			</if>
+			<if test="endtime != null">
+				curs_endtime ,
+			</if>
+			<if test="state != null">
+				curs_state ,
+			</if>
+			<if test="starttype != null">
+				curs_starttype ,
+			</if>
+			<if test="starttim != null">
+				curs_starttim ,
+			</if>
+			<if test="extparam != null">
+				curs_extparam ,
+			</if>
+			<if test="allowkey != null">
+				curs_allowkey ,
+			</if>
+			<if test="delowkey != null">
+				curs_delowkey ,
+			</if>
+			<if test="answertype != null">
+				curs_answertype ,
+			</if>
+			<if test="advanchek != null">
+				curs_advanchek ,
+			</if>
+			<if test="checkrepeat != null">
+				curs_checkrepeat ,
+			</if>
+			<if test="repeatday != null">
+				curs_repeatday ,
+			</if>
+			<if test="checscore != null">
+				curs_checscore ,
+			</if>
+			<if test="sort != null">
+				curs_sort ,
+			</if>
+			<if test="destnum != null">
+				curs_destnum ,
+			</if>
+			<if test="repeatin != null">
+				curs_repeatin ,
+			</if>
+			<if test="timelength != null">
+				curs_timelength ,
+			</if>
+			<if test="strongstart != null">
+				curs_strongstart ,
+			</if>
+			<if test="strongend != null">
+				curs_strongend ,
+			</if>
+			<if test="runlevel != null">
+				curs_runlevel 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				#{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="openstate != null">
+				#{openstate,jdbcType=CHAR} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="starttype != null">
+				#{starttype,jdbcType=CHAR} ,
+			</if>
+			<if test="starttim != null">
+				#{starttim,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extparam != null">
+				#{extparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="allowkey != null">
+				#{allowkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="delowkey != null">
+				#{delowkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answertype != null">
+				#{answertype,jdbcType=CHAR} ,
+			</if>
+			<if test="advanchek != null">
+				#{advanchek,jdbcType=CHAR} ,
+			</if>
+			<if test="checkrepeat != null">
+				#{checkrepeat,jdbcType=CHAR} ,
+			</if>
+			<if test="repeatday != null">
+				#{repeatday,jdbcType=INTEGER} ,
+			</if>
+			<if test="checscore != null">
+				#{checscore,jdbcType=INTEGER} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="destnum != null">
+				#{destnum,jdbcType=INTEGER} ,
+			</if>
+			<if test="repeatin != null">
+				#{repeatin,jdbcType=CHAR} ,
+			</if>
+			<if test="timelength != null">
+				#{timelength,jdbcType=INTEGER} ,
+			</if>
+			<if test="strongstart != null">
+				#{strongstart,jdbcType=CHAR} ,
+			</if>
+			<if test="strongend != null">
+				#{strongend,jdbcType=CHAR} ,
+			</if>
+			<if test="runlevel != null">
+				#{runlevel,jdbcType=INTEGER} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		insert into con_user_ref_subject
+		(
+			curs_uiid ,
+			ref_cuiuiid ,
+			ref_catuiid ,
+			curs_openstate ,
+			curs_endtime ,
+			curs_state ,
+			curs_starttype ,
+			curs_starttim ,
+			curs_extparam ,
+			curs_allowkey ,
+			curs_delowkey ,
+			curs_answertype ,
+			curs_advanchek ,
+			curs_checkrepeat ,
+			curs_repeatday ,
+			curs_checscore ,
+			curs_sort ,
+			curs_destnum ,
+			curs_repeatin ,
+			curs_timelength ,
+			curs_strongstart ,
+			curs_strongend ,
+			curs_runlevel 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.cuiuiid} ,
+			#{item.catuiid} ,
+			#{item.openstate} ,
+			#{item.endtime} ,
+			#{item.state} ,
+			#{item.starttype} ,
+			#{item.starttim} ,
+			#{item.extparam} ,
+			#{item.allowkey} ,
+			#{item.delowkey} ,
+			#{item.answertype} ,
+			#{item.advanchek} ,
+			#{item.checkrepeat} ,
+			#{item.repeatday} ,
+			#{item.checscore} ,
+			#{item.sort} ,
+			#{item.destnum} ,
+			#{item.repeatin} ,
+			#{item.timelength} ,
+			#{item.strongstart} ,
+			#{item.strongend} ,
+			#{item.runlevel} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		update con_user_ref_subject
+		<set>
+			<if test="cuiuiid != null">
+				ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="openstate != null">
+				curs_openstate = #{openstate,jdbcType=CHAR} ,
+			</if>
+			<if test="endtime != null">
+				curs_endtime = #{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="state != null">
+				curs_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="starttype != null">
+				curs_starttype = #{starttype,jdbcType=CHAR} ,
+			</if>
+			<if test="starttim != null">
+				curs_starttim = #{starttim,jdbcType=VARCHAR} ,
+			</if>
+			<if test="extparam != null">
+				curs_extparam = #{extparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="allowkey != null">
+				curs_allowkey = #{allowkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="delowkey != null">
+				curs_delowkey = #{delowkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answertype != null">
+				curs_answertype = #{answertype,jdbcType=CHAR} ,
+			</if>
+			<if test="advanchek != null">
+				curs_advanchek = #{advanchek,jdbcType=CHAR} ,
+			</if>
+			<if test="checkrepeat != null">
+				curs_checkrepeat = #{checkrepeat,jdbcType=CHAR} ,
+			</if>
+			<if test="repeatday != null">
+				curs_repeatday = #{repeatday,jdbcType=INTEGER} ,
+			</if>
+			<if test="checscore != null">
+				curs_checscore = #{checscore,jdbcType=INTEGER} ,
+			</if>
+			<if test="sort != null">
+				curs_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="destnum != null">
+				curs_destnum = #{destnum,jdbcType=INTEGER} ,
+			</if>
+			<if test="repeatin != null">
+				curs_repeatin = #{repeatin,jdbcType=CHAR} ,
+			</if>
+			<if test="timelength != null">
+				curs_timelength = #{timelength,jdbcType=INTEGER} ,
+			</if>
+			<if test="strongstart != null">
+				curs_strongstart = #{strongstart,jdbcType=CHAR} ,
+			</if>
+			<if test="strongend != null">
+				curs_strongend = #{strongend,jdbcType=CHAR} ,
+			</if>
+			<if test="runlevel != null">
+				curs_runlevel = #{runlevel,jdbcType=INTEGER} 
+			</if>
+		</set>
+		where curs_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_user_ref_subject
+			<set>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.openstate != null">
+					curs_openstate = #{item.openstate,jdbcType=CHAR} ,
+				</if>
+				<if test="item.endtime != null">
+					curs_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.state != null">
+					curs_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttype != null">
+					curs_starttype = #{item.starttype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttim != null">
+					curs_starttim = #{item.starttim,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extparam != null">
+					curs_extparam = #{item.extparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.allowkey != null">
+					curs_allowkey = #{item.allowkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.delowkey != null">
+					curs_delowkey = #{item.delowkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answertype != null">
+					curs_answertype = #{item.answertype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.advanchek != null">
+					curs_advanchek = #{item.advanchek,jdbcType=CHAR} ,
+				</if>
+				<if test="item.checkrepeat != null">
+					curs_checkrepeat = #{item.checkrepeat,jdbcType=CHAR} ,
+				</if>
+				<if test="item.repeatday != null">
+					curs_repeatday = #{item.repeatday,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.checscore != null">
+					curs_checscore = #{item.checscore,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.sort != null">
+					curs_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.destnum != null">
+					curs_destnum = #{item.destnum,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.repeatin != null">
+					curs_repeatin = #{item.repeatin,jdbcType=CHAR} ,
+				</if>
+				<if test="item.timelength != null">
+					curs_timelength = #{item.timelength,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.strongstart != null">
+					curs_strongstart = #{item.strongstart,jdbcType=CHAR} ,
+				</if>
+				<if test="item.strongend != null">
+					curs_strongend = #{item.strongend,jdbcType=CHAR} ,
+				</if>
+				<if test="item.runlevel != null">
+					curs_runlevel = #{item.runlevel,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where curs_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_user_ref_subject
+			<set>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.openstate != null">
+					curs_openstate = #{item.openstate,jdbcType=CHAR} ,
+				</if>
+				<if test="item.endtime != null">
+					curs_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.state != null">
+					curs_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttype != null">
+					curs_starttype = #{item.starttype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.starttim != null">
+					curs_starttim = #{item.starttim,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.extparam != null">
+					curs_extparam = #{item.extparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.allowkey != null">
+					curs_allowkey = #{item.allowkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.delowkey != null">
+					curs_delowkey = #{item.delowkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answertype != null">
+					curs_answertype = #{item.answertype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.advanchek != null">
+					curs_advanchek = #{item.advanchek,jdbcType=CHAR} ,
+				</if>
+				<if test="item.checkrepeat != null">
+					curs_checkrepeat = #{item.checkrepeat,jdbcType=CHAR} ,
+				</if>
+				<if test="item.repeatday != null">
+					curs_repeatday = #{item.repeatday,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.checscore != null">
+					curs_checscore = #{item.checscore,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.sort != null">
+					curs_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.destnum != null">
+					curs_destnum = #{item.destnum,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.repeatin != null">
+					curs_repeatin = #{item.repeatin,jdbcType=CHAR} ,
+				</if>
+				<if test="item.timelength != null">
+					curs_timelength = #{item.timelength,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.strongstart != null">
+					curs_strongstart = #{item.strongstart,jdbcType=CHAR} ,
+				</if>
+				<if test="item.strongend != null">
+					curs_strongend = #{item.strongend,jdbcType=CHAR} ,
+				</if>
+				<if test="item.runlevel != null">
+					curs_runlevel = #{item.runlevel,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where curs_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_user_ref_subject
+		where curs_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		delete from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null">
+				and curs_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="openstate != null">
+				and curs_openstate = #{openstate,jdbcType=CHAR}
+			</if>
+			<if test="endtime != null">
+				and curs_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null">
+				and curs_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="starttype != null">
+				and curs_starttype = #{starttype,jdbcType=CHAR}
+			</if>
+			<if test="starttim != null">
+				and curs_starttim = #{starttim,jdbcType=VARCHAR}
+			</if>
+			<if test="extparam != null">
+				and curs_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="allowkey != null">
+				and curs_allowkey = #{allowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="delowkey != null">
+				and curs_delowkey = #{delowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answertype != null">
+				and curs_answertype = #{answertype,jdbcType=CHAR}
+			</if>
+			<if test="advanchek != null">
+				and curs_advanchek = #{advanchek,jdbcType=CHAR}
+			</if>
+			<if test="checkrepeat != null">
+				and curs_checkrepeat = #{checkrepeat,jdbcType=CHAR}
+			</if>
+			<if test="repeatday != null">
+				and curs_repeatday = #{repeatday,jdbcType=INTEGER}
+			</if>
+			<if test="checscore != null">
+				and curs_checscore = #{checscore,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null">
+				and curs_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="destnum != null">
+				and curs_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="repeatin != null">
+				and curs_repeatin = #{repeatin,jdbcType=CHAR}
+			</if>
+			<if test="timelength != null">
+				and curs_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="strongstart != null">
+				and curs_strongstart = #{strongstart,jdbcType=CHAR}
+			</if>
+			<if test="strongend != null">
+				and curs_strongend = #{strongend,jdbcType=CHAR}
+			</if>
+			<if test="runlevel != null">
+				and curs_runlevel = #{runlevel,jdbcType=INTEGER}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_user_ref_subject
+		where curs_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null">
+				and curs_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="openstate != null">
+				and curs_openstate in 
+				<foreach collection="openstate" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and curs_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and curs_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttype != null">
+				and curs_starttype in 
+				<foreach collection="starttype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttim != null">
+				and curs_starttim in 
+				<foreach collection="starttim" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extparam != null">
+				and curs_extparam in 
+				<foreach collection="extparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="allowkey != null">
+				and curs_allowkey in 
+				<foreach collection="allowkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="delowkey != null">
+				and curs_delowkey in 
+				<foreach collection="delowkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answertype != null">
+				and curs_answertype in 
+				<foreach collection="answertype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="advanchek != null">
+				and curs_advanchek in 
+				<foreach collection="advanchek" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="checkrepeat != null">
+				and curs_checkrepeat in 
+				<foreach collection="checkrepeat" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="repeatday != null">
+				and curs_repeatday in 
+				<foreach collection="repeatday" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="checscore != null">
+				and curs_checscore in 
+				<foreach collection="checscore" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and curs_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="destnum != null">
+				and curs_destnum in 
+				<foreach collection="destnum" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="repeatin != null">
+				and curs_repeatin in 
+				<foreach collection="repeatin" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="timelength != null">
+				and curs_timelength in 
+				<foreach collection="timelength" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="strongstart != null">
+				and curs_strongstart in 
+				<foreach collection="strongstart" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="strongend != null">
+				and curs_strongend in 
+				<foreach collection="strongend" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="runlevel != null">
+				and curs_runlevel in 
+				<foreach collection="runlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_user_ref_subject where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_user_ref_subject
+		where curs_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_user_ref_subject
+		where curs_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_user_ref_subject
+		where curs_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by curs_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select * from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate in 
+				<foreach collection="openstate" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype in 
+				<foreach collection="starttype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim in 
+				<foreach collection="starttim" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam in 
+				<foreach collection="extparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey in 
+				<foreach collection="allowkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey in 
+				<foreach collection="delowkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype in 
+				<foreach collection="answertype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek in 
+				<foreach collection="advanchek" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat in 
+				<foreach collection="checkrepeat" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday in 
+				<foreach collection="repeatday" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore in 
+				<foreach collection="checscore" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum in 
+				<foreach collection="destnum" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin in 
+				<foreach collection="repeatin" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength in 
+				<foreach collection="timelength" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart in 
+				<foreach collection="strongstart" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend in 
+				<foreach collection="strongend" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel in 
+				<foreach collection="runlevel" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by curs_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select * from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate = #{openstate,jdbcType=CHAR}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype = #{starttype,jdbcType=CHAR}
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim = #{starttim,jdbcType=VARCHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey = #{allowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey = #{delowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype = #{answertype,jdbcType=CHAR}
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek = #{advanchek,jdbcType=CHAR}
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat = #{checkrepeat,jdbcType=CHAR}
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday = #{repeatday,jdbcType=INTEGER}
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore = #{checscore,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin = #{repeatin,jdbcType=CHAR}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart = #{strongstart,jdbcType=CHAR}
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend = #{strongend,jdbcType=CHAR}
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel = #{runlevel,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select count(*) from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate like CONCAT('%',#{openstate},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype like CONCAT('%',#{starttype},'%' )
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim like CONCAT('%',#{starttim},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey like CONCAT('%',#{allowkey},'%' )
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey like CONCAT('%',#{delowkey},'%' )
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype like CONCAT('%',#{answertype},'%' )
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek like CONCAT('%',#{advanchek},'%' )
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat like CONCAT('%',#{checkrepeat},'%' )
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday like CONCAT('%',#{repeatday},'%' )
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore like CONCAT('%',#{checscore},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin like CONCAT('%',#{repeatin},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart like CONCAT('%',#{strongstart},'%' )
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend like CONCAT('%',#{strongend},'%' )
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel like CONCAT('%',#{runlevel},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select * from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate = #{openstate,jdbcType=CHAR}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype = #{starttype,jdbcType=CHAR}
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim = #{starttim,jdbcType=VARCHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey = #{allowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey = #{delowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype = #{answertype,jdbcType=CHAR}
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek = #{advanchek,jdbcType=CHAR}
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat = #{checkrepeat,jdbcType=CHAR}
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday = #{repeatday,jdbcType=INTEGER}
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore = #{checscore,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin = #{repeatin,jdbcType=CHAR}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart = #{strongstart,jdbcType=CHAR}
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend = #{strongend,jdbcType=CHAR}
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel = #{runlevel,jdbcType=INTEGER}
+			</if>
+			order by curs_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select * from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate like CONCAT('%',#{openstate},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype like CONCAT('%',#{starttype},'%' )
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim like CONCAT('%',#{starttim},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey like CONCAT('%',#{allowkey},'%' )
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey like CONCAT('%',#{delowkey},'%' )
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype like CONCAT('%',#{answertype},'%' )
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek like CONCAT('%',#{advanchek},'%' )
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat like CONCAT('%',#{checkrepeat},'%' )
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday like CONCAT('%',#{repeatday},'%' )
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore like CONCAT('%',#{checscore},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin like CONCAT('%',#{repeatin},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart like CONCAT('%',#{strongstart},'%' )
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend like CONCAT('%',#{strongend},'%' )
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel like CONCAT('%',#{runlevel},'%' )
+			</if>
+			order by curs_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		select * from con_user_ref_subject
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or curs_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				or ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="openstate != null and openstate != ''">
+				or curs_openstate like CONCAT('%',#{openstate},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or curs_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or curs_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="starttype != null and starttype != ''">
+				or curs_starttype like CONCAT('%',#{starttype},'%' )
+			</if>
+			<if test="starttim != null and starttim != ''">
+				or curs_starttim like CONCAT('%',#{starttim},'%' )
+			</if>
+			<if test="extparam != null and extparam != ''">
+				or curs_extparam like CONCAT('%',#{extparam},'%' )
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				or curs_allowkey like CONCAT('%',#{allowkey},'%' )
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				or curs_delowkey like CONCAT('%',#{delowkey},'%' )
+			</if>
+			<if test="answertype != null and answertype != ''">
+				or curs_answertype like CONCAT('%',#{answertype},'%' )
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				or curs_advanchek like CONCAT('%',#{advanchek},'%' )
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				or curs_checkrepeat like CONCAT('%',#{checkrepeat},'%' )
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				or curs_repeatday like CONCAT('%',#{repeatday},'%' )
+			</if>
+			<if test="checscore != null and checscore != ''">
+				or curs_checscore like CONCAT('%',#{checscore},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or curs_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="destnum != null and destnum != ''">
+				or curs_destnum like CONCAT('%',#{destnum},'%' )
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				or curs_repeatin like CONCAT('%',#{repeatin},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				or curs_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				or curs_strongstart like CONCAT('%',#{strongstart},'%' )
+			</if>
+			<if test="strongend != null and strongend != ''">
+				or curs_strongend like CONCAT('%',#{strongend},'%' )
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				or curs_runlevel like CONCAT('%',#{runlevel},'%' )
+			</if>
+			order by curs_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		 select con_user_ref_subject.curs_uiid as uiid,con_user_ref_subject.ref_cuiuiid as cuiuiid, (select GROUP_CONCAT( rt1.cui_name) from con_user_info rt1 where FIND_IN_SET( rt1.cui_uiid ,con_user_ref_subject.ref_cuiuiid) )  as cuiuiidname,con_user_ref_subject.ref_catuiid as catuiid, (select GROUP_CONCAT( rt2.cat_title) from com_auto_task rt2 where FIND_IN_SET( rt2.cat_uiid ,con_user_ref_subject.ref_catuiid) )  as catuiidtitle,con_user_ref_subject.curs_openstate as openstate,con_user_ref_subject.curs_endtime as endtime,con_user_ref_subject.curs_state as state,con_user_ref_subject.curs_starttype as starttype,con_user_ref_subject.curs_starttim as starttim,con_user_ref_subject.curs_extparam as extparam,con_user_ref_subject.curs_allowkey as allowkey,con_user_ref_subject.curs_delowkey as delowkey,con_user_ref_subject.curs_answertype as answertype,con_user_ref_subject.curs_advanchek as advanchek,con_user_ref_subject.curs_checkrepeat as checkrepeat,con_user_ref_subject.curs_repeatday as repeatday,con_user_ref_subject.curs_checscore as checscore,con_user_ref_subject.curs_sort as sort,con_user_ref_subject.curs_destnum as destnum,con_user_ref_subject.curs_repeatin as repeatin,con_user_ref_subject.curs_timelength as timelength,con_user_ref_subject.curs_strongstart as strongstart,con_user_ref_subject.curs_strongend as strongend,con_user_ref_subject.curs_runlevel as runlevel from con_user_ref_subject
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate = #{openstate,jdbcType=CHAR}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype = #{starttype,jdbcType=CHAR}
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim = #{starttim,jdbcType=VARCHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey = #{allowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey = #{delowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype = #{answertype,jdbcType=CHAR}
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek = #{advanchek,jdbcType=CHAR}
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat = #{checkrepeat,jdbcType=CHAR}
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday = #{repeatday,jdbcType=INTEGER}
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore = #{checscore,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin = #{repeatin,jdbcType=CHAR}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart = #{strongstart,jdbcType=CHAR}
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend = #{strongend,jdbcType=CHAR}
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel = #{runlevel,jdbcType=INTEGER}
+			</if>
+			order by curs_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.UserRefSubjectVO">
+		 select con_user_ref_subject.curs_uiid as uiid,con_user_ref_subject.ref_cuiuiid as cuiuiid,con_user_ref_subject.ref_cuiuiid as cuiuiidrefid,con_user_inforef_cuiuiid.cui_name as cuiuiidrefview,con_user_ref_subject.ref_catuiid as catuiid,con_user_ref_subject.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,con_user_ref_subject.curs_openstate as openstate,con_user_ref_subject.curs_endtime as endtime,con_user_ref_subject.curs_state as state,con_user_ref_subject.curs_starttype as starttype,con_user_ref_subject.curs_starttim as starttim,con_user_ref_subject.curs_extparam as extparam,con_user_ref_subject.curs_allowkey as allowkey,con_user_ref_subject.curs_delowkey as delowkey,con_user_ref_subject.curs_answertype as answertype,con_user_ref_subject.curs_advanchek as advanchek,con_user_ref_subject.curs_checkrepeat as checkrepeat,con_user_ref_subject.curs_repeatday as repeatday,con_user_ref_subject.curs_checscore as checscore,con_user_ref_subject.curs_sort as sort,con_user_ref_subject.curs_destnum as destnum,con_user_ref_subject.curs_repeatin as repeatin,con_user_ref_subject.curs_timelength as timelength,con_user_ref_subject.curs_strongstart as strongstart,con_user_ref_subject.curs_strongend as strongend,con_user_ref_subject.curs_runlevel as runlevel from con_user_ref_subject left outer join con_user_info con_user_inforef_cuiuiid on con_user_inforef_cuiuiid.cui_uiid = con_user_ref_subject.ref_cuiuiid left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = con_user_ref_subject.ref_catuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and curs_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="openstate != null and openstate != ''">
+				and curs_openstate = #{openstate,jdbcType=CHAR}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and curs_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="state != null and state != ''">
+				and curs_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="starttype != null and starttype != ''">
+				and curs_starttype = #{starttype,jdbcType=CHAR}
+			</if>
+			<if test="starttim != null and starttim != ''">
+				and curs_starttim = #{starttim,jdbcType=VARCHAR}
+			</if>
+			<if test="extparam != null and extparam != ''">
+				and curs_extparam = #{extparam,jdbcType=VARCHAR}
+			</if>
+			<if test="allowkey != null and allowkey != ''">
+				and curs_allowkey = #{allowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="delowkey != null and delowkey != ''">
+				and curs_delowkey = #{delowkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answertype != null and answertype != ''">
+				and curs_answertype = #{answertype,jdbcType=CHAR}
+			</if>
+			<if test="advanchek != null and advanchek != ''">
+				and curs_advanchek = #{advanchek,jdbcType=CHAR}
+			</if>
+			<if test="checkrepeat != null and checkrepeat != ''">
+				and curs_checkrepeat = #{checkrepeat,jdbcType=CHAR}
+			</if>
+			<if test="repeatday != null and repeatday != ''">
+				and curs_repeatday = #{repeatday,jdbcType=INTEGER}
+			</if>
+			<if test="checscore != null and checscore != ''">
+				and curs_checscore = #{checscore,jdbcType=INTEGER}
+			</if>
+			<if test="sort != null and sort != ''">
+				and curs_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="destnum != null and destnum != ''">
+				and curs_destnum = #{destnum,jdbcType=INTEGER}
+			</if>
+			<if test="repeatin != null and repeatin != ''">
+				and curs_repeatin = #{repeatin,jdbcType=CHAR}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and curs_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="strongstart != null and strongstart != ''">
+				and curs_strongstart = #{strongstart,jdbcType=CHAR}
+			</if>
+			<if test="strongend != null and strongend != ''">
+				and curs_strongend = #{strongend,jdbcType=CHAR}
+			</if>
+			<if test="runlevel != null and runlevel != ''">
+				and curs_runlevel = #{runlevel,jdbcType=INTEGER}
+			</if>
+			order by curs_sort asc
+	</select>
+
+</mapper>

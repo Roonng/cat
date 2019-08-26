@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<head>
+    <meta charset="UTF-8">
+    <title>运营云平台-注册</title>
+    <link rel="stylesheet" type="text/css" href="css/register.css"/>
+</head>
+<body>
+<div class="info">
+    <div class="phone">
+        <div class="sjh" class="txt">手机号</div>
+        <input type="number" id="mobile"  placeholder-class="place" placeholder="请输入手机号"></input>
+        <button class="getver" onclick="getRegisterSmsCode()">获取验证码</button>
+    </div>
+    <div class="verifi" class="txt">
+        <div class="yzm">验证码</div>
+        <input type="number" id="code" class="inp" placeholder-class="place-ver" placeholder="请输入验证码"></input>
+    </div>
+    <div class="name">
+        <div class="xm" class="txt">姓名</div>
+        <input type="text" id="name" class="inp" placeholder-class="place-ver" placeholder="请输入姓名"></input>
+    </div>
+    <div class="refer">
+        <div class="tjr">推荐人</div>
+        <input type="text" id="recomid" class="inp" placeholder-class="place-ver" placeholder="请输入推荐人手机号"></input>
+    </div>
+
+
+</div>
+<button class="submit" onclick="doRegister()">注册</button>
+<div class="other">
+    <div class="register" onclick="javascript:window.location.href='login_ver.html';">返回登录</div>
+</div>
+
+
+<div class="outside_two">
+    <div class="prompt_two" style="display: none">
+        <div class="msg_two"></div>
+        <div class="ok_two" onclick="ret_two()">确定</div>
+    </div>
+</div>
+
+<div class="tips">
+    <div class="cont"></div>
+    <div class="btn"></div>
+</div>
+
+
+
+<script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="js/develop.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+
+    function ret_two(){
+        $(".prompt_two").attr("style","display:none");
+        $(".outside_two").attr("style","display:none");
+        window.location.href = "login_ver.html";
+    }
+
+    var prompt_two = $(".prompt_two");
+    var msg_two = $(".msg_two");
+    var out_two = $(".outside_two");
+
+
+    /**
+     * 获取验证码
+     */
+    function getRegisterSmsCode() {
+        var mobile = $("#mobile").val();
+        var TEL_REGEXP = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+
+        if(!(mobile && mobile != "")){
+            tip("请输入手机号!");
+            return;
+        }
+
+        if(!TEL_REGEXP.test(mobile)){
+            tip("您输入的手机号格式错误！");
+            return;
+        }
+
+        updatecom("register/smscode",{mobile:mobile},function (response) {
+            if(response.error_code == 10000){
+                //操作成功
+                //response.data 对象数据；   response.data.list  数组数据；
+                $("#mobile").attr("disabled",true);
+            }else{
+                tip(response.error);
+            }
+        });
+
+        var btn = $(".getver");
+        var count = 60;
+        btn.attr("disabled","disabled");
+        var resend = setInterval(function(){
+            count--;
+            if (count > 0){
+                btn.html(count+"秒");
+                setCookie("captcha", count, {path: '/', expires: (1/86400)*count});
+            }else {
+                clearInterval(resend);
+                btn.html("获取验证码").removeAttr("disabled","");
+                $("#mobile").attr("disabled",false);
+            }
+        }, 1000);
+    }
+
+
+    /**
+     * 注册
+     */
+    function doRegister() {
+         var mobile = $("#mobile").val();
+         var name = $("#name").val();
+         var recomid = $("#recomid").val();
+         var code = $("#code").val();
+         var deviceid = getCookie("deviceid");
+        var TEL_REGEXP = /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/;
+
+        if(!(mobile && mobile != "")){
+            tip("请输入手机号！");
+            return;
+        }
+        if(!TEL_REGEXP.test(mobile)){
+            tip("您输入的手机号格式错误！");
+            return;
+        }
+        if(!(code && code != "")){
+            tip("请输入验证码！");
+            return;
+        }
+        if(!(name && name != "")){
+            tip("请输入姓名！");
+            return;
+        }
+        if(recomid!='' && recomid!=null && !TEL_REGEXP.test(recomid)){
+            tip("您输入的推荐人手机号格式错误！");
+            return;
+        }
+
+        var param = {};
+        param.mobile = mobile;
+        param.name = name;
+        param.recomid = recomid;
+        param.code = code;
+        param.deviceid = deviceid;
+            // $(".submit").attr("disabled","disabled");
+            $(".submit").attr("disabled",true);
+            updatecom("register/do",param,function (response) {
+                if(response.error_code == 10000){
+                    console.log(response)
+                    setCookie("uiid",response.data.uiid);
+                    setCookie("usertype",response.data.usertype);
+                    setCookiech("name",response.data.name);
+                    setCookie("count",response.data.count);
+                    setCookie("accesstocken",response.data.accesstocken);
+                    window.location.href = "index.html";
+                }else{
+                    $(".submit").attr("disabled",false);
+                    tip(response.error);
+                }
+            });
+    }
+
+</script>
+</body>
+</html>

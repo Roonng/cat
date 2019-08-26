@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IUserInfoDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.UserInfoVO">
+		
+		<id column="cui_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 用户主键 -->
+		<result column="cui_recomid" property="recomid" jdbcType="VARCHAR" />  <!-- 推荐人名称，关联用户主键 -->
+		<result column="cui_name" property="name" jdbcType="VARCHAR" />  <!-- 用户名称 -->
+		<result column="cui_mobile" property="mobile" jdbcType="VARCHAR" />  <!-- 用户电话 -->
+		<result column="cui_deviceid" property="deviceid" jdbcType="VARCHAR" />  <!-- 用户设备号 -->
+		<result column="cui_pass" property="pass" jdbcType="VARCHAR" />  <!-- 用户密码 -->
+		<result column="cui_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 注册时间 -->
+		<result column="cui_debugrole" property="debugrole" jdbcType="CHAR" />  <!-- 调试权限，1拥有0无权限 -->
+		<result column="cui_autorole" property="autorole" jdbcType="CHAR" />  <!-- 自动化权限，1拥有0无权限 -->
+		<result column="cui_menurole" property="menurole" jdbcType="VARCHAR" />  <!-- 用户角色编码 -->
+		<result column="cui_payaccountno" property="payaccountno" jdbcType="VARCHAR" />  <!-- 支付系统账户号 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cui_uiid ,
+		cui_recomid ,
+		cui_name ,
+		cui_mobile ,
+		cui_deviceid ,
+		cui_pass ,
+		cui_starttime ,
+		cui_debugrole ,
+		cui_autorole ,
+		cui_menurole ,
+		cui_payaccountno 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.UserInfoVO">
+		insert into con_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cui_uiid ,
+			</if>
+			<if test="recomid != null">
+				cui_recomid ,
+			</if>
+			<if test="name != null">
+				cui_name ,
+			</if>
+			<if test="mobile != null">
+				cui_mobile ,
+			</if>
+			<if test="deviceid != null">
+				cui_deviceid ,
+			</if>
+			<if test="pass != null">
+				cui_pass ,
+			</if>
+			<if test="starttime != null">
+				cui_starttime ,
+			</if>
+			<if test="debugrole != null">
+				cui_debugrole ,
+			</if>
+			<if test="autorole != null">
+				cui_autorole ,
+			</if>
+			<if test="menurole != null">
+				cui_menurole ,
+			</if>
+			<if test="payaccountno != null">
+				cui_payaccountno 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="recomid != null">
+				#{recomid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR} ,
+			</if>
+			<if test="deviceid != null">
+				#{deviceid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pass != null">
+				#{pass,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="debugrole != null">
+				#{debugrole,jdbcType=CHAR} ,
+			</if>
+			<if test="autorole != null">
+				#{autorole,jdbcType=CHAR} ,
+			</if>
+			<if test="menurole != null">
+				#{menurole,jdbcType=VARCHAR} ,
+			</if>
+			<if test="payaccountno != null">
+				#{payaccountno,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.UserInfoVO">
+		insert into con_user_info
+		(
+			cui_uiid ,
+			cui_recomid ,
+			cui_name ,
+			cui_mobile ,
+			cui_deviceid ,
+			cui_pass ,
+			cui_starttime ,
+			cui_debugrole ,
+			cui_autorole ,
+			cui_menurole ,
+			cui_payaccountno 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.recomid} ,
+			#{item.name} ,
+			#{item.mobile} ,
+			#{item.deviceid} ,
+			#{item.pass} ,
+			#{item.starttime} ,
+			#{item.debugrole} ,
+			#{item.autorole} ,
+			#{item.menurole} ,
+			#{item.payaccountno} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.UserInfoVO">
+		update con_user_info
+		<set>
+			<if test="recomid != null">
+				cui_recomid = #{recomid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="name != null">
+				cui_name = #{name,jdbcType=VARCHAR} ,
+			</if>
+			<if test="mobile != null">
+				cui_mobile = #{mobile,jdbcType=VARCHAR} ,
+			</if>
+			<if test="deviceid != null">
+				cui_deviceid = #{deviceid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="pass != null">
+				cui_pass = #{pass,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				cui_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="debugrole != null">
+				cui_debugrole = #{debugrole,jdbcType=CHAR} ,
+			</if>
+			<if test="autorole != null">
+				cui_autorole = #{autorole,jdbcType=CHAR} ,
+			</if>
+			<if test="menurole != null">
+				cui_menurole = #{menurole,jdbcType=VARCHAR} ,
+			</if>
+			<if test="payaccountno != null">
+				cui_payaccountno = #{payaccountno,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where cui_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_user_info
+			<set>
+				<if test="item.recomid != null">
+					cui_recomid = #{item.recomid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.name != null">
+					cui_name = #{item.name,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.mobile != null">
+					cui_mobile = #{item.mobile,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.deviceid != null">
+					cui_deviceid = #{item.deviceid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pass != null">
+					cui_pass = #{item.pass,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cui_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.debugrole != null">
+					cui_debugrole = #{item.debugrole,jdbcType=CHAR} ,
+				</if>
+				<if test="item.autorole != null">
+					cui_autorole = #{item.autorole,jdbcType=CHAR} ,
+				</if>
+				<if test="item.menurole != null">
+					cui_menurole = #{item.menurole,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.payaccountno != null">
+					cui_payaccountno = #{item.payaccountno,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cui_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_user_info
+			<set>
+				<if test="item.recomid != null">
+					cui_recomid = #{item.recomid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.name != null">
+					cui_name = #{item.name,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.mobile != null">
+					cui_mobile = #{item.mobile,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.deviceid != null">
+					cui_deviceid = #{item.deviceid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.pass != null">
+					cui_pass = #{item.pass,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cui_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.debugrole != null">
+					cui_debugrole = #{item.debugrole,jdbcType=CHAR} ,
+				</if>
+				<if test="item.autorole != null">
+					cui_autorole = #{item.autorole,jdbcType=CHAR} ,
+				</if>
+				<if test="item.menurole != null">
+					cui_menurole = #{item.menurole,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.payaccountno != null">
+					cui_payaccountno = #{item.payaccountno,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cui_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_user_info
+		where cui_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.UserInfoVO">
+		delete from con_user_info
+		where 1=1 
+			<if test="uiid != null">
+				and cui_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="recomid != null">
+				and cui_recomid = #{recomid,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null">
+				and cui_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null">
+				and cui_mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="deviceid != null">
+				and cui_deviceid = #{deviceid,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null">
+				and cui_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null">
+				and cui_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="debugrole != null">
+				and cui_debugrole = #{debugrole,jdbcType=CHAR}
+			</if>
+			<if test="autorole != null">
+				and cui_autorole = #{autorole,jdbcType=CHAR}
+			</if>
+			<if test="menurole != null">
+				and cui_menurole = #{menurole,jdbcType=VARCHAR}
+			</if>
+			<if test="payaccountno != null">
+				and cui_payaccountno = #{payaccountno,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_user_info
+		where cui_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_user_info
+		where 1=1 
+			<if test="uiid != null">
+				and cui_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="recomid != null">
+				and cui_recomid in 
+				<foreach collection="recomid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="name != null">
+				and cui_name in 
+				<foreach collection="name" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="mobile != null">
+				and cui_mobile in 
+				<foreach collection="mobile" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="deviceid != null">
+				and cui_deviceid in 
+				<foreach collection="deviceid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pass != null">
+				and cui_pass in 
+				<foreach collection="pass" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and cui_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="debugrole != null">
+				and cui_debugrole in 
+				<foreach collection="debugrole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="autorole != null">
+				and cui_autorole in 
+				<foreach collection="autorole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="menurole != null">
+				and cui_menurole in 
+				<foreach collection="menurole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="payaccountno != null">
+				and cui_payaccountno in 
+				<foreach collection="payaccountno" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_user_info where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_user_info
+		where cui_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_user_info
+		where cui_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_user_info
+		where cui_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserInfoVO">
+		select * from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid in 
+				<foreach collection="recomid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name in 
+				<foreach collection="name" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile in 
+				<foreach collection="mobile" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid in 
+				<foreach collection="deviceid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass in 
+				<foreach collection="pass" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole in 
+				<foreach collection="debugrole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole in 
+				<foreach collection="autorole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole in 
+				<foreach collection="menurole" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno in 
+				<foreach collection="payaccountno" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserInfoVO">
+		select * from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid = #{recomid,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid = #{deviceid,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole = #{debugrole,jdbcType=CHAR}
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole = #{autorole,jdbcType=CHAR}
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole = #{menurole,jdbcType=VARCHAR}
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno = #{payaccountno,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.UserInfoVO">
+		select count(*) from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid like CONCAT('%',#{recomid},'%' )
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name like CONCAT('%',#{name},'%' )
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile like CONCAT('%',#{mobile},'%' )
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid like CONCAT('%',#{deviceid},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole like CONCAT('%',#{debugrole},'%' )
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole like CONCAT('%',#{autorole},'%' )
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole like CONCAT('%',#{menurole},'%' )
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno like CONCAT('%',#{payaccountno},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserInfoVO">
+		select * from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid = #{recomid,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid = #{deviceid,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole = #{debugrole,jdbcType=CHAR}
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole = #{autorole,jdbcType=CHAR}
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole = #{menurole,jdbcType=VARCHAR}
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno = #{payaccountno,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserInfoVO">
+		select * from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid like CONCAT('%',#{recomid},'%' )
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name like CONCAT('%',#{name},'%' )
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile like CONCAT('%',#{mobile},'%' )
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid like CONCAT('%',#{deviceid},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole like CONCAT('%',#{debugrole},'%' )
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole like CONCAT('%',#{autorole},'%' )
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole like CONCAT('%',#{menurole},'%' )
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno like CONCAT('%',#{payaccountno},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.UserInfoVO">
+		select * from con_user_info
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cui_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="recomid != null and recomid != ''">
+				or cui_recomid like CONCAT('%',#{recomid},'%' )
+			</if>
+			<if test="name != null and name != ''">
+				or cui_name like CONCAT('%',#{name},'%' )
+			</if>
+			<if test="mobile != null and mobile != ''">
+				or cui_mobile like CONCAT('%',#{mobile},'%' )
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				or cui_deviceid like CONCAT('%',#{deviceid},'%' )
+			</if>
+			<if test="pass != null and pass != ''">
+				or cui_pass like CONCAT('%',#{pass},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or cui_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				or cui_debugrole like CONCAT('%',#{debugrole},'%' )
+			</if>
+			<if test="autorole != null and autorole != ''">
+				or cui_autorole like CONCAT('%',#{autorole},'%' )
+			</if>
+			<if test="menurole != null and menurole != ''">
+				or cui_menurole like CONCAT('%',#{menurole},'%' )
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				or cui_payaccountno like CONCAT('%',#{payaccountno},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.UserInfoVO">
+		 select con_user_info.cui_uiid as uiid,con_user_info.cui_recomid as recomid, (select GROUP_CONCAT( rt1.cui_name) from con_user_info rt1 where FIND_IN_SET( rt1.cui_uiid ,con_user_info.cui_recomid) )  as recomidname, (select GROUP_CONCAT( rt1.cui_mobile) from con_user_info rt1 where FIND_IN_SET( rt1.cui_uiid ,con_user_info.cui_recomid) )  as recomidmobile,con_user_info.cui_name as name,con_user_info.cui_mobile as mobile,con_user_info.cui_deviceid as deviceid,con_user_info.cui_pass as pass,con_user_info.cui_starttime as starttime,con_user_info.cui_debugrole as debugrole,con_user_info.cui_autorole as autorole,con_user_info.cui_menurole as menurole,con_user_info.cui_payaccountno as payaccountno from con_user_info
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid = #{recomid,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid = #{deviceid,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole = #{debugrole,jdbcType=CHAR}
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole = #{autorole,jdbcType=CHAR}
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole = #{menurole,jdbcType=VARCHAR}
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno = #{payaccountno,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.UserInfoVO">
+		 select con_user_info.cui_uiid as uiid,con_user_info.cui_recomid as recomid,con_user_info.cui_recomid as recomidrefid,con_user_infocui_recomid.cui_name,cui_mobile as recomidrefview,con_user_info.cui_name as name,con_user_info.cui_mobile as mobile,con_user_info.cui_deviceid as deviceid,con_user_info.cui_pass as pass,con_user_info.cui_starttime as starttime,con_user_info.cui_debugrole as debugrole,con_user_info.cui_autorole as autorole,con_user_info.cui_menurole as menurole,con_user_info.cui_payaccountno as payaccountno from con_user_info left outer join con_user_info con_user_infocui_recomid on con_user_infocui_recomid.cui_uiid = con_user_info.cui_recomid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cui_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="recomid != null and recomid != ''">
+				and cui_recomid = #{recomid,jdbcType=VARCHAR}
+			</if>
+			<if test="name != null and name != ''">
+				and cui_name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null and mobile != ''">
+				and cui_mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="deviceid != null and deviceid != ''">
+				and cui_deviceid = #{deviceid,jdbcType=VARCHAR}
+			</if>
+			<if test="pass != null and pass != ''">
+				and cui_pass = #{pass,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cui_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="debugrole != null and debugrole != ''">
+				and cui_debugrole = #{debugrole,jdbcType=CHAR}
+			</if>
+			<if test="autorole != null and autorole != ''">
+				and cui_autorole = #{autorole,jdbcType=CHAR}
+			</if>
+			<if test="menurole != null and menurole != ''">
+				and cui_menurole = #{menurole,jdbcType=VARCHAR}
+			</if>
+			<if test="payaccountno != null and payaccountno != ''">
+				and cui_payaccountno = #{payaccountno,jdbcType=VARCHAR}
+			</if>
+	</select>
+
+</mapper>

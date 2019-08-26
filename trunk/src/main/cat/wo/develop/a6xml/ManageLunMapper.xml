@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IManageLunDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.ManageLunVO">
+		
+		<id column="cml_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 轮播图主键 -->
+		<result column="cml_ptype" property="ptype" jdbcType="VARCHAR" />  <!-- 产品编码 -->
+		<result column="cml_title" property="title" jdbcType="VARCHAR" />  <!-- 轮播图标题 -->
+		<result column="cml_showtitle" property="showtitle" jdbcType="VARCHAR" />  <!-- 显示标题 -->
+		<result column="cml_imgs" property="imgs" jdbcType="VARCHAR" />  <!-- 轮播图图片，关联文件主键 -->
+		<result column="cml_vidios" property="vidios" jdbcType="VARCHAR" />  <!-- 轮播图视频 -->
+		<result column="cml_urls" property="urls" jdbcType="VARCHAR" />  <!-- 指向地址 -->
+		<result column="cml_viewcount" property="viewcount" jdbcType="INTEGER" />  <!-- 查看次数 -->
+		<result column="cml_showloc" property="showloc" jdbcType="CHAR" />  <!-- 显示栏位 1首页2其他 -->
+		<result column="cml_state" property="state" jdbcType="CHAR" />  <!-- 发布状态，0草稿1发布中2已下架 -->
+		<result column="cml_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="cml_params" property="params" jdbcType="VARCHAR" />  <!-- 动态参数 -->
+		<result column="cml_sourcetype" property="sourcetype" jdbcType="CHAR" />  <!-- 资源类型，1图片2视频3音频 -->
+		<result column="cml_showtype" property="showtype" jdbcType="CHAR" />  <!-- 显示类型，1轮播图2弹屏3轮播图+弹屏 -->
+		<result column="cml_showimg" property="showimg" jdbcType="VARCHAR" />  <!-- 弹屏图片，关联文件主键 -->
+		<result column="cml_requrl" property="requrl" jdbcType="VARCHAR" />  <!-- 请求地址 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cml_uiid ,
+		cml_ptype ,
+		cml_title ,
+		cml_showtitle ,
+		cml_imgs ,
+		cml_vidios ,
+		cml_urls ,
+		cml_viewcount ,
+		cml_showloc ,
+		cml_state ,
+		cml_sort ,
+		cml_params ,
+		cml_sourcetype ,
+		cml_showtype ,
+		cml_showimg ,
+		cml_requrl 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.ManageLunVO">
+		insert into com_manage_lun
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cml_uiid ,
+			</if>
+			<if test="ptype != null">
+				cml_ptype ,
+			</if>
+			<if test="title != null">
+				cml_title ,
+			</if>
+			<if test="showtitle != null">
+				cml_showtitle ,
+			</if>
+			<if test="imgs != null">
+				cml_imgs ,
+			</if>
+			<if test="vidios != null">
+				cml_vidios ,
+			</if>
+			<if test="urls != null">
+				cml_urls ,
+			</if>
+			<if test="viewcount != null">
+				cml_viewcount ,
+			</if>
+			<if test="showloc != null">
+				cml_showloc ,
+			</if>
+			<if test="state != null">
+				cml_state ,
+			</if>
+			<if test="sort != null">
+				cml_sort ,
+			</if>
+			<if test="params != null">
+				cml_params ,
+			</if>
+			<if test="sourcetype != null">
+				cml_sourcetype ,
+			</if>
+			<if test="showtype != null">
+				cml_showtype ,
+			</if>
+			<if test="showimg != null">
+				cml_showimg ,
+			</if>
+			<if test="requrl != null">
+				cml_requrl 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="ptype != null">
+				#{ptype,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="showtitle != null">
+				#{showtitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="imgs != null">
+				#{imgs,jdbcType=VARCHAR} ,
+			</if>
+			<if test="vidios != null">
+				#{vidios,jdbcType=VARCHAR} ,
+			</if>
+			<if test="urls != null">
+				#{urls,jdbcType=VARCHAR} ,
+			</if>
+			<if test="viewcount != null">
+				#{viewcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="showloc != null">
+				#{showloc,jdbcType=CHAR} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="params != null">
+				#{params,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sourcetype != null">
+				#{sourcetype,jdbcType=CHAR} ,
+			</if>
+			<if test="showtype != null">
+				#{showtype,jdbcType=CHAR} ,
+			</if>
+			<if test="showimg != null">
+				#{showimg,jdbcType=VARCHAR} ,
+			</if>
+			<if test="requrl != null">
+				#{requrl,jdbcType=VARCHAR} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.ManageLunVO">
+		insert into com_manage_lun
+		(
+			cml_uiid ,
+			cml_ptype ,
+			cml_title ,
+			cml_showtitle ,
+			cml_imgs ,
+			cml_vidios ,
+			cml_urls ,
+			cml_viewcount ,
+			cml_showloc ,
+			cml_state ,
+			cml_sort ,
+			cml_params ,
+			cml_sourcetype ,
+			cml_showtype ,
+			cml_showimg ,
+			cml_requrl 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.ptype} ,
+			#{item.title} ,
+			#{item.showtitle} ,
+			#{item.imgs} ,
+			#{item.vidios} ,
+			#{item.urls} ,
+			#{item.viewcount} ,
+			#{item.showloc} ,
+			#{item.state} ,
+			#{item.sort} ,
+			#{item.params} ,
+			#{item.sourcetype} ,
+			#{item.showtype} ,
+			#{item.showimg} ,
+			#{item.requrl} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.ManageLunVO">
+		update com_manage_lun
+		<set>
+			<if test="ptype != null">
+				cml_ptype = #{ptype,jdbcType=VARCHAR} ,
+			</if>
+			<if test="title != null">
+				cml_title = #{title,jdbcType=VARCHAR} ,
+			</if>
+			<if test="showtitle != null">
+				cml_showtitle = #{showtitle,jdbcType=VARCHAR} ,
+			</if>
+			<if test="imgs != null">
+				cml_imgs = #{imgs,jdbcType=VARCHAR} ,
+			</if>
+			<if test="vidios != null">
+				cml_vidios = #{vidios,jdbcType=VARCHAR} ,
+			</if>
+			<if test="urls != null">
+				cml_urls = #{urls,jdbcType=VARCHAR} ,
+			</if>
+			<if test="viewcount != null">
+				cml_viewcount = #{viewcount,jdbcType=INTEGER} ,
+			</if>
+			<if test="showloc != null">
+				cml_showloc = #{showloc,jdbcType=CHAR} ,
+			</if>
+			<if test="state != null">
+				cml_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="sort != null">
+				cml_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="params != null">
+				cml_params = #{params,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sourcetype != null">
+				cml_sourcetype = #{sourcetype,jdbcType=CHAR} ,
+			</if>
+			<if test="showtype != null">
+				cml_showtype = #{showtype,jdbcType=CHAR} ,
+			</if>
+			<if test="showimg != null">
+				cml_showimg = #{showimg,jdbcType=VARCHAR} ,
+			</if>
+			<if test="requrl != null">
+				cml_requrl = #{requrl,jdbcType=VARCHAR} 
+			</if>
+		</set>
+		where cml_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_manage_lun
+			<set>
+				<if test="item.ptype != null">
+					cml_ptype = #{item.ptype,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cml_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.showtitle != null">
+					cml_showtitle = #{item.showtitle,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.imgs != null">
+					cml_imgs = #{item.imgs,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.vidios != null">
+					cml_vidios = #{item.vidios,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.urls != null">
+					cml_urls = #{item.urls,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.viewcount != null">
+					cml_viewcount = #{item.viewcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.showloc != null">
+					cml_showloc = #{item.showloc,jdbcType=CHAR} ,
+				</if>
+				<if test="item.state != null">
+					cml_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cml_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.params != null">
+					cml_params = #{item.params,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sourcetype != null">
+					cml_sourcetype = #{item.sourcetype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.showtype != null">
+					cml_showtype = #{item.showtype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.showimg != null">
+					cml_showimg = #{item.showimg,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.requrl != null">
+					cml_requrl = #{item.requrl,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cml_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update com_manage_lun
+			<set>
+				<if test="item.ptype != null">
+					cml_ptype = #{item.ptype,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.title != null">
+					cml_title = #{item.title,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.showtitle != null">
+					cml_showtitle = #{item.showtitle,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.imgs != null">
+					cml_imgs = #{item.imgs,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.vidios != null">
+					cml_vidios = #{item.vidios,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.urls != null">
+					cml_urls = #{item.urls,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.viewcount != null">
+					cml_viewcount = #{item.viewcount,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.showloc != null">
+					cml_showloc = #{item.showloc,jdbcType=CHAR} ,
+				</if>
+				<if test="item.state != null">
+					cml_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.sort != null">
+					cml_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.params != null">
+					cml_params = #{item.params,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sourcetype != null">
+					cml_sourcetype = #{item.sourcetype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.showtype != null">
+					cml_showtype = #{item.showtype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.showimg != null">
+					cml_showimg = #{item.showimg,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.requrl != null">
+					cml_requrl = #{item.requrl,jdbcType=VARCHAR} 
+				</if>
+			</set>
+			where cml_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from com_manage_lun
+		where cml_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.ManageLunVO">
+		delete from com_manage_lun
+		where 1=1 
+			<if test="uiid != null">
+				and cml_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null">
+				and cml_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null">
+				and cml_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null">
+				and cml_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null">
+				and cml_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidios != null">
+				and cml_vidios = #{vidios,jdbcType=VARCHAR}
+			</if>
+			<if test="urls != null">
+				and cml_urls = #{urls,jdbcType=VARCHAR}
+			</if>
+			<if test="viewcount != null">
+				and cml_viewcount = #{viewcount,jdbcType=INTEGER}
+			</if>
+			<if test="showloc != null">
+				and cml_showloc = #{showloc,jdbcType=CHAR}
+			</if>
+			<if test="state != null">
+				and cml_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="sort != null">
+				and cml_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="params != null">
+				and cml_params = #{params,jdbcType=VARCHAR}
+			</if>
+			<if test="sourcetype != null">
+				and cml_sourcetype = #{sourcetype,jdbcType=CHAR}
+			</if>
+			<if test="showtype != null">
+				and cml_showtype = #{showtype,jdbcType=CHAR}
+			</if>
+			<if test="showimg != null">
+				and cml_showimg = #{showimg,jdbcType=VARCHAR}
+			</if>
+			<if test="requrl != null">
+				and cml_requrl = #{requrl,jdbcType=VARCHAR}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from com_manage_lun
+		where cml_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from com_manage_lun
+		where 1=1 
+			<if test="uiid != null">
+				and cml_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null">
+				and cml_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null">
+				and cml_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtitle != null">
+				and cml_showtitle in 
+				<foreach collection="showtitle" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="imgs != null">
+				and cml_imgs in 
+				<foreach collection="imgs" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="vidios != null">
+				and cml_vidios in 
+				<foreach collection="vidios" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="urls != null">
+				and cml_urls in 
+				<foreach collection="urls" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="viewcount != null">
+				and cml_viewcount in 
+				<foreach collection="viewcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showloc != null">
+				and cml_showloc in 
+				<foreach collection="showloc" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and cml_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and cml_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="params != null">
+				and cml_params in 
+				<foreach collection="params" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sourcetype != null">
+				and cml_sourcetype in 
+				<foreach collection="sourcetype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtype != null">
+				and cml_showtype in 
+				<foreach collection="showtype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showimg != null">
+				and cml_showimg in 
+				<foreach collection="showimg" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="requrl != null">
+				and cml_requrl in 
+				<foreach collection="requrl" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from com_manage_lun where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_manage_lun
+		where cml_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from com_manage_lun
+		where cml_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from com_manage_lun
+		where cml_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+			order by cml_sort asc
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.ManageLunVO">
+		select * from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype in 
+				<foreach collection="ptype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title in 
+				<foreach collection="title" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle in 
+				<foreach collection="showtitle" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs in 
+				<foreach collection="imgs" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios in 
+				<foreach collection="vidios" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls in 
+				<foreach collection="urls" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount in 
+				<foreach collection="viewcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc in 
+				<foreach collection="showloc" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params in 
+				<foreach collection="params" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype in 
+				<foreach collection="sourcetype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype in 
+				<foreach collection="showtype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg in 
+				<foreach collection="showimg" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl in 
+				<foreach collection="requrl" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			order by cml_sort asc
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.ManageLunVO">
+		select * from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios = #{vidios,jdbcType=VARCHAR}
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls = #{urls,jdbcType=VARCHAR}
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount = #{viewcount,jdbcType=INTEGER}
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc = #{showloc,jdbcType=CHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params = #{params,jdbcType=VARCHAR}
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype = #{sourcetype,jdbcType=CHAR}
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype = #{showtype,jdbcType=CHAR}
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg = #{showimg,jdbcType=VARCHAR}
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl = #{requrl,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.ManageLunVO">
+		select count(*) from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios like CONCAT('%',#{vidios},'%' )
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls like CONCAT('%',#{urls},'%' )
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount like CONCAT('%',#{viewcount},'%' )
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc like CONCAT('%',#{showloc},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params like CONCAT('%',#{params},'%' )
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype like CONCAT('%',#{sourcetype},'%' )
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype like CONCAT('%',#{showtype},'%' )
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg like CONCAT('%',#{showimg},'%' )
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl like CONCAT('%',#{requrl},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.ManageLunVO">
+		select * from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios = #{vidios,jdbcType=VARCHAR}
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls = #{urls,jdbcType=VARCHAR}
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount = #{viewcount,jdbcType=INTEGER}
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc = #{showloc,jdbcType=CHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params = #{params,jdbcType=VARCHAR}
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype = #{sourcetype,jdbcType=CHAR}
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype = #{showtype,jdbcType=CHAR}
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg = #{showimg,jdbcType=VARCHAR}
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl = #{requrl,jdbcType=VARCHAR}
+			</if>
+			order by cml_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.ManageLunVO">
+		select * from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios like CONCAT('%',#{vidios},'%' )
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls like CONCAT('%',#{urls},'%' )
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount like CONCAT('%',#{viewcount},'%' )
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc like CONCAT('%',#{showloc},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params like CONCAT('%',#{params},'%' )
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype like CONCAT('%',#{sourcetype},'%' )
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype like CONCAT('%',#{showtype},'%' )
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg like CONCAT('%',#{showimg},'%' )
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl like CONCAT('%',#{requrl},'%' )
+			</if>
+			order by cml_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.ManageLunVO">
+		select * from com_manage_lun
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cml_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="ptype != null and ptype != ''">
+				or cml_ptype like CONCAT('%',#{ptype},'%' )
+			</if>
+			<if test="title != null and title != ''">
+				or cml_title like CONCAT('%',#{title},'%' )
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				or cml_showtitle like CONCAT('%',#{showtitle},'%' )
+			</if>
+			<if test="imgs != null and imgs != ''">
+				or cml_imgs like CONCAT('%',#{imgs},'%' )
+			</if>
+			<if test="vidios != null and vidios != ''">
+				or cml_vidios like CONCAT('%',#{vidios},'%' )
+			</if>
+			<if test="urls != null and urls != ''">
+				or cml_urls like CONCAT('%',#{urls},'%' )
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				or cml_viewcount like CONCAT('%',#{viewcount},'%' )
+			</if>
+			<if test="showloc != null and showloc != ''">
+				or cml_showloc like CONCAT('%',#{showloc},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or cml_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or cml_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="params != null and params != ''">
+				or cml_params like CONCAT('%',#{params},'%' )
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				or cml_sourcetype like CONCAT('%',#{sourcetype},'%' )
+			</if>
+			<if test="showtype != null and showtype != ''">
+				or cml_showtype like CONCAT('%',#{showtype},'%' )
+			</if>
+			<if test="showimg != null and showimg != ''">
+				or cml_showimg like CONCAT('%',#{showimg},'%' )
+			</if>
+			<if test="requrl != null and requrl != ''">
+				or cml_requrl like CONCAT('%',#{requrl},'%' )
+			</if>
+			order by cml_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.ManageLunVO">
+		 select com_manage_lun.cml_uiid as uiid,com_manage_lun.cml_ptype as ptype, (select GROUP_CONCAT( rt1.cap_name) from com_auto_product rt1 where FIND_IN_SET( rt1.cap_code ,com_manage_lun.cml_ptype) )  as ptypename, (select GROUP_CONCAT( rt1.cap_code) from com_auto_product rt1 where FIND_IN_SET( rt1.cap_code ,com_manage_lun.cml_ptype) )  as ptypecode,com_manage_lun.cml_title as title,com_manage_lun.cml_showtitle as showtitle,com_manage_lun.cml_imgs as imgs,com_manage_lun.cml_vidios as vidios,com_manage_lun.cml_urls as urls,com_manage_lun.cml_viewcount as viewcount,com_manage_lun.cml_showloc as showloc,com_manage_lun.cml_state as state,com_manage_lun.cml_sort as sort,com_manage_lun.cml_params as params,com_manage_lun.cml_sourcetype as sourcetype,com_manage_lun.cml_showtype as showtype,com_manage_lun.cml_showimg as showimg,com_manage_lun.cml_requrl as requrl from com_manage_lun
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios = #{vidios,jdbcType=VARCHAR}
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls = #{urls,jdbcType=VARCHAR}
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount = #{viewcount,jdbcType=INTEGER}
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc = #{showloc,jdbcType=CHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params = #{params,jdbcType=VARCHAR}
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype = #{sourcetype,jdbcType=CHAR}
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype = #{showtype,jdbcType=CHAR}
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg = #{showimg,jdbcType=VARCHAR}
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl = #{requrl,jdbcType=VARCHAR}
+			</if>
+			order by cml_sort asc
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.ManageLunVO">
+		 select com_manage_lun.cml_uiid as uiid,com_manage_lun.cml_ptype as ptype,com_manage_lun.cml_ptype as ptyperefid,com_auto_productcml_ptype.cap_name,cap_code as ptyperefview,com_manage_lun.cml_title as title,com_manage_lun.cml_showtitle as showtitle,com_manage_lun.cml_imgs as imgs,com_manage_lun.cml_vidios as vidios,com_manage_lun.cml_urls as urls,com_manage_lun.cml_viewcount as viewcount,com_manage_lun.cml_showloc as showloc,com_manage_lun.cml_state as state,com_manage_lun.cml_sort as sort,com_manage_lun.cml_params as params,com_manage_lun.cml_sourcetype as sourcetype,com_manage_lun.cml_showtype as showtype,com_manage_lun.cml_showimg as showimg,com_manage_lun.cml_requrl as requrl from com_manage_lun left outer join com_auto_product com_auto_productcml_ptype on com_auto_productcml_ptype.cap_code = com_manage_lun.cml_ptype
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cml_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="ptype != null and ptype != ''">
+				and cml_ptype = #{ptype,jdbcType=VARCHAR}
+			</if>
+			<if test="title != null and title != ''">
+				and cml_title = #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="showtitle != null and showtitle != ''">
+				and cml_showtitle = #{showtitle,jdbcType=VARCHAR}
+			</if>
+			<if test="imgs != null and imgs != ''">
+				and cml_imgs = #{imgs,jdbcType=VARCHAR}
+			</if>
+			<if test="vidios != null and vidios != ''">
+				and cml_vidios = #{vidios,jdbcType=VARCHAR}
+			</if>
+			<if test="urls != null and urls != ''">
+				and cml_urls = #{urls,jdbcType=VARCHAR}
+			</if>
+			<if test="viewcount != null and viewcount != ''">
+				and cml_viewcount = #{viewcount,jdbcType=INTEGER}
+			</if>
+			<if test="showloc != null and showloc != ''">
+				and cml_showloc = #{showloc,jdbcType=CHAR}
+			</if>
+			<if test="state != null and state != ''">
+				and cml_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and cml_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="params != null and params != ''">
+				and cml_params = #{params,jdbcType=VARCHAR}
+			</if>
+			<if test="sourcetype != null and sourcetype != ''">
+				and cml_sourcetype = #{sourcetype,jdbcType=CHAR}
+			</if>
+			<if test="showtype != null and showtype != ''">
+				and cml_showtype = #{showtype,jdbcType=CHAR}
+			</if>
+			<if test="showimg != null and showimg != ''">
+				and cml_showimg = #{showimg,jdbcType=VARCHAR}
+			</if>
+			<if test="requrl != null and requrl != ''">
+				and cml_requrl = #{requrl,jdbcType=VARCHAR}
+			</if>
+			order by cml_sort asc
+	</select>
+
+</mapper>

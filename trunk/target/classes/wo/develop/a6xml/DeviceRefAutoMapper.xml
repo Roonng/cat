@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IDeviceRefAutoDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.DeviceRefAutoVO">
+		
+		<id column="cdra_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 设备任务主键 -->
+		<result column="ref_cdiuiid" property="cdiuiid" jdbcType="VARCHAR" />  <!-- 设备名称，关联设备主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 自动化业务，关联自动化业务主键 -->
+		<result column="cdra_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 启动时间 -->
+		<result column="cdra_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 终止时间 -->
+		<result column="cdra_timelength" property="timelength" jdbcType="INTEGER" />  <!-- 执行间隔，单位秒 -->
+		<result column="cdra_maxcount" property="maxcount" jdbcType="INTEGER" />  <!-- 最多操作次数 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		cdra_uiid ,
+		ref_cdiuiid ,
+		ref_catuiid ,
+		cdra_starttime ,
+		cdra_endtime ,
+		cdra_timelength ,
+		cdra_maxcount 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		insert into con_device_ref_auto
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				cdra_uiid ,
+			</if>
+			<if test="cdiuiid != null">
+				ref_cdiuiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="starttime != null">
+				cdra_starttime ,
+			</if>
+			<if test="endtime != null">
+				cdra_endtime ,
+			</if>
+			<if test="timelength != null">
+				cdra_timelength ,
+			</if>
+			<if test="maxcount != null">
+				cdra_maxcount 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cdiuiid != null">
+				#{cdiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="timelength != null">
+				#{timelength,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxcount != null">
+				#{maxcount,jdbcType=INTEGER} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		insert into con_device_ref_auto
+		(
+			cdra_uiid ,
+			ref_cdiuiid ,
+			ref_catuiid ,
+			cdra_starttime ,
+			cdra_endtime ,
+			cdra_timelength ,
+			cdra_maxcount 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.cdiuiid} ,
+			#{item.catuiid} ,
+			#{item.starttime} ,
+			#{item.endtime} ,
+			#{item.timelength} ,
+			#{item.maxcount} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		update con_device_ref_auto
+		<set>
+			<if test="cdiuiid != null">
+				ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				cdra_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				cdra_endtime = #{endtime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="timelength != null">
+				cdra_timelength = #{timelength,jdbcType=INTEGER} ,
+			</if>
+			<if test="maxcount != null">
+				cdra_maxcount = #{maxcount,jdbcType=INTEGER} 
+			</if>
+		</set>
+		where cdra_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_device_ref_auto
+			<set>
+				<if test="item.cdiuiid != null">
+					ref_cdiuiid = #{item.cdiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cdra_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					cdra_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.timelength != null">
+					cdra_timelength = #{item.timelength,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxcount != null">
+					cdra_maxcount = #{item.maxcount,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cdra_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_device_ref_auto
+			<set>
+				<if test="item.cdiuiid != null">
+					ref_cdiuiid = #{item.cdiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					cdra_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					cdra_endtime = #{item.endtime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.timelength != null">
+					cdra_timelength = #{item.timelength,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.maxcount != null">
+					cdra_maxcount = #{item.maxcount,jdbcType=INTEGER} 
+				</if>
+			</set>
+			where cdra_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_device_ref_auto
+		where cdra_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		delete from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null">
+				and cdra_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cdiuiid != null">
+				and ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null">
+				and cdra_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null">
+				and cdra_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="timelength != null">
+				and cdra_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="maxcount != null">
+				and cdra_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_device_ref_auto
+		where cdra_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null">
+				and cdra_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cdiuiid != null">
+				and ref_cdiuiid in 
+				<foreach collection="cdiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and cdra_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and cdra_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="timelength != null">
+				and cdra_timelength in 
+				<foreach collection="timelength" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxcount != null">
+				and cdra_maxcount in 
+				<foreach collection="maxcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_device_ref_auto where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_device_ref_auto
+		where cdra_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_device_ref_auto
+		where cdra_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_device_ref_auto
+		where cdra_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select * from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid in 
+				<foreach collection="cdiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength in 
+				<foreach collection="timelength" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount in 
+				<foreach collection="maxcount" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select * from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select count(*) from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid like CONCAT('%',#{cdiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select * from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select * from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid like CONCAT('%',#{cdiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		select * from con_device_ref_auto
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or cdra_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				or ref_cdiuiid like CONCAT('%',#{cdiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or cdra_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or cdra_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+			<if test="timelength != null and timelength != ''">
+				or cdra_timelength like CONCAT('%',#{timelength},'%' )
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				or cdra_maxcount like CONCAT('%',#{maxcount},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		 select con_device_ref_auto.cdra_uiid as uiid,con_device_ref_auto.ref_cdiuiid as cdiuiid, (select GROUP_CONCAT( rt1.cdi_title) from con_device_info rt1 where FIND_IN_SET( rt1.cdi_uiid ,con_device_ref_auto.ref_cdiuiid) )  as cdiuiidtitle,con_device_ref_auto.ref_catuiid as catuiid, (select GROUP_CONCAT( rt2.cat_title) from com_auto_task rt2 where FIND_IN_SET( rt2.cat_uiid ,con_device_ref_auto.ref_catuiid) )  as catuiidtitle,con_device_ref_auto.cdra_starttime as starttime,con_device_ref_auto.cdra_endtime as endtime,con_device_ref_auto.cdra_timelength as timelength,con_device_ref_auto.cdra_maxcount as maxcount from con_device_ref_auto
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.DeviceRefAutoVO">
+		 select con_device_ref_auto.cdra_uiid as uiid,con_device_ref_auto.ref_cdiuiid as cdiuiid,con_device_ref_auto.ref_cdiuiid as cdiuiidrefid,con_device_inforef_cdiuiid.cdi_title as cdiuiidrefview,con_device_ref_auto.ref_catuiid as catuiid,con_device_ref_auto.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,con_device_ref_auto.cdra_starttime as starttime,con_device_ref_auto.cdra_endtime as endtime,con_device_ref_auto.cdra_timelength as timelength,con_device_ref_auto.cdra_maxcount as maxcount from con_device_ref_auto left outer join con_device_info con_device_inforef_cdiuiid on con_device_inforef_cdiuiid.cdi_uiid = con_device_ref_auto.ref_cdiuiid left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = con_device_ref_auto.ref_catuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and cdra_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cdiuiid != null and cdiuiid != ''">
+				and ref_cdiuiid = #{cdiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and cdra_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and cdra_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="timelength != null and timelength != ''">
+				and cdra_timelength = #{timelength,jdbcType=INTEGER}
+			</if>
+			<if test="maxcount != null and maxcount != ''">
+				and cdra_maxcount = #{maxcount,jdbcType=INTEGER}
+			</if>
+	</select>
+
+</mapper>

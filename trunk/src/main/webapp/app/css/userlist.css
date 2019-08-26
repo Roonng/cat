@@ -1,0 +1,239 @@
+body {
+    background: #F5F5F5;
+    margin: 0px;
+}
+
+.search {
+    background: white;
+    padding: 0 3.12% 0 3.12%;
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+    z-index: 1;
+}
+
+.search .txt {
+    display: inline-block;
+    height: 50px;
+    width: 65px;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+.search input {
+    display: inline-block;
+    height: 20px;
+    width: 120px;
+    background: #F5F5F5;
+}
+
+.search .btn {
+    display: inline-block;
+    background: #16C4AF;
+    color: white;
+    height: 20px;
+    width: 60px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    margin-left: 15px;
+}
+
+.user {
+    padding: 0 3.12% 0 3.12%;
+    background: white;
+    height: 66.6px;
+    width: 100%;
+    z-index: 1;
+}
+
+.con {
+    background: white;
+    display: inline-block;
+    width: 94%;
+    height: 65px;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+.img-head {
+    vert-align: middle;
+    display: inline-block;
+    height: 45px;
+    width: 12.7%;
+    margin-top: 10.8px;
+}
+
+.info {
+    display: inline-block;
+    position: absolute;
+    vert-align: middle;
+    display: inline-block;
+    height: 45px;
+    width: 30%;
+    margin: 10.8px 0 0 13.7px;
+}
+
+.numinfo {
+    display: inline-block;
+    position: absolute;
+    vert-align: middle;
+    display: inline-block;
+    height: 45px;
+    width: 35%;
+    margin: 10.8px 0 0 34.6%;
+}
+
+.phone a{
+    color: #B1B1B1;
+    text-decoration:none;
+}
+
+.img-add {
+    position: absolute;
+    margin: 16px 0 0 72%;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+}
+
+.add-name {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.add-phone {
+    margin-top: 20px;
+    text-align: center;
+
+}
+
+.give {
+    margin: 20px 0 0 21.38%;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.pass {
+    margin: 20px 0 0 21.38%;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.submit {
+    display: inline-block;
+    background: #8CDEC7;
+    color: white;
+    height: 30px;
+    width: 32%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+    margin: 30px 0 0 15.8%;
+}
+
+.back {
+    display: inline-block;
+    background: #8CDEC7;
+    color: white;
+    height: 30px;
+    width: 32%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+    margin: 0 0 0 0;
+}
+
+.eject {
+    position:fixed;
+    left: 8.8%;
+    top: 198px;
+    width:82.3%;
+    height: 270px;
+    /*line-height:30px;*/
+    background: white;
+    border:1px solid #B1B1B1;
+
+}
+/*.eject .pass{*/
+/*background: red;*/
+/*margin-top: 20px;*/
+/*height: 30px;*/
+/*border-radius: 5px;*/
+/*}*/
+.eject .pass .count {
+    margin-top: 20px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.transparent {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 6;
+    opacity:1;
+
+}
+
+#paging{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    top: 627px;
+    padding-left: 4.26%;
+    z-index: 5;
+}
+#paging .cont{
+    width: 345px;
+    z-index: 5;
+}
+#paging .pagenum{
+    display: inline-block;
+    height:30px;
+    width: 35px;
+    background: #b8b8b8;
+    line-height: 30px;
+    text-align: center;
+    margin-left:5px;
+    z-index: 5;
+}
+
+#paging .pagenum:hover{
+    background: #8CDEC7;
+}
+.prompt{
+    padding: 20px 5px 0 5px;
+    position: absolute;
+    height: 120px;
+    width: 80%;
+    background: white;
+    top: 30px;
+    left: 9.8%;
+    border:1px solid #B1B1B1;
+}
+.prompt .msg{
+    height: 60px;
+    width: 300px;
+    text-align: center;
+    word-wrap: break-word;word-break: break-all;overflow: hidden;
+
+}
+.prompt .ok{
+    background: #0AC28D;
+    color: white;
+    height: 30px;
+    width: 33.3%;
+    margin-left: 33.3%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+
+}
+.outside{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    display: none;
+}

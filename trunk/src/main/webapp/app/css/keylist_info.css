@@ -1,0 +1,54 @@
+body{
+    background: #F5F5F5;
+    margin: 0px;
+    overflow:hidden;
+}
+.remark{
+    padding: 0 4% 10px 4%;
+    background: white;
+    width: 100%;
+    border-bottom: 1px solid #F5F5F5;;
+}
+.time{
+    padding: 0 15px 0 15px;
+    background: white;
+    height: 60px;
+    width: 100%;
+    border-bottom: 1px solid #F5F5F5;;
+}
+.txt{
+    vertical-align: top;
+    display: inline-block;
+    height: 60px;
+    font-size: 18px;
+    line-height: 60px;
+    width: 18.6%;
+    font-weight: bold;
+}
+.sj{
+    display: inline-block;
+    height: 60px;
+    width: 66%;
+    line-height: 60px;
+    font-size: 16px;
+}
+.remark .bz{
+    display: inline-block;
+    width: 66%;
+    font-size: 16px;
+    margin-top: 19px;
+}
+
+.key{
+    padding: 0 15px 0 15px;
+    background: white;
+    height: 220px;
+    width: 100%;
+}
+.key .my{
+    display: block;
+    height: 160px;
+    width: 93.3%;
+    word-break: break-all;
+    word-wrap: break-word;
+}

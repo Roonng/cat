@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wo.develop.a4dao.IAutoAnswerMessageDao">
+
+	<resultMap id="BaseResultMap" type="wo.develop.a5vo.AutoAnswerMessageVO">
+		
+		<id column="caam_uiid" property="uiid" jdbcType="VARCHAR" />  <!-- 帖子回复数据主键 -->
+		<result column="ref_csiuiid" property="csiuiid" jdbcType="VARCHAR" />  <!-- 软件名称，关联软件主键 -->
+		<result column="ref_catuiid" property="catuiid" jdbcType="VARCHAR" />  <!-- 主题名称，关联主题主键 -->
+		<result column="ref_cuiuiid" property="cuiuiid" jdbcType="VARCHAR" />  <!-- 用户名称，关联用户主键 -->
+		<result column="caam_msgtype" property="msgtype" jdbcType="CHAR" />  <!-- 业务类别，1帖子回复2聊天回复 -->
+		<result column="caam_searchkey" property="searchkey" jdbcType="VARCHAR" />  <!-- 帖子关键字 -->
+		<result column="caam_answercon" property="answercon" jdbcType="VARCHAR" />  <!-- 回复内容 -->
+		<result column="caa_sort" property="sort" jdbcType="INTEGER" />  <!-- 显示次序 -->
+		<result column="caa_state" property="state" jdbcType="CHAR" />  <!-- 有效状态，0草稿1待审核2审核通过3已下架 -->
+		<result column="caa_actparam" property="actparam" jdbcType="VARCHAR" />  <!-- 生效扩展参数 -->
+		<result column="caa_starttime" property="starttime" jdbcType="TIMESTAMP" />  <!-- 生效开始时间 -->
+		<result column="caa_endtime" property="endtime" jdbcType="TIMESTAMP" />  <!-- 生效结束时间 -->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		caam_uiid ,
+		ref_csiuiid ,
+		ref_catuiid ,
+		ref_cuiuiid ,
+		caam_msgtype ,
+		caam_searchkey ,
+		caam_answercon ,
+		caa_sort ,
+		caa_state ,
+		caa_actparam ,
+		caa_starttime ,
+		caa_endtime 
+	</sql>
+	
+	<!-- 新增一条数据 -->
+	<insert id="insert" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		insert into con_auto_answer_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				caam_uiid ,
+			</if>
+			<if test="csiuiid != null">
+				ref_csiuiid ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid ,
+			</if>
+			<if test="msgtype != null">
+				caam_msgtype ,
+			</if>
+			<if test="searchkey != null">
+				caam_searchkey ,
+			</if>
+			<if test="answercon != null">
+				caam_answercon ,
+			</if>
+			<if test="sort != null">
+				caa_sort ,
+			</if>
+			<if test="state != null">
+				caa_state ,
+			</if>
+			<if test="actparam != null">
+				caa_actparam ,
+			</if>
+			<if test="starttime != null">
+				caa_starttime ,
+			</if>
+			<if test="endtime != null">
+				caa_endtime 
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uiid != null">
+				#{uiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="csiuiid != null">
+				#{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				#{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				#{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="msgtype != null">
+				#{msgtype,jdbcType=CHAR} ,
+			</if>
+			<if test="searchkey != null">
+				#{searchkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answercon != null">
+				#{answercon,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR} ,
+			</if>
+			<if test="actparam != null">
+				#{actparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量新增多条数据  parameterType=pay.example.pojo.User,java.util.List 均可以支持 -->
+	<insert id="insertBatch" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		insert into con_auto_answer_message
+		(
+			caam_uiid ,
+			ref_csiuiid ,
+			ref_catuiid ,
+			ref_cuiuiid ,
+			caam_msgtype ,
+			caam_searchkey ,
+			caam_answercon ,
+			caa_sort ,
+			caa_state ,
+			caa_actparam ,
+			caa_starttime ,
+			caa_endtime 
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.uiid} ,
+			#{item.csiuiid} ,
+			#{item.catuiid} ,
+			#{item.cuiuiid} ,
+			#{item.msgtype} ,
+			#{item.searchkey} ,
+			#{item.answercon} ,
+			#{item.sort} ,
+			#{item.state} ,
+			#{item.actparam} ,
+			#{item.starttime} ,
+			#{item.endtime} 
+			)
+		</foreach>
+	</insert>
+
+	<!-- 更新一条数据 -->
+	<update id="update" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		update con_auto_answer_message
+		<set>
+			<if test="csiuiid != null">
+				ref_csiuiid = #{csiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="catuiid != null">
+				ref_catuiid = #{catuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="cuiuiid != null">
+				ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR} ,
+			</if>
+			<if test="msgtype != null">
+				caam_msgtype = #{msgtype,jdbcType=CHAR} ,
+			</if>
+			<if test="searchkey != null">
+				caam_searchkey = #{searchkey,jdbcType=VARCHAR} ,
+			</if>
+			<if test="answercon != null">
+				caam_answercon = #{answercon,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sort != null">
+				caa_sort = #{sort,jdbcType=INTEGER} ,
+			</if>
+			<if test="state != null">
+				caa_state = #{state,jdbcType=CHAR} ,
+			</if>
+			<if test="actparam != null">
+				caa_actparam = #{actparam,jdbcType=VARCHAR} ,
+			</if>
+			<if test="starttime != null">
+				caa_starttime = #{starttime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="endtime != null">
+				caa_endtime = #{endtime,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		where caam_uiid = #{uiid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_auto_answer_message
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.msgtype != null">
+					caam_msgtype = #{item.msgtype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.searchkey != null">
+					caam_searchkey = #{item.searchkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answercon != null">
+					caam_answercon = #{item.answercon,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					caa_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					caa_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.actparam != null">
+					caa_actparam = #{item.actparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					caa_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					caa_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where caam_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 批量更新多条数据 -->
+	<update id="updateBatchForMapList" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" separator=";" open="" close="">
+			update con_auto_answer_message
+			<set>
+				<if test="item.csiuiid != null">
+					ref_csiuiid = #{item.csiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.catuiid != null">
+					ref_catuiid = #{item.catuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.cuiuiid != null">
+					ref_cuiuiid = #{item.cuiuiid,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.msgtype != null">
+					caam_msgtype = #{item.msgtype,jdbcType=CHAR} ,
+				</if>
+				<if test="item.searchkey != null">
+					caam_searchkey = #{item.searchkey,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.answercon != null">
+					caam_answercon = #{item.answercon,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.sort != null">
+					caa_sort = #{item.sort,jdbcType=INTEGER} ,
+				</if>
+				<if test="item.state != null">
+					caa_state = #{item.state,jdbcType=CHAR} ,
+				</if>
+				<if test="item.actparam != null">
+					caa_actparam = #{item.actparam,jdbcType=VARCHAR} ,
+				</if>
+				<if test="item.starttime != null">
+					caa_starttime = #{item.starttime,jdbcType=TIMESTAMP} ,
+				</if>
+				<if test="item.endtime != null">
+					caa_endtime = #{item.endtime,jdbcType=TIMESTAMP} 
+				</if>
+			</set>
+			where caam_uiid = #{item.uiid}
+		</foreach>
+	</update>
+
+	<!-- 删除一条数据，通过数据主键 -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from con_auto_answer_message
+		where caam_uiid = #{uiid,jdbcType=VARCHAR}
+	</delete>
+
+	<!-- 删除符合对象条件的全部数据 -->
+	<delete id="deleteForObj" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		delete from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null">
+				and caam_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="msgtype != null">
+				and caam_msgtype = #{msgtype,jdbcType=CHAR}
+			</if>
+			<if test="searchkey != null">
+				and caam_searchkey = #{searchkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answercon != null">
+				and caam_answercon = #{answercon,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</delete>
+
+	<!-- 批量删除多条数据，通过数据主键 -->
+	<delete id="deleteBatch" parameterType="java.util.List">
+		delete from con_auto_answer_message
+		where caam_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<!-- 批量删除指定一个或多个属性通过逗号分隔的符合条件的数据 -->
+	<delete id="deleteBatchByMoreAtt" parameterType="java.util.Map">
+		delete from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null">
+				and caam_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="msgtype != null">
+				and caam_msgtype in 
+				<foreach collection="msgtype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="searchkey != null">
+				and caam_searchkey in 
+				<foreach collection="searchkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answercon != null">
+				and caam_answercon in 
+				<foreach collection="answercon" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null">
+				and caa_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null">
+				and caa_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actparam != null">
+				and caa_actparam in 
+				<foreach collection="actparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null">
+				and caa_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null">
+				and caa_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</delete>
+
+	<!-- 数据表清空方法 -->
+	<delete id="deleteAll" parameterType="java.util.Map">
+		delete from con_auto_answer_message where 1=1 
+	</delete>
+
+	<!-- 通过数据主键查询一条数据 -->
+	<select id="searchById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_auto_answer_message
+		where caam_uiid = #{uiid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 通过数据主键查询一条数据，实现数据行锁定 -->
+	<select id="searchByIdUpdate" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select * from con_auto_answer_message
+		where caam_uiid = #{uiid,jdbcType=VARCHAR} for update 
+	</select>
+	
+	<!-- 批量查询多条数据，通过数据主键 -->
+	<select id="searchBatch" resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from con_auto_answer_message
+		where caam_uiid in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	
+	<!-- 获取指定一个或多个属性通过逗号分隔的数据查询多条数据 -->
+	<select id="searchByMoreId" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select * from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid in 
+				<foreach collection="uiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid in 
+				<foreach collection="csiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid in 
+				<foreach collection="catuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid in 
+				<foreach collection="cuiuiid" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype in 
+				<foreach collection="msgtype" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey in 
+				<foreach collection="searchkey" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon in 
+				<foreach collection="answercon" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort in 
+				<foreach collection="sort" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state in 
+				<foreach collection="state" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam in 
+				<foreach collection="actparam" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime in 
+				<foreach collection="starttime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime in 
+				<foreach collection="endtime" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的一条数据 -->
+	<select id="searchObjByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select * from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype = #{msgtype,jdbcType=CHAR}
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey = #{searchkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon = #{answercon,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+	
+	<!-- 通过对象参数获取符合的数据条数 -->
+	<select id="searchCountByObj" resultType="java.lang.Integer" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select count(*) from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype like CONCAT('%',#{msgtype},'%' )
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey like CONCAT('%',#{searchkey},'%' )
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon like CONCAT('%',#{answercon},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 通过对象参数获取符合条件的全部数据 -->
+	<select id="searchListByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select * from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype = #{msgtype,jdbcType=CHAR}
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey = #{searchkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon = #{answercon,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObj" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select * from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype like CONCAT('%',#{msgtype},'%' )
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey like CONCAT('%',#{searchkey},'%' )
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon like CONCAT('%',#{answercon},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持分页查询 -->
+	<select id="searchListPageByObjOr" resultMap="BaseResultMap" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		select * from con_auto_answer_message
+		where 1=2 
+			<if test="uiid != null and uiid != ''">
+				or caam_uiid like CONCAT('%',#{uiid},'%' )
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				or ref_csiuiid like CONCAT('%',#{csiuiid},'%' )
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				or ref_catuiid like CONCAT('%',#{catuiid},'%' )
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				or ref_cuiuiid like CONCAT('%',#{cuiuiid},'%' )
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				or caam_msgtype like CONCAT('%',#{msgtype},'%' )
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				or caam_searchkey like CONCAT('%',#{searchkey},'%' )
+			</if>
+			<if test="answercon != null and answercon != ''">
+				or caam_answercon like CONCAT('%',#{answercon},'%' )
+			</if>
+			<if test="sort != null and sort != ''">
+				or caa_sort like CONCAT('%',#{sort},'%' )
+			</if>
+			<if test="state != null and state != ''">
+				or caa_state like CONCAT('%',#{state},'%' )
+			</if>
+			<if test="actparam != null and actparam != ''">
+				or caa_actparam like CONCAT('%',#{actparam},'%' )
+			</if>
+			<if test="starttime != null and starttime != ''">
+				or caa_starttime like CONCAT('%',#{starttime},'%' )
+			</if>
+			<if test="endtime != null and endtime != ''">
+				or caa_endtime like CONCAT('%',#{endtime},'%' )
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjRefin" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		 select con_auto_answer_message.caam_uiid as uiid,con_auto_answer_message.ref_csiuiid as csiuiid, (select GROUP_CONCAT( rt1.csi_title) from con_soft_info rt1 where FIND_IN_SET( rt1.csi_uiid ,con_auto_answer_message.ref_csiuiid) )  as csiuiidtitle,con_auto_answer_message.ref_catuiid as catuiid, (select GROUP_CONCAT( rt2.cat_title) from com_auto_task rt2 where FIND_IN_SET( rt2.cat_uiid ,con_auto_answer_message.ref_catuiid) )  as catuiidtitle,con_auto_answer_message.ref_cuiuiid as cuiuiid, (select GROUP_CONCAT( rt3.cui_name) from con_user_info rt3 where FIND_IN_SET( rt3.cui_uiid ,con_auto_answer_message.ref_cuiuiid) )  as cuiuiidname,con_auto_answer_message.caam_msgtype as msgtype,con_auto_answer_message.caam_searchkey as searchkey,con_auto_answer_message.caam_answercon as answercon,con_auto_answer_message.caa_sort as sort,con_auto_answer_message.caa_state as state,con_auto_answer_message.caa_actparam as actparam,con_auto_answer_message.caa_starttime as starttime,con_auto_answer_message.caa_endtime as endtime from con_auto_answer_message
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype = #{msgtype,jdbcType=CHAR}
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey = #{searchkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon = #{answercon,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+	<!-- 根据传入对象动态构建查询条件，支持动态关联分页查询 -->
+	<select id="searchListPageByObjReftable" resultType="java.util.Map" parameterType="wo.develop.a5vo.AutoAnswerMessageVO">
+		 select con_auto_answer_message.caam_uiid as uiid,con_auto_answer_message.ref_csiuiid as csiuiid,con_auto_answer_message.ref_csiuiid as csiuiidrefid,con_soft_inforef_csiuiid.csi_title as csiuiidrefview,con_auto_answer_message.ref_catuiid as catuiid,con_auto_answer_message.ref_catuiid as catuiidrefid,com_auto_taskref_catuiid.cat_title as catuiidrefview,con_auto_answer_message.ref_cuiuiid as cuiuiid,con_auto_answer_message.ref_cuiuiid as cuiuiidrefid,con_user_inforef_cuiuiid.cui_name as cuiuiidrefview,con_auto_answer_message.caam_msgtype as msgtype,con_auto_answer_message.caam_searchkey as searchkey,con_auto_answer_message.caam_answercon as answercon,con_auto_answer_message.caa_sort as sort,con_auto_answer_message.caa_state as state,con_auto_answer_message.caa_actparam as actparam,con_auto_answer_message.caa_starttime as starttime,con_auto_answer_message.caa_endtime as endtime from con_auto_answer_message left outer join con_soft_info con_soft_inforef_csiuiid on con_soft_inforef_csiuiid.csi_uiid = con_auto_answer_message.ref_csiuiid left outer join com_auto_task com_auto_taskref_catuiid on com_auto_taskref_catuiid.cat_uiid = con_auto_answer_message.ref_catuiid left outer join con_user_info con_user_inforef_cuiuiid on con_user_inforef_cuiuiid.cui_uiid = con_auto_answer_message.ref_cuiuiid
+		where 1=1 
+			<if test="uiid != null and uiid != ''">
+				and caam_uiid = #{uiid,jdbcType=VARCHAR}
+			</if>
+			<if test="csiuiid != null and csiuiid != ''">
+				and ref_csiuiid = #{csiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="catuiid != null and catuiid != ''">
+				and ref_catuiid = #{catuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="cuiuiid != null and cuiuiid != ''">
+				and ref_cuiuiid = #{cuiuiid,jdbcType=VARCHAR}
+			</if>
+			<if test="msgtype != null and msgtype != ''">
+				and caam_msgtype = #{msgtype,jdbcType=CHAR}
+			</if>
+			<if test="searchkey != null and searchkey != ''">
+				and caam_searchkey = #{searchkey,jdbcType=VARCHAR}
+			</if>
+			<if test="answercon != null and answercon != ''">
+				and caam_answercon = #{answercon,jdbcType=VARCHAR}
+			</if>
+			<if test="sort != null and sort != ''">
+				and caa_sort = #{sort,jdbcType=INTEGER}
+			</if>
+			<if test="state != null and state != ''">
+				and caa_state = #{state,jdbcType=CHAR}
+			</if>
+			<if test="actparam != null and actparam != ''">
+				and caa_actparam = #{actparam,jdbcType=VARCHAR}
+			</if>
+			<if test="starttime != null and starttime != ''">
+				and caa_starttime = #{starttime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="endtime != null and endtime != ''">
+				and caa_endtime = #{endtime,jdbcType=TIMESTAMP}
+			</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimun-scale=1, user-scalable=no">
+<link rel="stylesheet" type="text/css" href="css/t_editStartTime.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>编辑启动时间</title>
+</head>
+<body onclick="hideDelBtn()">
+    <div class="showTime">
+
+    </div>
+
+    <div class="add">
+        <input type="text" class="addInpu" />
+        <!--<input class="addInpu" type="text" onchange="console.log('Time changed')" />-->
+        <div class="addbtn" onclick="addConkey()">添加</div>
+    </div>
+
+
+    <div class="ret" onclick="goback()">返回</div>
+
+    <script type="text/javascript" src="../media/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/develop.js"></script>
+    <script type="text/javascript" src="js/tips.js"></script>
+    <script type="text/javascript" src="../media/js/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="js/check.js"></script>
+
+
+    <script src="js/timedropper/timedropper.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/timedropper/timedropper.css">
+
+
+    <!--<script type="text/javascript" src="js/jquerytimexz/jquery-clock-timepicker.min.js"></script>-->
+
+
+    <script type="text/javascript">
+        // $(document).ready(function() {
+        //     $('.addInpu').clockTimePicker({});
+        // });
+        
+        $(function () {
+            $(".addInpu").timeDropper();
+        });
+        
+        var conkey = [];
+
+        $( function () {
+            var id = getCookie("id");
+            var uConkey = getCookiech("time");
+
+            if(uConkey.split(",")!=undefined && uConkey.split(",")!=''){
+                if(uConkey.split(",")[0] !="启动时间"){
+                    conkey = uConkey.split(",");
+                }
+            }
+            showKeys();
+        });
+        /**
+         * 点击返回 不保存此次的更新直接跳转到主页
+         */
+        function goback() {
+            clearCookie("id");
+            clearCookie("time");
+            window.history.back();
+        }
+
+        /**
+         * 点击保存并跳转到主页
+         */
+        function save() {
+            if(confirm("确认保存？")){
+                updatecom("/userRefSubject/editreturnobj", {uiid: getCookie("id"),starttim:conkey.join(",")}, function (response) {
+                    if (response.error_code == 10000) {
+                        clearCookie("id");
+                        clearCookie("time");
+                        window.history.back();
+                    }else{
+                        tip(response.error);
+                    }
+                })
+            }
+        }
+
+        /**
+         * 删除关键词
+         */
+        function deleteKey(obj) {
+            var keyId = $(obj).attr("id");
+            conkey.splice(keyId.substring(2),1);
+            setCookiech("time",conkey.join(","));
+            updatecom("/userRefSubject/editreturnobj", {uiid: getCookie("id"),starttim:conkey.join(",")}, function (response) {
+                if (response.error_code == 10000) {
+
+                }else{
+                    tip(response.error);
+                }
+            });
+            showKeys();
+        }
+
+        /**
+         * 点击关键词 显示红叉
+         */
+        function showDelete(e) {
+            if (e && e.stopPropagation)
+                e.stopPropagation();
+            else
+                window.event.cancelBubble = true;
+            $(".delete").attr("style","display:block");
+        }
+
+        /**
+         * 点击添加按钮 拼接关键词参数
+         */
+        function addConkey() {
+            var key = $(".addInpu").val();
+            if(!key){
+                alert("请输入启动时间");
+                return;
+            }
+            conkey.push(key);
+            $(".addInpu").val("");
+            setCookiech("time",conkey.join(","));
+            updatecom("/userRefSubject/editreturnobj", {uiid: getCookie("id"),starttim:conkey.join(",")}, function (response) {
+                if (response.error_code == 10000) {
+
+                }else{
+                    tip(response.error);
+                }
+            });
+
+            showKeys();
+        }
+
+        /**
+         * 刷新显示关键词
+         */
+        function showKeys() {
+            $(".showTime").empty();
+            for(var i=0;i<conkey.length;i++){
+                $(".showTime").append("<div class=\"startTime\" onclick=\"showDelete()\">\n" +
+                    "            <text>"+conkey[i]+"</text> \n" +
+                    "            <img style=\"display: none\" class=\"delete\" id=\"c-"+i+"\" src=\"img/delete.png\" onclick=\"deleteKey(this)\">\n" +
+                    "        </div>");
+            }
+        }
+
+        showKeys();
+
+
+        // var timeOutEvent=0;
+        /**
+         * 长按启动时间 显示红x删除按钮
+         */
+        // $(function(){
+        //     $(".startTime").on({
+        //         touchstart: function(e){
+        //             timeOutEvent = setTimeout("longPress()",500);//500设置时间
+        //             e.preventDefault();
+        //         },
+        //         touchmove: function(){
+        //             clearTimeout(timeOutEvent);
+        //             timeOutEvent = 0;
+        //         },
+        //         touchend: function(){
+        //             clearTimeout(timeOutEvent);
+        //             if(timeOutEvent!=0){
+        //
+        //             }
+        //             return false;
+        //         }
+        //     })
+        // });
+        //
+        // function longPress(){
+        //     timeOutEvent = 0;
+        //     $(".delete").attr("style","display: block");
+        //
+        // }
+        function hideDelBtn() {
+            $(".delete").attr("style","display: none");
+        }
+    </script>
+</body>
+</html>
