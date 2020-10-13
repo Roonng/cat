@@ -496,7 +496,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
         <!-- 图片进行编辑的Java工具类, 可以通过简单的代码对图片进行任意比例缩放, 旋转, 剪切等 -->
@@ -574,7 +574,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j -->
         <dependency>
