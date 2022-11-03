@@ -179,7 +179,7 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3</version>
+            <version>1.3.3</version>
         </dependency>
         <!-- BeanUtils工具包是由Apache公司所开发，主要是方便程序员对Bean类能够进行简便的操作 -->
         <dependency>
